@@ -11,7 +11,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        loadFragment(HomeFragment())
+        getFragment(HomeFragment())
 
         bnv_main.setOnNavigationItemSelectedListener(this@MainActivity)
     }
@@ -34,10 +34,10 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             }
         }
 
-        return loadFragment(fragment)
+        return getFragment(fragment)
     }
 
-    private fun loadFragment(fragment: Fragment?): Boolean {
+    private fun getFragment(fragment: Fragment?): Boolean {
         if (fragment != null) {
             supportFragmentManager
                 .beginTransaction()
