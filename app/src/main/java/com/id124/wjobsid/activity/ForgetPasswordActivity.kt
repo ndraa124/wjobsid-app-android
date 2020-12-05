@@ -1,8 +1,9 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.activity
 
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.id124.wjobsid.R
 
 class ForgetPasswordActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {

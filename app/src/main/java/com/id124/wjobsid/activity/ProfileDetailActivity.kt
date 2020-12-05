@@ -1,9 +1,13 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.activity
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import com.id124.wjobsid.fragment.ExperienceFragment
+import com.id124.wjobsid.PerformancePagerAdapter
+import com.id124.wjobsid.fragment.PortfolioFragment
+import com.id124.wjobsid.R
 import kotlinx.android.synthetic.main.activity_profile_detail.*
 
 class ProfileDetailActivity : AppCompatActivity(), View.OnClickListener {

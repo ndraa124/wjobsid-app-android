@@ -1,4 +1,4 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.helper
 
 import android.content.Context
 import android.content.SharedPreferences

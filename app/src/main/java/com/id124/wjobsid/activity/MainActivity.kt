@@ -1,10 +1,15 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.id124.wjobsid.*
+import com.id124.wjobsid.fragment.HomeFragment
+import com.id124.wjobsid.fragment.ProfileFragment
+import com.id124.wjobsid.fragment.ProjectFragment
+import com.id124.wjobsid.fragment.SearchFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {

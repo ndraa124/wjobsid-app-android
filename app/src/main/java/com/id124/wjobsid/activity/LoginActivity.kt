@@ -1,10 +1,12 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import com.id124.wjobsid.R
+import com.id124.wjobsid.helper.SharedPreference
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity(), View.OnClickListener {

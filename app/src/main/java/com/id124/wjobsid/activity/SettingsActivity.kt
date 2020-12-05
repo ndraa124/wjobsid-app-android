@@ -1,4 +1,4 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.activity
 
 import android.os.Bundle
 import android.util.Log
@@ -7,6 +7,8 @@ import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import com.id124.wjobsid.R
+import com.id124.wjobsid.helper.SharedPreference
 
 class SettingsActivity : AppCompatActivity() {
     private lateinit var sharedPreference: SharedPreference

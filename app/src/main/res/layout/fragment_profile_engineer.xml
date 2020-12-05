@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_200"
-    tools:context=".ProfileFragment">
+    tools:context=".fragment.ProfileFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -188,6 +188,7 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:id="@+id/iv_add_skill"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:layout_marginHorizontal="16dp"
@@ -397,15 +398,17 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cv_skill">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <com.google.android.material.tabs.TabLayout
@@ -413,10 +416,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="50dp" />
 
-                <androidx.viewpager.widget.ViewPager
+                <com.id124.wjobsid.helper.WrapContentViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp" />
+                    android:layout_height="wrap_content" />
 
             </LinearLayout>
 

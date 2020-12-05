@@ -10,39 +10,48 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WJobsID">
         <activity
-            android:name=".ProfileDetailActivity"
+            android:name=".activity.ExperienceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".SettingsActivity"
+            android:name=".activity.PortfolioActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID" />
+        <activity android:name=".activity.SkillActivity" />
+        <activity
+            android:name=".activity.ProfileDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".ForgetPasswordActivity"
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID" />
+        <activity
+            android:name=".activity.ForgetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".ForgetPasswordVerifyActivity"
+            android:name=".activity.ForgetPasswordVerifyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".SignUpActivity"
+            android:name=".activity.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".activity.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".OnboardingActivity"
+            android:name=".activity.OnboardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.Fullscreen" />
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".SplashActivity"
+            android:name=".activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.Fullscreen">
             <intent-filter>

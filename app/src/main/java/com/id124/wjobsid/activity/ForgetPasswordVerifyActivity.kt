@@ -1,9 +1,10 @@
-package com.id124.wjobsid
+package com.id124.wjobsid.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import com.id124.wjobsid.R
 
 class ForgetPasswordVerifyActivity : AppCompatActivity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
