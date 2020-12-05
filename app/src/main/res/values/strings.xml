@@ -4,6 +4,7 @@
     <string name="img_background">IMG Background</string>
     <string name="img_icon">IMG Icon</string>
     <string name="img_profile">IMG Profile</string>
+    <string name="hire">HIRE</string>
 
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>
@@ -68,5 +69,13 @@
     <string name="cn_description">Description</string>
     <string name="cn_instagram">Instagram</string>
     <string name="cn_linkedin">LinkedIn</string>
-    <string name="hire">HIRE</string>
+
+    <!-- Reset Password -->
+    <string name="instruction_verify_email">Please fill the email below correctly</string>
+    <string name="instruction_reset_password">Please fill the new password and password confirmation below correctly</string>
+    <string name="reset_password">RESET PASSWORD</string>
+    <string name="next">NEXT</string>
+    <string name="back_to_login">Back to login</string>
+    <string name="back_to_verify">Back to verify email</string>
+    <string name="new_password">New Password</string>
 </resources>

@@ -1,12 +1,21 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="job_title_entries">
+        <item>Web Developer</item>
+        <item>Android Developer</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="job_title_values">
+        <item>web developer</item>
+        <item>android developer</item>
+    </string-array>
+
+    <string-array name="job_type_entries">
+        <item>Freelance</item>
+        <item>Full Time</item>
+    </string-array>
+
+    <string-array name="job_type_values">
+        <item>freelance</item>
+        <item>full time</item>
     </string-array>
 </resources>

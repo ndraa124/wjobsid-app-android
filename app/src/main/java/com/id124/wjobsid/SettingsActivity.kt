@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
+import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 
@@ -53,20 +54,20 @@ class SettingsActivity : AppCompatActivity() {
         }
 
         fun prefsEngineer() {
-            val enJobTitle = findPreference<EditTextPreference>("en_job_title")
-            val enJobType = findPreference<EditTextPreference>("en_job_type")
+            val enJobTitle = findPreference<ListPreference>("en_job_title")
+            val enJobType = findPreference<ListPreference>("en_job_type")
             val enDomicile = findPreference<EditTextPreference>("en_domicile")
             val enDescription = findPreference<EditTextPreference>("en_description")
-
-            /*enJobTitle?.text = "-"
-            enJobType?.text = "-"
-            enDomicile?.text = "-"
-            enDescription?.text = "-"*/
 
             enJobTitle?.onPreferenceChangeListener = this@SettingsFragment
             enJobType?.onPreferenceChangeListener = this@SettingsFragment
             enDomicile?.onPreferenceChangeListener = this@SettingsFragment
             enDescription?.onPreferenceChangeListener = this@SettingsFragment
+
+            /*enJobTitle?.text = "-"
+            enJobType?.text = "-"
+            enDomicile?.text = "-"
+            enDescription?.text = "-"*/
         }
 
         fun prefsCompany() {

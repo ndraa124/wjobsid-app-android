@@ -21,7 +21,8 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         when (v?.id) {
             R.id.tv_forget_password -> {
-
+                val intentAct = Intent(this@LoginActivity, ForgetPasswordVerifyActivity::class.java)
+                startActivity(intentAct)
             }
             R.id.tv_sign_up -> {
                 val intentAct = Intent(this@LoginActivity, SignUpActivity::class.java)

@@ -28,13 +28,21 @@
         app:iconSpaceReserved="false"
         app:title="@string/personal_data_header">
 
-        <EditTextPreference
+        <ListPreference
+            app:defaultValue="web_developer"
+            app:dialogTitle="Select Job Title"
+            app:entries="@array/job_title_entries"
+            app:entryValues="@array/job_title_values"
             app:iconSpaceReserved="false"
             app:key="en_job_title"
             app:title="@string/en_job_title"
             app:useSimpleSummaryProvider="true" />
 
-        <EditTextPreference
+        <ListPreference
+            app:defaultValue="freelance"
+            app:dialogTitle="Select Job Type"
+            app:entries="@array/job_type_entries"
+            app:entryValues="@array/job_type_values"
             app:iconSpaceReserved="false"
             app:key="en_job_type"
             app:title="@string/en_job_type"

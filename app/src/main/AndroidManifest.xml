@@ -9,17 +9,22 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.WJobsID">
-        <activity android:name=".ForgetPasswordActivity"></activity>
-        <activity android:name=".ForgetPasswordVerifyActivity" />
-        <activity android:name=".ProfileDetailActivity" />
+        <activity
+            android:name=".ProfileDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID" />
         <activity
             android:name=".SettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".ForgetPasswordActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.WJobsID" />
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
+        <activity
+            android:name=".ForgetPasswordVerifyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
             android:name=".SignUpActivity"
             android:screenOrientation="portrait"
