@@ -1,0 +1,71 @@
+<resources>
+    <string name="app_name">WJobsID</string>
+    <string name="my_logo">My Logo</string>
+    <string name="img_background">IMG Background</string>
+    <string name="img_icon">IMG Icon</string>
+    <string name="img_profile">IMG Profile</string>
+
+    <!-- Menu Bottom Navigation -->
+    <string name="home">Home</string>
+    <string name="search">Search</string>
+    <string name="project">Project</string>
+    <string name="profile">Profile</string>
+
+    <!-- Onboarding Page -->
+    <string name="quotes_onboarding1">Look For The People Who Want To Change The World</string>
+    <string name="quotes_onboarding2">Join Now To Find The Best Developer</string>
+    <string name="or">or</string>
+    <string name="as_engineer">LOGIN AS ENGINEER</string>
+    <string name="as_company">LOGIN AS COMPANY</string>
+
+    <!-- Login Page -->
+    <string name="login">LOGIN</string>
+    <string name="instruction_login">Please login with your email and password</string>
+    <string name="email">Email</string>
+    <string name="email_hint">Email address</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Your password</string>
+    <string name="forget_password">Forget password?</string>
+    <string name="don_t_have_an_account">You don\'t have an account?</string>
+
+    <!-- Sign Up Page -->
+    <string name="sign_up">Sign up</string>
+    <string name="instruction_sign_up">Please fill the form below correctly</string>
+    <string name="full_name">Full Name</string>
+    <string name="company">Company</string>
+    <string name="position">Position</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="have_an_account">You have an account?</string>
+    <string name="login_here">Login here</string>
+    <string name="password_confirmation">Password Confirmation</string>
+
+    <!-- Profile Page -->
+    <string name="edit_profile">Edit Profile</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="back">Back</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="account_header">Account</string>
+    <string name="personal_data_header">Personal Data</string>
+
+    <!-- Account Data -->
+    <string name="ac_name">Your Name</string>
+    <string name="ac_email">Email Address</string>
+    <string name="ac_phone">Phone Number</string>
+
+    <!-- Engineer Data -->
+    <string name="en_job_title">Job Title</string>
+    <string name="en_job_type">Job Type</string>
+    <string name="en_domicile">Domicile</string>
+    <string name="en_description">Description</string>
+    <string name="en_description_example">Only download attachments when manually requested</string>
+
+    <!-- Company Data -->
+    <string name="cn_company">Company Name</string>
+    <string name="cn_position">Position in Company</string>
+    <string name="cn_field">Field</string>
+    <string name="cn_description">Description</string>
+    <string name="cn_instagram">Instagram</string>
+    <string name="cn_linkedin">LinkedIn</string>
+</resources>

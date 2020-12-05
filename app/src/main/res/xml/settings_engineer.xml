@@ -1,0 +1,57 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/account_header">
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="ac_name"
+            app:title="@string/ac_name"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="ac_email"
+            app:title="@string/ac_email"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="ac_phone"
+            app:title="@string/ac_phone"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:iconSpaceReserved="false"
+        app:title="@string/personal_data_header">
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="en_job_title"
+            app:title="@string/en_job_title"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="en_job_type"
+            app:title="@string/en_job_type"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="en_domicile"
+            app:title="@string/en_domicile"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="en_description"
+            app:title="@string/en_description"
+            app:useSimpleSummaryProvider="true" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

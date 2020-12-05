@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="https://schemas.android.com/apk/res/android">
+    <EditTextPreference
+        android:dialogTitle="Enter a text"
+        android:key="name"
+        android:summary="Click to show a text entry dialog"
+        android:title="EditText Preference" />
+
+    <EditTextPreference
+        android:dialogTitle="Enter a text"
+        android:key="address"
+        android:summary="Click to show a text entry dialog"
+        android:title="EditText Preference" />
+
+    <EditTextPreference
+        android:dialogTitle="Enter a text"
+        android:key="email"
+        android:summary="Click to show a text entry dialog"
+        android:title="EditText Preference" />
+
+    <EditTextPreference
+        android:dialogTitle="Enter a text"
+        android:key="password"
+        android:summary="Click to show a text entry dialog"
+        android:title="EditText Preference" />
+
+    <PreferenceCategory android:title="Basic Settings">
+        <EditTextPreference
+            android:dialogTitle="Enter a text"
+            android:key="fullname"
+            android:summary="Click to show a text entry dialog"
+            android:title="EditText Preference" />
+    </PreferenceCategory>
+</PreferenceScreen>
