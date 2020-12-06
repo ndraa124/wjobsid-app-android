@@ -24,4 +24,17 @@
         <item name="android:windowFullscreen">true</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <!-- Theme For CardView -->
+    <style name="Theme.WJobsID.CardViewHome" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="shapeAppearanceOverlay">@style/ShapeCardViewHome</item>
+    </style>
+
+    <style name="ShapeCardViewHome" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomRight">32dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
 </resources>

@@ -44,7 +44,7 @@
                 android:text="Web Developer"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -56,7 +56,7 @@
                 android:text="Shopee"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_date"
@@ -67,7 +67,7 @@
                 android:text="January 2019 - March 2020"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_total_date"
@@ -78,7 +78,7 @@
                 android:text="14 months"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_description"
@@ -90,7 +90,7 @@
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 
@@ -120,7 +120,7 @@
                 android:text="Android Developer"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="22sp"
+                android:textSize="18sp"
                 android:textStyle="bold" />
 
             <TextView
@@ -132,7 +132,7 @@
                 android:text="PT. Pertamina Indonesia"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_date_2"
@@ -143,7 +143,7 @@
                 android:text="March 2020 - November 2020"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_total_date_2"
@@ -154,7 +154,7 @@
                 android:text="8 months"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
-                android:textSize="18sp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/tv_description_2"
@@ -166,7 +166,7 @@
                 android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
-                android:textSize="18sp" />
+                android:textSize="14sp" />
 
         </LinearLayout>
 

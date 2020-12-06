@@ -45,8 +45,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="back">Back</string>
     <string name="title_activity_settings">SettingsActivity</string>
-    <string name="add_portfolio">ADD PORTFOLIO</string>
-    <string name="add_experience">ADD EXPERIENCE</string>
+    <string name="back_to_profile">Back to profile</string>
 
     <!-- Preference Titles -->
     <string name="account_header">Account</string>
@@ -87,5 +86,32 @@
     <string name="new_skill">New Skill</string>
     <string name="skill_hint">Your new skill</string>
     <string name="skill">Skill</string>
-    <string name="back_to_profile">Back to profile</string>
+
+    <!-- Portfolio -->
+    <string name="add_portfolio">ADD PORTFOLIO</string>
+    <string name="instruction_add_portfolio">Please fill the portfolio for add new portfolio below</string>
+    <string name="app_name_portfolio">App Name</string>
+    <string name="description">Description</string>
+    <string name="pub">Publication</string>
+    <string name="repo">Repository</string>
+    <string name="workplace">Workplace</string>
+    <string name="portfolio_type">Portfolio Type</string>
+    <string name="app_hint">Your app name</string>
+    <string name="description_hint">Short description</string>
+    <string name="link_pub_hint">Publication link</string>
+    <string name="link_repo_hint">Repository link</string>
+    <string name="work_place_hint">Related workplace</string>
+    <string name="portfolio_type_hint">Portfolio type</string>
+    <string name="image_upload">Choose Image</string>
+    <string name="mobile_application">Mobile Application</string>
+    <string name="web_application">Web Application</string>
+
+    <!-- Experience -->
+    <string name="add_experience">ADD EXPERIENCE</string>
+    <string name="instruction_add_experience">Please fill the experience for add new experience below</string>
+    <string name="position_exp">Position</string>
+    <string name="company_exp">Company</string>
+    <string name="start_exp">Date Start</string>
+    <string name="end_exp">Date End</string>
+    <string name="description_exp">Description</string>
 </resources>

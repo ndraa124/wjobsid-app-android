@@ -21,7 +21,7 @@
         <activity
             android:name=".activity.ProfileDetailActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/Theme.WJobsID" />
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
             android:name=".activity.SettingsActivity"
             android:screenOrientation="portrait"
