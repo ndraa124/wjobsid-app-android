@@ -7,6 +7,7 @@ class SharedPreference(context: Context) {
     companion object {
         const val PREF_NAME = "LOGIN"
         const val AC_LEVEL = "AC_LEVEL"
+        const val AC_DETAIL = "AC_DETAIL"
     }
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -19,5 +20,14 @@ class SharedPreference(context: Context) {
 
     fun getLevel(): Int {
         return sharedPreferences.getInt(AC_LEVEL, 0)
+    }
+
+    fun setDetail(acDetail: Int) {
+        editor.putInt(AC_DETAIL, acDetail)
+        editor.commit()
+    }
+
+    fun getDetail(): Int {
+        return sharedPreferences.getInt(AC_DETAIL, 0)
     }
 }

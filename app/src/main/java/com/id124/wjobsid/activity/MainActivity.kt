@@ -10,12 +10,16 @@ import com.id124.wjobsid.fragment.HomeFragment
 import com.id124.wjobsid.fragment.ProfileFragment
 import com.id124.wjobsid.fragment.ProjectFragment
 import com.id124.wjobsid.fragment.SearchFragment
+import com.id124.wjobsid.helper.SharedPreference
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+    private lateinit var sharedPreference: SharedPreference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        sharedPreference = SharedPreference(this@MainActivity)
         getFragment(HomeFragment())
 
         bnv_main.setOnNavigationItemSelectedListener(this@MainActivity)
@@ -35,6 +39,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 fragment = ProjectFragment()
             }
             R.id.menu_profile -> {
+                sharedPreference.setDetail(0)
                 fragment = ProfileFragment()
             }
         }
