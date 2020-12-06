@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/gray_200"
-    android:fillViewport="true"
     tools:context=".activity.ProfileDetailActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -29,24 +28,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/cv_img_profile"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    app:cardCornerRadius="100dp"
-                    app:cardElevation="8dp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/bg_bottom_radius_corner"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    app:layout_constraintTop_toTopOf="parent" />
 
-                    <ImageView
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:contentDescription="@string/img_profile"
-                        android:scaleType="centerCrop"
-                        android:src="@drawable/img_users" />
-                </androidx.cardview.widget.CardView>
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_image_profile"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginTop="32dp"
+                    android:contentDescription="@string/img_profile"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/img_users"
+                    app:barrierMargin="2dp"
+                    app:civ_border_color="@color/white"
+                    app:civ_border_width="4dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/tv_name"
@@ -62,7 +65,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/cv_img_profile" />
+                    app:layout_constraintTop_toBottomOf="@+id/iv_image_profile" />
 
                 <TextView
                     android:id="@+id/tv_job_title"
@@ -150,7 +153,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:backgroundTint="@color/belize_700"
+            android:backgroundTint="@color/primary"
             android:onClick="onClick"
             android:padding="14dp"
             android:text="@string/hire"
@@ -221,12 +224,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Web"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill2"
@@ -236,12 +239,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Laravel"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill3"
@@ -251,12 +254,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Golang"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill4"
@@ -266,12 +269,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Javascript"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill5"
@@ -281,12 +284,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="PHP"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill6"
@@ -296,12 +299,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="HTML"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill7"
@@ -311,12 +314,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="C++"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill8"
@@ -326,12 +329,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="C#"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill9"
@@ -341,12 +344,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Kotlin"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill10"
@@ -356,12 +359,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Swift"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_skill11"
@@ -371,12 +374,12 @@
                         android:layout_marginVertical="5dp"
                         android:background="@color/blue"
                         android:fontFamily="sans-serif-condensed"
-                        android:paddingHorizontal="16dp"
-                        android:paddingVertical="5dp"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
                         android:text="Dart"
                         android:textAlignment="textStart"
                         android:textColor="@color/white"
-                        android:textSize="14sp" />
+                        android:textSize="12sp" />
 
                 </com.google.android.flexbox.FlexboxLayout>
 
@@ -398,22 +401,27 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/cv_skill">
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content">
 
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tab_layout"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="50dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <com.id124.wjobsid.helper.WrapContentViewPager
                     android:id="@+id/view_pager"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tab_layout" />
 
-            </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.cardview.widget.CardView>
 

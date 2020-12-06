@@ -45,20 +45,20 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         adapter.addFrag(ExperienceFragment(), "Experience")
         view.view_pager.adapter = adapter
 
-        view.iv_settings_engineer.setOnClickListener(this@ProfileFragment)
+        view.btn_edit_engineer.setOnClickListener(this@ProfileFragment)
         view.iv_add_skill.setOnClickListener(this@ProfileFragment)
     }
 
     private fun setContentViewCompany(view: View) {
-        view.iv_settings_company.setOnClickListener(this@ProfileFragment)
+        view.btn_edit_company.setOnClickListener(this@ProfileFragment)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.iv_settings_engineer -> {
+            R.id.btn_edit_engineer -> {
                 startActivity(Intent(activity, SettingsActivity::class.java))
             }
-            R.id.iv_settings_company -> {
+            R.id.btn_edit_company -> {
                 startActivity(Intent(activity, SettingsActivity::class.java))
             }
             R.id.iv_add_skill -> {

@@ -12,9 +12,9 @@
         <shape android:shape="rectangle">
             <stroke
                 android:width="0.5px"
-                android:color="@color/belize_700" />
+                android:color="@color/primary" />
 
-            <solid android:color="@color/belize_500" />
+            <solid android:color="@color/primary" />
 
             <corners
                 android:topLeftRadius="32dp"

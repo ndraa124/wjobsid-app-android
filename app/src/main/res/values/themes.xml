@@ -2,12 +2,12 @@
     <!-- Base application theme. -->
     <style name="Theme.WJobsID" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/belize_500</item>
-        <item name="colorPrimaryVariant">@color/belize_700</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/secondary</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/belize_500</item>
-        <item name="colorSecondaryVariant">@color/belize_700</item>
+        <item name="colorSecondary">@color/primary</item>
+        <item name="colorSecondaryVariant">@color/secondary</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
@@ -25,7 +25,7 @@
         <item name="windowNoTitle">true</item>
     </style>
 
-    <!-- Theme For CardView -->
+    <!-- Theme For CardView Home -->
     <style name="Theme.WJobsID.CardViewHome" parent="@style/Widget.MaterialComponents.CardView">
         <item name="shapeAppearanceOverlay">@style/ShapeCardViewHome</item>
     </style>
