@@ -5,7 +5,6 @@ import android.util.AttributeSet
 import android.view.View
 import androidx.viewpager.widget.ViewPager
 
-
 class WrapContentViewPager : ViewPager {
     constructor(context: Context?) : super(context!!) {
         initPageChangeListener()

@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.id124.wjobsid.PerformancePagerAdapter
+import com.id124.wjobsid.helper.ViewPagerAdapter
 import com.id124.wjobsid.R
 import com.id124.wjobsid.helper.SharedPreference
 import com.id124.wjobsid.activity.SettingsActivity
@@ -39,7 +39,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
     private fun setContentViewEngineer(view: View) {
         view.tab_layout.setupWithViewPager(view.view_pager)
-        val adapter = PerformancePagerAdapter(childFragmentManager)
+        val adapter = ViewPagerAdapter(childFragmentManager)
 
         adapter.addFrag(PortfolioFragment(), "Portfolio")
         adapter.addFrag(ExperienceFragment(), "Experience")

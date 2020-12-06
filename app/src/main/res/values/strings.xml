@@ -9,7 +9,7 @@
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="project">Project</string>
+    <string name="project">List Project</string>
     <string name="profile">Profile</string>
 
     <!-- Onboarding Page -->

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.id124.wjobsid.PerformancePagerAdapter
+import com.id124.wjobsid.helper.ViewPagerAdapter
 import com.id124.wjobsid.R
 import com.id124.wjobsid.fragment.ExperienceFragment
 import com.id124.wjobsid.fragment.PortfolioFragment
@@ -20,7 +20,7 @@ class ProfileDetailActivity : AppCompatActivity(), View.OnClickListener {
         sharedPreference = SharedPreference(this@ProfileDetailActivity)
 
         tab_layout.setupWithViewPager(view_pager)
-        val adapter = PerformancePagerAdapter(supportFragmentManager)
+        val adapter = ViewPagerAdapter(supportFragmentManager)
 
         adapter.addFrag(PortfolioFragment(), "Portfolio")
         adapter.addFrag(ExperienceFragment(), "Experience")
