@@ -4,11 +4,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import com.id124.wjobsid.helper.ViewPagerAdapter
 import com.id124.wjobsid.R
 import com.id124.wjobsid.fragment.ExperienceFragment
 import com.id124.wjobsid.fragment.PortfolioFragment
 import com.id124.wjobsid.helper.SharedPreference
+import com.id124.wjobsid.helper.ViewPagerAdapter
 import kotlinx.android.synthetic.main.activity_profile_detail.*
 
 class ProfileDetailActivity : AppCompatActivity(), View.OnClickListener {
@@ -19,12 +19,7 @@ class ProfileDetailActivity : AppCompatActivity(), View.OnClickListener {
         setContentView(R.layout.activity_profile_detail)
         sharedPreference = SharedPreference(this@ProfileDetailActivity)
 
-        tab_layout.setupWithViewPager(view_pager)
-        val adapter = ViewPagerAdapter(supportFragmentManager)
-
-        adapter.addFrag(PortfolioFragment(), "Portfolio")
-        adapter.addFrag(ExperienceFragment(), "Experience")
-        view_pager.adapter = adapter
+        initViewPager()
 
         if (sharedPreference.getLevel() == 0) {
             btn_hire.visibility = View.GONE
@@ -39,5 +34,14 @@ class ProfileDetailActivity : AppCompatActivity(), View.OnClickListener {
                 Log.d("msg", "Hiring Process")
             }
         }
+    }
+
+    private fun initViewPager() {
+        tab_layout.setupWithViewPager(view_pager)
+        val adapter = ViewPagerAdapter(supportFragmentManager)
+
+        adapter.addFrag(PortfolioFragment(), "Portfolio")
+        adapter.addFrag(ExperienceFragment(), "Experience")
+        view_pager.adapter = adapter
     }
 }

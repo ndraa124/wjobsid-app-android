@@ -1,19 +1,18 @@
 package com.id124.wjobsid.activity
 
 import android.os.Bundle
-import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.id124.wjobsid.*
 import com.id124.wjobsid.fragment.HomeFragment
 import com.id124.wjobsid.fragment.ProfileFragment
 import com.id124.wjobsid.fragment.ProjectFragment
 import com.id124.wjobsid.fragment.SearchFragment
 import com.id124.wjobsid.helper.SharedPreference
+import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), ChipNavigationBar.OnItemSelectedListener {
     private lateinit var sharedPreference: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,42 +21,33 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         sharedPreference = SharedPreference(this@MainActivity)
         getFragment(HomeFragment())
 
-        bnv_main.setOnNavigationItemSelectedListener(this@MainActivity)
+        bnv_main.setItemSelected(R.id.menu_home)
+        bnv_main.setOnItemSelectedListener(this@MainActivity)
     }
 
-    override fun onNavigationItemSelected(item: MenuItem): Boolean {
-        var fragment: Fragment? = null
-
-        when (item.itemId) {
+    override fun onItemSelected(id: Int) {
+        when (id) {
             R.id.menu_home -> {
-                fragment = HomeFragment()
+                getFragment(HomeFragment())
             }
             R.id.menu_search -> {
-                fragment = SearchFragment()
+                getFragment(SearchFragment())
             }
             R.id.menu_project -> {
-                fragment = ProjectFragment()
+                getFragment(ProjectFragment())
             }
             R.id.menu_profile -> {
                 sharedPreference.setDetail(0)
-                fragment = ProfileFragment()
+                getFragment(ProfileFragment())
             }
         }
-
-        return getFragment(fragment)
     }
 
-    private fun getFragment(fragment: Fragment?): Boolean {
-        if (fragment != null) {
-            supportFragmentManager
-                .beginTransaction()
-                .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
-                .replace(R.id.fl_main, fragment)
-                .commit()
-
-            return true
-        }
-
-        return false
+    private fun getFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
+            .replace(R.id.fl_main, fragment)
+            .commit()
     }
 }

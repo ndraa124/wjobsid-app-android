@@ -88,6 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="16dp"
+                app:helperTextTextColor="@color/white"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -125,12 +126,13 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="16dp"
+                app:helperTextTextColor="@color/white"
                 app:hintEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_password"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/belize_500">
+                app:passwordToggleTint="@color/gray_500">
 
                 <EditText
                     android:id="@+id/et_password"

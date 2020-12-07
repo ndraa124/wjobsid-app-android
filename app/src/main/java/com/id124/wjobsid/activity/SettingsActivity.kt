@@ -25,7 +25,7 @@ class SettingsActivity : AppCompatActivity() {
                 .commit()
         }
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.title = "Settings"
+        supportActionBar?.title = "Edit Profile"
     }
 
     class SettingsFragment(private val level: Int) : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
@@ -41,55 +41,7 @@ class SettingsActivity : AppCompatActivity() {
             }
         }
 
-        fun prefsAccount() {
-            val acName = findPreference<EditTextPreference>("ac_name")
-            val acEmail = findPreference<EditTextPreference>("ac_email")
-            val acPhone = findPreference<EditTextPreference>("ac_phone")
-
-            acName?.onPreferenceChangeListener = this@SettingsFragment
-            acEmail?.onPreferenceChangeListener = this@SettingsFragment
-            acPhone?.onPreferenceChangeListener = this@SettingsFragment
-
-            /*acName?.text = "-"
-            acEmail?.text = "-"
-            acPhone?.text = "-"*/
-        }
-
-        fun prefsEngineer() {
-            val enJobTitle = findPreference<ListPreference>("en_job_title")
-            val enJobType = findPreference<ListPreference>("en_job_type")
-            val enDomicile = findPreference<EditTextPreference>("en_domicile")
-            val enDescription = findPreference<EditTextPreference>("en_description")
-
-            enJobTitle?.onPreferenceChangeListener = this@SettingsFragment
-            enJobType?.onPreferenceChangeListener = this@SettingsFragment
-            enDomicile?.onPreferenceChangeListener = this@SettingsFragment
-            enDescription?.onPreferenceChangeListener = this@SettingsFragment
-
-            /*enJobTitle?.text = "-"
-            enJobType?.text = "-"
-            enDomicile?.text = "-"
-            enDescription?.text = "-"*/
-        }
-
-        fun prefsCompany() {
-            val cnCompany = findPreference<EditTextPreference>("cn_company")
-            val cnPosition = findPreference<EditTextPreference>("cn_position")
-            val cnField = findPreference<EditTextPreference>("cn_field")
-            val cnDescription = findPreference<EditTextPreference>("cn_description")
-            val cnInstagram = findPreference<EditTextPreference>("cn_instagram")
-            val cnLinkedin = findPreference<EditTextPreference>("cn_linkedin")
-
-            /*cnCompany?.text = "-"
-            cnPosition?.text = "-"
-            cnField?.text = "-"
-            cnDescription?.text = "-"
-            cnInstagram?.text = "-"
-            cnLinkedin?.text = "-"*/
-        }
-
         override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
-            /* Set Data Account */
             when (preference?.key) {
                 "ac_name" -> {
                     Log.d("acName", "$newValue")
@@ -102,7 +54,6 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            /* Set Data Engineer */
             when (preference?.key) {
                 "en_job_title" -> {
                     Log.d("enJobTitle", "$newValue")
@@ -118,7 +69,6 @@ class SettingsActivity : AppCompatActivity() {
                 }
             }
 
-            /* Set Data Company */
             when (preference?.key) {
                 "cn_company" -> {
                     Log.d("cnCompany", "$newValue")
@@ -141,6 +91,53 @@ class SettingsActivity : AppCompatActivity() {
             }
 
             return true
+        }
+
+        fun prefsAccount() {
+            val acName = findPreference<EditTextPreference>("ac_name")
+            val acEmail = findPreference<EditTextPreference>("ac_email")
+            val acPhone = findPreference<EditTextPreference>("ac_phone")
+
+            acName?.onPreferenceChangeListener = this@SettingsFragment
+            acEmail?.onPreferenceChangeListener = this@SettingsFragment
+            acPhone?.onPreferenceChangeListener = this@SettingsFragment
+
+            acName?.text = "Indra David Pesik"
+            acEmail?.text = "indradavidpesik@gmail.com"
+            acPhone?.text = "082292192488"
+        }
+
+        fun prefsEngineer() {
+            val enJobTitle = findPreference<ListPreference>("en_job_title")
+            val enJobType = findPreference<ListPreference>("en_job_type")
+            val enDomicile = findPreference<EditTextPreference>("en_domicile")
+            val enDescription = findPreference<EditTextPreference>("en_description")
+
+            enJobTitle?.onPreferenceChangeListener = this@SettingsFragment
+            enJobType?.onPreferenceChangeListener = this@SettingsFragment
+            enDomicile?.onPreferenceChangeListener = this@SettingsFragment
+            enDescription?.onPreferenceChangeListener = this@SettingsFragment
+
+            enJobTitle?.value = "web developer"
+            enJobType?.value = "freelance"
+            enDomicile?.text = "Manado, Sulawesi Utara"
+            enDescription?.text = "Lorem ipsum"
+        }
+
+        fun prefsCompany() {
+            val cnCompany = findPreference<EditTextPreference>("cn_company")
+            val cnPosition = findPreference<EditTextPreference>("cn_position")
+            val cnField = findPreference<EditTextPreference>("cn_field")
+            val cnDescription = findPreference<EditTextPreference>("cn_description")
+            val cnInstagram = findPreference<EditTextPreference>("cn_instagram")
+            val cnLinkedin = findPreference<EditTextPreference>("cn_linkedin")
+
+            cnCompany?.text = "PT. Kawanua Tech"
+            cnPosition?.text = "Chief Technology Officer"
+            cnField?.text = "Software Engineering"
+            cnDescription?.text = "Lorem ipsum"
+            cnInstagram?.text = "@ptkawanuatech"
+            cnLinkedin?.text = "@kawanuatech"
         }
     }
 }

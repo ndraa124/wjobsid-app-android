@@ -9,12 +9,12 @@
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>
     <string name="search">Search</string>
-    <string name="project">List Project</string>
+    <string name="project">Project</string>
     <string name="profile">Profile</string>
 
     <!-- Onboarding Page -->
     <string name="quotes_onboarding1">Look For The People Who Want To Change The World</string>
-    <string name="quotes_onboarding2">Join Now To Find The Best Developer</string>
+    <string name="quotes_onboarding2">Join Now To Find The Best Developer And Company</string>
     <string name="or">or</string>
     <string name="as_engineer">LOGIN AS ENGINEER</string>
     <string name="as_company">LOGIN AS COMPANY</string>
@@ -52,7 +52,7 @@
     <string name="personal_data_header">Personal Data</string>
 
     <!-- Account Data -->
-    <string name="ac_name">Your Name</string>
+    <string name="ac_name">Name</string>
     <string name="ac_email">Email Address</string>
     <string name="ac_phone">Phone Number</string>
 

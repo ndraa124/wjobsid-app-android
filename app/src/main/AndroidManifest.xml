@@ -17,7 +17,10 @@
             android:name=".activity.PortfolioActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
-        <activity android:name=".activity.SkillActivity" />
+        <activity
+            android:name=".activity.SkillActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID" />
         <activity
             android:name=".activity.ProfileDetailActivity"
             android:screenOrientation="portrait"

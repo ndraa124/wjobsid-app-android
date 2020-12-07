@@ -12,6 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="@color/secondary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <androidx.cardview.widget.CardView
             android:id="@+id/cv_identity"
             android:layout_width="match_parent"
@@ -31,7 +39,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
-                    android:background="@drawable/bg_bottom_radius_corner"
+                    android:background="@color/primary"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
