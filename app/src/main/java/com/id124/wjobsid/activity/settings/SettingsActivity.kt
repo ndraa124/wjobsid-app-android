@@ -1,31 +1,29 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.settings
 
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.id124.wjobsid.R
-import com.id124.wjobsid.helper.SharedPreference
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.databinding.ActivitySettingsEngineerBinding
 
-class SettingsActivity : AppCompatActivity() {
-    private lateinit var sharedPreference: SharedPreference
-
+class SettingsActivity : BaseActivity<ActivitySettingsEngineerBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_settings_engineer
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_settings_engineer)
-        sharedPreference = SharedPreference(this@SettingsActivity)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        supportActionBar?.title = "Edit Profile"
 
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.settings, SettingsFragment(sharedPreference.getLevel()))
+                .replace(R.id.settings, SettingsFragment(sharedPref.getLevelUser()))
                 .commit()
         }
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.title = "Edit Profile"
     }
 
     class SettingsFragment(private val level: Int) : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
@@ -93,7 +91,7 @@ class SettingsActivity : AppCompatActivity() {
             return true
         }
 
-        fun prefsAccount() {
+        private fun prefsAccount() {
             val acName = findPreference<EditTextPreference>("ac_name")
             val acEmail = findPreference<EditTextPreference>("ac_email")
             val acPhone = findPreference<EditTextPreference>("ac_phone")
@@ -107,7 +105,7 @@ class SettingsActivity : AppCompatActivity() {
             acPhone?.text = "082292192488"
         }
 
-        fun prefsEngineer() {
+        private fun prefsEngineer() {
             val enJobTitle = findPreference<ListPreference>("en_job_title")
             val enJobType = findPreference<ListPreference>("en_job_type")
             val enDomicile = findPreference<EditTextPreference>("en_domicile")
@@ -124,7 +122,7 @@ class SettingsActivity : AppCompatActivity() {
             enDescription?.text = "Lorem ipsum"
         }
 
-        fun prefsCompany() {
+        private fun prefsCompany() {
             val cnCompany = findPreference<EditTextPreference>("cn_company")
             val cnPosition = findPreference<EditTextPreference>("cn_position")
             val cnField = findPreference<EditTextPreference>("cn_field")

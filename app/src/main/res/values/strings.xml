@@ -5,6 +5,7 @@
     <string name="img_icon">IMG Icon</string>
     <string name="img_profile">IMG Profile</string>
     <string name="hire">HIRE</string>
+    <string name="logout">LOGOUT</string>
 
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>

@@ -1,4 +1,4 @@
-package com.id124.wjobsid.helper
+package com.id124.wjobsid.util
 
 import android.content.Context
 import android.util.AttributeSet

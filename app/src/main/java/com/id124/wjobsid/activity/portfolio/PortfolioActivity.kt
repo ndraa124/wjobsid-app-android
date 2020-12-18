@@ -1,14 +1,15 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.portfolio
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.databinding.ActivityPortfolioBinding
 
-class PortfolioActivity : AppCompatActivity(), View.OnClickListener {
+class PortfolioActivity : BaseActivity<ActivityPortfolioBinding>(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_portfolio
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_portfolio)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = "Portfolio"

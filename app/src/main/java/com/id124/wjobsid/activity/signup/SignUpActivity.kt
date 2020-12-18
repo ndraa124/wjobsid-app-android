@@ -1,23 +1,24 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.signup
 
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
-import androidx.appcompat.app.AppCompatActivity
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.databinding.ActivitySignUpBinding
 import kotlinx.android.synthetic.main.activity_sign_up.*
 
-class SignUpActivity : AppCompatActivity(), View.OnClickListener {
+class SignUpActivity : BaseActivity<ActivitySignUpBinding>(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_sign_up
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_sign_up)
 
         if (intent.getIntExtra("level", 0) == 1) {
-            cl_company.visibility = VISIBLE
+            bind.clCompany.visibility = VISIBLE
         } else {
-            cl_company.visibility = GONE
+            bind.clCompany.visibility = GONE
         }
     }
 

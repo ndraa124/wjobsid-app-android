@@ -1,294 +1,297 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.ExperienceActivity">
+    tools:context=".activity.experience.ExperienceActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/gray_200">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/tv_add_experience"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/add_experience"
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="30sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <TextView
-            android:id="@+id/tv_instruction"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="15dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/instruction_add_experience"
-            android:textColor="@color/gray_500"
-            android:textSize="16sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_add_experience" />
-
-        <TextView
-            android:id="@+id/tv_position"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="40dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/position_exp"
-            android:textColor="@color/gray_500"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_instruction" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="16dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_position">
-
-            <EditText
-                android:id="@+id/et_position"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_input_white"
-                android:hint="@string/position_exp"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:padding="18dp"
-                android:paddingBottom="10dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_company"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="18dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/company_exp"
-            android:textColor="@color/gray_500"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_layout_position" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_company"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="16dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_company">
-
-            <EditText
-                android:id="@+id/et_pub_link"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_input_white"
-                android:gravity="top"
-                android:hint="@string/company_exp"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:padding="18dp"
-                android:paddingBottom="10dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_date_start"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="18dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/start_exp"
-            android:textColor="@color/gray_500"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_layout_company" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_date_start"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="16dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date_start">
-
-            <EditText
-                android:id="@+id/et_start"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_input_white"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="false"
-                android:gravity="top"
-                android:hint="@string/start_exp"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:onClick="onClick"
-                android:padding="18dp"
-                android:paddingBottom="10dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_date_end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="18dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/end_exp"
-            android:textColor="@color/gray_500"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_layout_date_start" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_date_end"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="16dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_date_end">
-
-            <EditText
-                android:id="@+id/et_end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_input_white"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:gravity="top"
-                android:hint="@string/end_exp"
-                android:importantForAutofill="no"
-                android:inputType="text"
-                android:padding="18dp"
-                android:paddingBottom="10dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="18dp"
-            android:fontFamily="sans-serif"
-            android:text="@string/description_exp"
-            android:textColor="@color/gray_500"
-            android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_layout_date_end" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/input_layout_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:paddingHorizontal="16dp"
-            app:hintEnabled="false"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_description">
-
-            <EditText
-                android:id="@+id/et_description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/form_input_white"
-                android:gravity="top"
-                android:hint="@string/description_exp"
-                android:importantForAutofill="no"
-                android:inputType="textMultiLine"
-                android:maxLength="5"
-                android:minLines="5"
-                android:padding="18dp"
-                android:paddingBottom="10dp" />
-
-        </com.google.android.material.textfield.TextInputLayout>
-
-        <Button
-            android:id="@+id/btn_add_experience"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/primary"
-            android:onClick="onClick"
-            android:padding="14dp"
-            android:text="@string/add_experience"
-            android:textColor="@color/white"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/input_layout_description" />
-
-        <LinearLayout
-            android:id="@+id/ln_back"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="18dp"
-            android:gravity="center|top"
-            android:onClick="onClick"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_add_experience"
-            tools:ignore="UseCompoundDrawables">
-
-            <ImageView
-                android:id="@+id/iv_back"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="24dp"
-                android:contentDescription="@string/img_icon"
-                android:src="@drawable/ic_arrow_left_gray" />
+            android:background="@color/gray_200">
 
             <TextView
-                android:id="@+id/tv_back"
+                android:id="@+id/tv_add_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="32dp"
+                android:fontFamily="sans-serif-thin"
+                android:text="@string/add_experience"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_instruction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="15dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/instruction_add_experience"
+                android:textColor="@color/gray_500"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_add_experience" />
+
+            <TextView
+                android:id="@+id/tv_position"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="40dp"
                 android:fontFamily="sans-serif"
-                android:text="@string/back_to_profile"
+                android:text="@string/position_exp"
                 android:textColor="@color/gray_500"
                 android:textSize="14sp"
-                android:textStyle="bold" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_instruction" />
 
-        </LinearLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_position"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="16dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_position">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <EditText
+                    android:id="@+id/et_position"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_white"
+                    android:hint="@string/position_exp"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:padding="18dp"
+                    android:paddingBottom="10dp" />
 
-</ScrollView>
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_company"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/company_exp"
+                android:textColor="@color/gray_500"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_position" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_company"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="16dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_company">
+
+                <EditText
+                    android:id="@+id/et_pub_link"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_white"
+                    android:gravity="top"
+                    android:hint="@string/company_exp"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:padding="18dp"
+                    android:paddingBottom="10dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_date_start"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/start_exp"
+                android:textColor="@color/gray_500"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_company" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_date_start"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="16dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date_start">
+
+                <EditText
+                    android:id="@+id/et_start"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="top"
+                    android:hint="@string/start_exp"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:onClick="onClick"
+                    android:padding="18dp"
+                    android:paddingBottom="10dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_date_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/end_exp"
+                android:textColor="@color/gray_500"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_date_start" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_date_end"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="16dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_date_end">
+
+                <EditText
+                    android:id="@+id/et_end"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_white"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    android:gravity="top"
+                    android:hint="@string/end_exp"
+                    android:importantForAutofill="no"
+                    android:inputType="text"
+                    android:padding="18dp"
+                    android:paddingBottom="10dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:fontFamily="sans-serif"
+                android:text="@string/description_exp"
+                android:textColor="@color/gray_500"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_date_end" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="16dp"
+                app:hintEnabled="false"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_description">
+
+                <EditText
+                    android:id="@+id/et_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/form_input_white"
+                    android:gravity="top"
+                    android:hint="@string/description_exp"
+                    android:importantForAutofill="no"
+                    android:inputType="textMultiLine"
+                    android:maxLength="5"
+                    android:minLines="5"
+                    android:padding="18dp"
+                    android:paddingBottom="10dp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/btn_add_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:backgroundTint="@color/primary"
+                android:onClick="onClick"
+                android:padding="14dp"
+                android:text="@string/add_experience"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_description" />
+
+            <LinearLayout
+                android:id="@+id/ln_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:gravity="center|top"
+                android:onClick="onClick"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_experience"
+                tools:ignore="UseCompoundDrawables">
+
+                <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="24dp"
+                    android:contentDescription="@string/img_icon"
+                    android:src="@drawable/ic_arrow_left_gray" />
+
+                <TextView
+                    android:id="@+id/tv_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:fontFamily="sans-serif"
+                    android:text="@string/back_to_profile"
+                    android:textColor="@color/gray_500"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</layout>

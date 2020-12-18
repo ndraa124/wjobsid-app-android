@@ -1,15 +1,18 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.onboarding
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.activity.login.LoginActivity
+import com.id124.wjobsid.databinding.ActivityOnboardingBinding
 
-class OnboardingActivity : AppCompatActivity(), View.OnClickListener {
+class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(), View.OnClickListener {
+
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_onboarding
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_onboarding)
     }
 
     override fun onClick(v: View?) {

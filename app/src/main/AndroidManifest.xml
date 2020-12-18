@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.id124.wjobsid">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,56 +13,55 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WJobsID">
         <activity
-            android:name=".activity.ExperienceActivity"
+            android:name=".activity.experience.ExperienceActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".activity.PortfolioActivity"
+            android:name=".activity.portfolio.PortfolioActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".activity.SkillActivity"
+            android:name=".activity.skill.SkillActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".activity.ProfileDetailActivity"
+            android:name=".activity.profile.ProfileDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.SettingsActivity"
+            android:name=".activity.settings.SettingsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID" />
         <activity
-            android:name=".activity.ForgetPasswordActivity"
+            android:name=".activity.forgetpassword.ForgetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.ForgetPasswordVerifyActivity"
+            android:name=".activity.forgetpassword.ForgetPasswordVerifyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.SignUpActivity"
+            android:name=".activity.signup.SignUpActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".activity.login.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.OnboardingActivity"
+            android:name=".activity.onboarding.OnboardingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.Fullscreen" />
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".activity.main.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.SplashActivity"
+            android:name=".activity.splash.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.Fullscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

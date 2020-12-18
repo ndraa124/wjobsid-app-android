@@ -1,24 +1,23 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.id124.wjobsid.*
-import com.id124.wjobsid.fragment.HomeFragment
-import com.id124.wjobsid.fragment.ProfileFragment
-import com.id124.wjobsid.fragment.ProjectFragment
-import com.id124.wjobsid.fragment.SearchFragment
-import com.id124.wjobsid.helper.SharedPreference
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.activity.main.fragment.HomeFragment
+import com.id124.wjobsid.activity.main.fragment.ProjectFragment
+import com.id124.wjobsid.activity.main.fragment.SearchFragment
+import com.id124.wjobsid.activity.main.fragment.profile.ProfileCompanyFragment
+import com.id124.wjobsid.activity.main.fragment.profile.ProfileEngineerFragment
+import com.id124.wjobsid.databinding.ActivityMainBinding
 import com.ismaeldivita.chipnavigation.ChipNavigationBar
 import kotlinx.android.synthetic.main.activity_main.*
 
-class MainActivity : AppCompatActivity(), ChipNavigationBar.OnItemSelectedListener {
-    private lateinit var sharedPreference: SharedPreference
-
+class MainActivity : BaseActivity<ActivityMainBinding>(), ChipNavigationBar.OnItemSelectedListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_main
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        sharedPreference = SharedPreference(this@MainActivity)
+        sharedPref.checkIsLogin()
         getFragment(HomeFragment())
 
         bnv_main.setItemSelected(R.id.menu_home)
@@ -37,8 +36,13 @@ class MainActivity : AppCompatActivity(), ChipNavigationBar.OnItemSelectedListen
                 getFragment(ProjectFragment())
             }
             R.id.menu_profile -> {
-                sharedPreference.setDetail(0)
-                getFragment(ProfileFragment())
+                sharedPref.createInDetail(0)
+
+                if (sharedPref.getLevelUser() == 0) {
+                    getFragment(ProfileEngineerFragment())
+                } else {
+                    getFragment(ProfileCompanyFragment())
+                }
             }
         }
     }
@@ -49,5 +53,10 @@ class MainActivity : AppCompatActivity(), ChipNavigationBar.OnItemSelectedListen
             .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
             .replace(R.id.fl_main, fragment)
             .commit()
+    }
+
+    override fun onBackPressed() {
+        this@MainActivity.finish()
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

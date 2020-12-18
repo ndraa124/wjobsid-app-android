@@ -1,15 +1,16 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.forgetpassword
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.databinding.ActivityForgetPasswordVerifyBinding
 
-class ForgetPasswordVerifyActivity : AppCompatActivity(), View.OnClickListener {
+class ForgetPasswordVerifyActivity : BaseActivity<ActivityForgetPasswordVerifyBinding>(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_forget_password_verify
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forget_password_verify)
     }
 
     override fun onClick(v: View?) {

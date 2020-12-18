@@ -1,4 +1,4 @@
-package com.id124.wjobsid.fragment
+package com.id124.wjobsid.activity.profile.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.ExperienceActivity
-import com.id124.wjobsid.helper.SharedPreference
+import com.id124.wjobsid.activity.experience.ExperienceActivity
+import com.id124.wjobsid.util.SharedPreference
 import kotlinx.android.synthetic.main.fragment_experience.view.*
 import kotlinx.android.synthetic.main.fragment_portfolio.view.*
 
@@ -23,7 +23,7 @@ class ExperienceFragment : Fragment(), View.OnClickListener {
         sharedPreference = activity?.let { SharedPreference(it) }!!
         val view: View = inflater.inflate(R.layout.fragment_experience, container, false)
 
-        if (sharedPreference.getDetail() == 0) {
+        if (sharedPreference.getInDetail() == 0) {
             view.btn_add_experience.visibility = View.VISIBLE
         } else {
             view.btn_add_experience.visibility = View.GONE

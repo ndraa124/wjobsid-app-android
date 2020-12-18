@@ -1,14 +1,15 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.skill
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.databinding.ActivitySkillBinding
 
-class SkillActivity : AppCompatActivity(), View.OnClickListener {
+class SkillActivity : BaseActivity<ActivitySkillBinding>(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_skill
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_skill)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = "Skill"

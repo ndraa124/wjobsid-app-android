@@ -1,26 +1,24 @@
-package com.id124.wjobsid.activity
+package com.id124.wjobsid.activity.experience
 
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
-import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.databinding.ActivityExperienceBinding
 import kotlinx.android.synthetic.main.activity_experience.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-
-class ExperienceActivity : AppCompatActivity(), View.OnClickListener {
+class ExperienceActivity : BaseActivity<ActivityExperienceBinding>(), View.OnClickListener {
     private lateinit var myCalendar: Calendar
     private lateinit var date: OnDateSetListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.activity_experience
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_experience)
 
         supportActionBar?.setDisplayHomeAsUpEnabled(false)
         supportActionBar?.title = "Experience"
@@ -39,7 +37,6 @@ class ExperienceActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.N)
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.et_start -> {

@@ -1,4 +1,4 @@
-package com.id124.wjobsid.helper
+package com.id124.wjobsid.util
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
