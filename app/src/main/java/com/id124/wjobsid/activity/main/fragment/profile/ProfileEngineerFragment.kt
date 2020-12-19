@@ -45,11 +45,16 @@ class ProfileEngineerFragment : BaseFragment<FragmentProfileEngineerBinding>(), 
                 startActivity(Intent(activity, SettingsActivity::class.java))
             }
             R.id.btn_logout -> {
-                sharedPref.accountLogout()
+                logoutConfirmation(activity)
             }
             R.id.iv_add_skill -> {
                 startActivity(Intent(activity, SkillActivity::class.java))
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        sharedPref.createInDetail(0)
     }
 }

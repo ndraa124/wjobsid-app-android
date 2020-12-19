@@ -14,15 +14,22 @@ class SettingsActivity : BaseActivity<ActivitySettingsEngineerBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_settings_engineer
         super.onCreate(savedInstanceState)
-
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.title = "Edit Profile"
+        setToolbarActionBar()
 
         if (savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.settings, SettingsFragment(sharedPref.getLevelUser()))
                 .commit()
+        }
+    }
+
+    private fun setToolbarActionBar() {
+        setSupportActionBar(bind.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Edit Profile"
+        bind.toolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 

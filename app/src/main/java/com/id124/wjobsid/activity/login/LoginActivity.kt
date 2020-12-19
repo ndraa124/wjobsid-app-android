@@ -9,6 +9,7 @@ import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.BaseActivity
 import com.id124.wjobsid.activity.forgetpassword.ForgetPasswordVerifyActivity
 import com.id124.wjobsid.activity.main.MainActivity
+import com.id124.wjobsid.activity.onboarding.OnboardingActivity
 import com.id124.wjobsid.activity.signup.SignUpActivity
 import com.id124.wjobsid.databinding.ActivityLoginBinding
 import kotlinx.android.synthetic.main.activity_login.*
@@ -68,5 +69,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener
         } else {
             inputLayout.isHelperTextEnabled = false
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        intents<OnboardingActivity>(this@LoginActivity)
+        this@LoginActivity.finish()
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
 }

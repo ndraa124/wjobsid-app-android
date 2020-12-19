@@ -24,6 +24,7 @@ class ProfileCompanyFragment : BaseFragment<FragmentProfileCompanyBinding>(), Vi
 
     private fun setContentViewCompany() {
         bind.btnEditCompany.setOnClickListener(this@ProfileCompanyFragment)
+        bind.btnLogout.setOnClickListener(this@ProfileCompanyFragment)
     }
 
     override fun onClick(v: View?) {
@@ -32,8 +33,13 @@ class ProfileCompanyFragment : BaseFragment<FragmentProfileCompanyBinding>(), Vi
                 startActivity(Intent(activity, SettingsActivity::class.java))
             }
             R.id.btn_logout -> {
-                sharedPref.accountLogout()
+                logoutConfirmation(activity)
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        sharedPref.createInDetail(0)
     }
 }

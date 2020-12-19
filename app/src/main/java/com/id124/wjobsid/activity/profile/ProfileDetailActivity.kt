@@ -16,12 +16,22 @@ class ProfileDetailActivity : BaseActivity<ActivityProfileDetailBinding>(), View
         setLayout = R.layout.activity_profile_detail
         super.onCreate(savedInstanceState)
 
+        setToolbarActionBar()
         initViewPager()
 
         if (sharedPref.getLevelUser() == 0) {
             bind.btnHire.visibility = View.GONE
         } else {
             bind.btnHire.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setToolbarActionBar() {
+        setSupportActionBar(bind.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = ""
+        bind.toolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -40,5 +50,10 @@ class ProfileDetailActivity : BaseActivity<ActivityProfileDetailBinding>(), View
         adapter.addFrag(PortfolioFragment(), "Portfolio")
         adapter.addFrag(ExperienceFragment(), "Experience")
         bind.viewPager.adapter = adapter
+    }
+
+    override fun onStart() {
+        super.onStart()
+        sharedPref.createInDetail(1)
     }
 }

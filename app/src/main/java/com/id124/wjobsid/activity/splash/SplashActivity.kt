@@ -28,6 +28,6 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>() {
                 intents<MainActivity>(this@SplashActivity)
                 this@SplashActivity.finish()
             }
-        }, 5000)
+        }, 4000)
     }
 }

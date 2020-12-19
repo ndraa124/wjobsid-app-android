@@ -1,28 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
         android:id="@+id/menu_home"
         android:icon="@drawable/ic_home"
-        android:title="@string/home"
-        app:cnb_iconColor="@color/white" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/menu_search"
         android:icon="@drawable/ic_search"
-        android:title="@string/search"
-        app:cnb_iconColor="@color/white" />
+        android:title="@string/search" />
 
     <item
         android:id="@+id/menu_project"
         android:icon="@drawable/ic_survey"
-        android:title="@string/project"
-        app:cnb_iconColor="@color/white" />
+        android:title="@string/project" />
 
     <item
         android:id="@+id/menu_profile"
         android:icon="@drawable/ic_account"
-        android:title="@string/profile"
-        app:cnb_iconColor="@color/white" />
+        android:title="@string/profile" />
 </menu>

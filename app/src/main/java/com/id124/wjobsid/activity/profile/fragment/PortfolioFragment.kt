@@ -1,42 +1,66 @@
 package com.id124.wjobsid.activity.profile.fragment
 
-import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.BaseFragment
 import com.id124.wjobsid.activity.portfolio.PortfolioActivity
-import com.id124.wjobsid.util.SharedPreference
+import com.id124.wjobsid.activity.profile.adapter.ProfilePortfolioAdapter
+import com.id124.wjobsid.databinding.FragmentPortfolioBinding
+import com.id124.wjobsid.model.PortfolioModel
 import kotlinx.android.synthetic.main.fragment_portfolio.view.*
 
-class PortfolioFragment : Fragment(), View.OnClickListener {
-    private lateinit var sharedPreference: SharedPreference
+class PortfolioFragment : BaseFragment<FragmentPortfolioBinding>(), View.OnClickListener {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        setLayout = R.layout.fragment_portfolio
+        super.onCreate(savedInstanceState)
+    }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        sharedPreference = activity?.let { SharedPreference(it) }!!
-        val view: View = inflater.inflate(R.layout.fragment_portfolio, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        if (sharedPreference.getInDetail() == 0) {
-            view.btn_add_portfolio.visibility = View.VISIBLE
+        if (sharedPref.getInDetail() == 0) {
+            bind.btnAddPortfolio.visibility = View.VISIBLE
         } else {
-            view.btn_add_portfolio.visibility = View.GONE
+            bind.btnAddPortfolio.visibility = View.GONE
         }
 
-        view.btn_add_portfolio.setOnClickListener(this@PortfolioFragment)
+        setupPortfolioRecyclerView()
+        bind.btnAddPortfolio.setOnClickListener(this@PortfolioFragment)
+    }
 
-        return view
+    private fun setupPortfolioRecyclerView() {
+        bind.rvPortfolio.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+
+        val portfolioModel: ArrayList<PortfolioModel> = ArrayList()
+        portfolioModel.add(PortfolioModel(
+            pr_image = "http://192.168.43.123:3000/images/IMG-1605622615798.png"
+        ))
+        portfolioModel.add(PortfolioModel(
+            pr_image = "http://192.168.43.123:3000/images/IMG-1605622381179.png"
+        ))
+        portfolioModel.add(PortfolioModel(
+            pr_image = "http://192.168.43.123:3000/images/IMG-1605617120374.png"
+        ))
+        portfolioModel.add(PortfolioModel(
+            pr_image = "http://192.168.43.123:3000/images/IMG-1605622615798.png"
+        ))
+        portfolioModel.add(PortfolioModel(
+            pr_image = "http://192.168.43.123:3000/images/IMG-1605622381179.png"
+        ))
+        portfolioModel.add(PortfolioModel(
+            pr_image = "http://192.168.43.123:3000/images/IMG-1605617120374.png"
+        ))
+
+        bind.rvPortfolio.adapter = ProfilePortfolioAdapter(portfolioModel)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_add_portfolio -> {
-                startActivity(Intent(activity, PortfolioActivity::class.java))
+                intents<PortfolioActivity>(activity)
             }
         }
     }

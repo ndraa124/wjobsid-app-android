@@ -20,8 +20,7 @@ class ExperienceActivity : BaseActivity<ActivityExperienceBinding>(), View.OnCli
         setLayout = R.layout.activity_experience
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
-        supportActionBar?.title = "Experience"
+        setToolbarActionBar()
 
         myCalendar = Calendar.getInstance()
         date = OnDateSetListener { _, year, month, dayOfMonth ->
@@ -34,6 +33,15 @@ class ExperienceActivity : BaseActivity<ActivityExperienceBinding>(), View.OnCli
             val sdf = SimpleDateFormat(myFormat, Locale.US)
 
             day.text = sdf.format(myCalendar.time)
+        }
+    }
+
+    private fun setToolbarActionBar() {
+        setSupportActionBar(bind.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "Experience"
+        bind.toolbar.setNavigationOnClickListener {
+            onBackPressed()
         }
     }
 

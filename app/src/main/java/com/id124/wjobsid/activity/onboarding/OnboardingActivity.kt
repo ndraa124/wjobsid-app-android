@@ -3,6 +3,7 @@ package com.id124.wjobsid.activity.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.bumptech.glide.Glide
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.BaseActivity
 import com.id124.wjobsid.activity.login.LoginActivity
@@ -21,11 +22,13 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(), View.OnCli
                 val intent = Intent(this@OnboardingActivity, LoginActivity::class.java)
                 intent.putExtra("level", 0)
                 startActivity(intent)
+                this@OnboardingActivity.finish()
             }
             R.id.btn_company -> {
                 val intent = Intent(this@OnboardingActivity, LoginActivity::class.java)
                 intent.putExtra("level", 1)
                 startActivity(intent)
+                this@OnboardingActivity.finish()
             }
         }
     }

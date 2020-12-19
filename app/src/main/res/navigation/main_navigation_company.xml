@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@id/menu_home">
+
+    <fragment
+        android:id="@+id/menu_home"
+        android:name="com.id124.wjobsid.activity.main.fragment.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/action_menu_home_to_menu_search"
+            app:destination="@id/menu_search" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_search"
+        android:name="com.id124.wjobsid.activity.main.fragment.SearchFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_menu_search_to_menu_project"
+            app:destination="@id/menu_project" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_project"
+        android:name="com.id124.wjobsid.activity.main.fragment.ProjectFragment"
+        android:label="@string/project"
+        tools:layout="@layout/fragment_project" >
+        <action
+            android:id="@+id/action_menu_project_to_menu_profile"
+            app:destination="@id/menu_profile" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_profile"
+        android:name="com.id124.wjobsid.activity.main.fragment.profile.ProfileCompanyFragment"
+        android:label="@string/search"
+        tools:layout="@layout/fragment_home" />
+
+</navigation>

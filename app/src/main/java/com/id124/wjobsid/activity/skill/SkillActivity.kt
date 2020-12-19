@@ -11,8 +11,16 @@ class SkillActivity : BaseActivity<ActivitySkillBinding>(), View.OnClickListener
         setLayout = R.layout.activity_skill
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setToolbarActionBar()
+    }
+
+    private fun setToolbarActionBar() {
+        setSupportActionBar(bind.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Skill"
+        bind.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onClick(v: View?) {

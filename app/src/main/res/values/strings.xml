@@ -6,6 +6,9 @@
     <string name="img_profile">IMG Profile</string>
     <string name="hire">HIRE</string>
     <string name="logout">LOGOUT</string>
+    <string name="web_developer">Web Developer</string>
+    <string name="android_developer">Android Developer</string>
+    <string name="dummy_date">Monday, 07 December 2020</string>
 
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>

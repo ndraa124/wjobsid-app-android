@@ -11,8 +11,16 @@ class PortfolioActivity : BaseActivity<ActivityPortfolioBinding>(), View.OnClick
         setLayout = R.layout.activity_portfolio
         super.onCreate(savedInstanceState)
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(false)
+        setToolbarActionBar()
+    }
+
+    private fun setToolbarActionBar() {
+        setSupportActionBar(bind.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         supportActionBar?.title = "Portfolio"
+        bind.toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
     }
 
     override fun onClick(v: View?) {
