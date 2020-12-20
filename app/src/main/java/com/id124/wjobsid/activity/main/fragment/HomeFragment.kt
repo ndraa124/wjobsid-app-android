@@ -3,7 +3,7 @@ package com.id124.wjobsid.activity.main.fragment
 import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.BaseFragment
 import com.id124.wjobsid.activity.github.GithubActivity
@@ -14,6 +14,8 @@ import com.id124.wjobsid.model.AccountModel
 import com.id124.wjobsid.model.EngineerModel
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
+    private var engineerModel = ArrayList<EngineerModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_home
         super.onCreate(savedInstanceState)
@@ -30,32 +32,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
     }
 
     private fun setupWebDevRecyclerView() {
-        bind.rvWebDeveloper.layoutManager = LinearLayoutManager(activity, VERTICAL, false)
-
-        val engineerModel: ArrayList<EngineerModel> = ArrayList()
-        engineerModel.add(EngineerModel(
-            ac_name = "Mark Winsen",
-            en_job_title = "Web Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
-        engineerModel.add(EngineerModel(
-            ac_name = "Jin Kazama",
-            en_job_title = "Web Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
-        engineerModel.add(EngineerModel(
-            ac_name = "Xiou You",
-            en_job_title = "Web Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
-        engineerModel.add(EngineerModel(
-            ac_name = "Vegapunk",
-            en_job_title = "Web Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
+        bind.rvWeb.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        getWebDataEngineer()
 
         val adapter = HomeEngineerAdapter(engineerModel)
-        bind.rvWebDeveloper.adapter = adapter
+        bind.rvWeb.adapter = adapter
 
         adapter.setOnItemClickCallback(object: HomeEngineerAdapter.OnItemClickCallback {
             override fun onItemClick(data: EngineerModel) {
@@ -65,32 +46,11 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
     }
 
     private fun setupAndroidDevRecyclerView() {
-        bind.rvAndroidDeveloper.layoutManager = LinearLayoutManager(activity, VERTICAL, false)
-
-        val engineerModel: ArrayList<EngineerModel> = ArrayList()
-        engineerModel.add(EngineerModel(
-            ac_name = "Indra David Pesik",
-            en_job_title = "Android Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
-        engineerModel.add(EngineerModel(
-            ac_name = "David William",
-            en_job_title = "Android Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
-        engineerModel.add(EngineerModel(
-            ac_name = "Julian Porajou",
-            en_job_title = "Android Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
-        engineerModel.add(EngineerModel(
-            ac_name = "Steve Jobs",
-            en_job_title = "Android Developer",
-            en_profile = "http://192.168.43.123:3000/images/IMG-1606113498604.jpg"
-        ))
+        bind.rvAndroid.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        getAndroidDataEngineer()
 
         val adapter = HomeEngineerAdapter(engineerModel)
-        bind.rvAndroidDeveloper.adapter = adapter
+        bind.rvAndroid.adapter = adapter
 
         adapter.setOnItemClickCallback(object: HomeEngineerAdapter.OnItemClickCallback {
             override fun onItemClick(data: EngineerModel) {
@@ -105,5 +65,55 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
                 intents<GithubActivity>(activity)
             }
         }
+    }
+
+    private fun getWebDataEngineer() {
+        engineerModel = ArrayList()
+
+        engineerModel.add(EngineerModel(
+            ac_name = "Indra David Pesik",
+            en_job_title = "Web Developer",
+            en_profile = "https://cdn1-production-images-kly.akamaized.net/rrn1fq4Gul21KLoZQ6gMOsK4nt8=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1108592/original/042718400_1452576907-12012016-android.jpg"
+        ))
+        engineerModel.add(EngineerModel(
+            ac_name = "David William",
+            en_job_title = "Web Developer",
+            en_profile = "https://pkrs.rstugurejo.jatengprov.go.id/wp-content/uploads/2019/04/user.png"
+        ))
+        engineerModel.add(EngineerModel(
+            ac_name = "Julian Porajou",
+            en_job_title = "Web Developer",
+            en_profile = "https://cdn1-production-images-kly.akamaized.net/rrn1fq4Gul21KLoZQ6gMOsK4nt8=/640x360/smart/filters:quality(75):strip_icc():format(jpeg)/kly-media-production/medias/1108592/original/042718400_1452576907-12012016-android.jpg"
+        ))
+        engineerModel.add(EngineerModel(
+            ac_name = "Steve Jobs",
+            en_job_title = "Web Developer",
+            en_profile = "https://pkrs.rstugurejo.jatengprov.go.id/wp-content/uploads/2019/04/user.png"
+        ))
+    }
+
+    private fun getAndroidDataEngineer() {
+        engineerModel = ArrayList()
+
+        engineerModel.add(EngineerModel(
+            ac_name = "Indra David Pesik",
+            en_job_title = "Android Developer",
+            en_profile = "https://info-menarik.net/wp-content/uploads/2014/10/User-Info-Menarik.png"
+        ))
+        engineerModel.add(EngineerModel(
+            ac_name = "David William",
+            en_job_title = "Android Developer",
+            en_profile = "https://info-menarik.net/wp-content/uploads/2014/10/User-Info-Menarik.png"
+        ))
+        engineerModel.add(EngineerModel(
+            ac_name = "Julian Porajou",
+            en_job_title = "Android Developer",
+            en_profile = "https://info-menarik.net/wp-content/uploads/2014/10/User-Info-Menarik.png"
+        ))
+        engineerModel.add(EngineerModel(
+            ac_name = "Steve Jobs",
+            en_job_title = "Android Developer",
+            en_profile = "https://info-menarik.net/wp-content/uploads/2014/10/User-Info-Menarik.png"
+        ))
     }
 }

@@ -13,7 +13,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -88,7 +89,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_date_today" />
 
             <TextView
-                android:id="@+id/tv_web_developer"
+                android:id="@+id/tv_web"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -104,7 +105,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/v_background" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_web_developer"
+                android:id="@+id/rv_web"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -112,10 +113,10 @@
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_web_developer" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_web" />
 
             <TextView
-                android:id="@+id/tv_android_developer"
+                android:id="@+id/tv_android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -128,10 +129,10 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_web_developer" />
+                app:layout_constraintTop_toBottomOf="@+id/rv_web" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_android_developer"
+                android:id="@+id/rv_android"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -139,7 +140,7 @@
                 android:nestedScrollingEnabled="false"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_android_developer" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_android" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -33,11 +33,11 @@ abstract class BaseFragment<FragmentBinding : ViewDataBinding> : Fragment() {
         activity?.startActivity(Intent(activity, ClassActivity::class.java))
     }
 
-    protected fun logoutConfirmation(activity: FragmentActivity?) {
+    protected fun logoutConf(activity: FragmentActivity?) {
         val dialog = activity?.let {
             AlertDialog
                 .Builder(it)
-                .setTitle("Confirmation")
+                .setTitle("Notice!")
                 .setMessage("Are you sure to logout?")
                 .setPositiveButton("OK") { _, _ ->
                     sharedPref.accountLogout()

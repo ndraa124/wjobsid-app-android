@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.main.fragment.ProfileFragment">
 
+    <data>
+
+        <variable
+            name="accountModel"
+            type="com.id124.wjobsid.model.AccountModel" />
+
+        <variable
+            name="engineerModel"
+            type="com.id124.wjobsid.model.EngineerModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -68,7 +79,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="18dp"
                         android:fontFamily="sans-serif-thin"
-                        android:text="Indra David Pesik"
+                        android:text="@{accountModel.ac_name}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="24sp"
@@ -84,7 +95,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Android Developer"
+                        android:text="@{engineerModel.en_job_title}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -106,8 +117,8 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@drawable/ic_place_maker"
-                            android:contentDescription="@string/img_icon" />
+                            android:contentDescription="@string/img_icon"
+                            android:src="@drawable/ic_place_maker" />
 
                         <TextView
                             android:id="@+id/tv_domicile"
@@ -115,7 +126,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="5dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="Manado, Sulawesi Utara"
+                            android:text="@{engineerModel.en_domicile}"
                             android:textAlignment="center"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -128,7 +139,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Freelance"
+                        android:text="@{engineerModel.en_job_type}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
@@ -143,7 +154,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
+                        android:text="@{engineerModel.en_description}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
@@ -250,170 +261,10 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/v_divider_skill">
 
-                        <TextView
-                            android:id="@+id/tv_skill1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Web"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Laravel"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Golang"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Javascript"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="PHP"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill6"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="HTML"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill7"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="C++"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill8"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="C#"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill9"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Kotlin"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill10"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Swift"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
-
-                        <TextView
-                            android:id="@+id/tv_skill11"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="2.5dp"
-                            android:layout_marginVertical="5dp"
-                            android:background="@color/blue"
-                            android:fontFamily="sans-serif-condensed"
-                            android:paddingHorizontal="8dp"
-                            android:paddingVertical="2dp"
-                            android:text="Dart"
-                            android:textAlignment="textStart"
-                            android:textColor="@color/white"
-                            android:textSize="12sp" />
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_skill"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
                     </com.google.android.flexbox.FlexboxLayout>
 

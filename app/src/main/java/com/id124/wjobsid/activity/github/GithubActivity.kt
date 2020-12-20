@@ -1,9 +1,9 @@
 package com.id124.wjobsid.activity.github
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.webkit.WebSettings
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.BaseActivity
 import com.id124.wjobsid.activity.github.client.ChromeClient
@@ -12,16 +12,15 @@ import com.id124.wjobsid.activity.github.client.WebViewListener
 import com.id124.wjobsid.databinding.ActivityGithubBinding
 
 class GithubActivity : BaseActivity<ActivityGithubBinding>(), WebViewListener {
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_github
         super.onCreate(savedInstanceState)
 
         bind.webView.loadUrl("https://github.com/ndraa124")
-        bind.webView.settings.javaScriptEnabled = true
-        bind.webView.settings.builtInZoomControls = true
         bind.webView.settings.allowContentAccess = true
-        bind.webView.settings.databaseEnabled = true
+        bind.webView.settings.allowFileAccess = true
+        bind.webView.settings.domStorageEnabled = true
+        bind.webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
         bind.webView.webChromeClient = ChromeClient(this)
         bind.webView.webViewClient = WebClient(this)
     }
@@ -44,5 +43,11 @@ class GithubActivity : BaseActivity<ActivityGithubBinding>(), WebViewListener {
         bind.progressBar.progress = progress
     }
 
-
+    override fun onBackPressed() {
+        if (bind.webView.canGoBack()) {
+            bind.webView.goBack()
+        } else {
+            super.onBackPressed()
+        }
+    }
 }

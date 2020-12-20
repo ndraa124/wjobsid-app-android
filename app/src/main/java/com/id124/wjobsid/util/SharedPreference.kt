@@ -17,8 +17,7 @@ class SharedPreference(private val context: Context) {
         const val AC_NAME = "AC_NAME"
     }
 
-    private val sharedPreferences: SharedPreferences =
-        context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
+    private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
     private val editor: SharedPreferences.Editor = sharedPreferences.edit()
 
     fun createInDetail(acDetail: Int) {

@@ -14,6 +14,8 @@ import kotlinx.android.synthetic.main.fragment_experience.view.*
 import kotlinx.android.synthetic.main.fragment_portfolio.view.*
 
 class ExperienceFragment : BaseFragment<FragmentExperienceBinding>(), View.OnClickListener {
+    private var experienceModel = ArrayList<ExperienceModel>()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_experience
         super.onCreate(savedInstanceState)
@@ -35,7 +37,7 @@ class ExperienceFragment : BaseFragment<FragmentExperienceBinding>(), View.OnCli
     private fun setupExperienceRecyclerView() {
         bind.rvExperience.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        val experienceModel: ArrayList<ExperienceModel> = ArrayList()
+        experienceModel = ArrayList()
         experienceModel.add(ExperienceModel(
             ex_potition = "Web Developer",
             ex_company = "PT. Kawanua Tech",
@@ -61,7 +63,8 @@ class ExperienceFragment : BaseFragment<FragmentExperienceBinding>(), View.OnCli
                     "mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
         ))
 
-        bind.rvExperience.adapter = ProfileExperienceAdapter(experienceModel)
+        val adapter = ProfileExperienceAdapter(experienceModel)
+        bind.rvExperience.adapter = adapter
     }
 
     override fun onClick(v: View?) {

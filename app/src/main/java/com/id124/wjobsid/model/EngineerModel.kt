@@ -7,5 +7,6 @@ data class EngineerModel(
     val en_job_title: String? = null,
     val en_job_type: String? = null,
     val en_domicile: String? = null,
+    val en_description: String? = null,
     val en_profile: String? = null
 )

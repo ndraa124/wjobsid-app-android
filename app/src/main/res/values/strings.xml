@@ -118,4 +118,12 @@
     <string name="start_exp">Date Start</string>
     <string name="end_exp">Date End</string>
     <string name="description_exp">Description</string>
+
+    <!-- Hire -->
+    <string name="project_hire">Project Hire</string>
+    <string name="instruction_hire">Please fill the project hire below</string>
+    <string name="select_project">Select Project</string>
+    <string name="price">Price</string>
+    <string name="process_hire">Process Hire</string>
+    <string name="project_price">Project Price</string>
 </resources>

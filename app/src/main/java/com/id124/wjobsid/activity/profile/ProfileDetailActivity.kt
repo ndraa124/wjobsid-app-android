@@ -1,10 +1,10 @@
 package com.id124.wjobsid.activity.profile
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.activity.hire.HireActivity
 import com.id124.wjobsid.activity.profile.fragment.ExperienceFragment
 import com.id124.wjobsid.activity.profile.fragment.PortfolioFragment
 import com.id124.wjobsid.databinding.ActivityProfileDetailBinding
@@ -38,7 +38,7 @@ class ProfileDetailActivity : BaseActivity<ActivityProfileDetailBinding>(), View
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.btn_hire -> {
-                Log.d("msg", "Hiring Process")
+                intents<HireActivity>(this@ProfileDetailActivity)
             }
         }
     }

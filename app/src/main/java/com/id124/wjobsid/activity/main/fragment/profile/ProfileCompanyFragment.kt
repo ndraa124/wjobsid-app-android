@@ -33,7 +33,7 @@ class ProfileCompanyFragment : BaseFragment<FragmentProfileCompanyBinding>(), Vi
                 startActivity(Intent(activity, SettingsActivity::class.java))
             }
             R.id.btn_logout -> {
-                logoutConfirmation(activity)
+                logoutConf(activity)
             }
         }
     }
