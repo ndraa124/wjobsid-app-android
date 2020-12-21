@@ -16,10 +16,9 @@ import com.id124.wjobsid.databinding.FragmentProfileEngineerBinding
 import com.id124.wjobsid.model.AccountModel
 import com.id124.wjobsid.model.EngineerModel
 import com.id124.wjobsid.model.SkillModel
+import com.id124.wjobsid.util.SharedPreference.Companion.AC_EMAIL
+import com.id124.wjobsid.util.SharedPreference.Companion.AC_NAME
 import com.id124.wjobsid.util.ViewPagerAdapter
-import kotlinx.android.synthetic.main.fragment_profile_company.view.*
-import kotlinx.android.synthetic.main.fragment_profile_engineer.*
-import kotlinx.android.synthetic.main.fragment_profile_engineer.view.*
 
 class ProfileEngineerFragment : BaseFragment<FragmentProfileEngineerBinding>(), View.OnClickListener {
     private var skillModel = ArrayList<SkillModel>()
@@ -31,10 +30,14 @@ class ProfileEngineerFragment : BaseFragment<FragmentProfileEngineerBinding>(), 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setContentViewEngineer(view)
+        setContentViewEngineer()
         setSkillRecyclerView()
 
-        bind.accountModel = AccountModel(ac_name = userDetail["AC_NAME"])
+        bind.accountModel = AccountModel(
+            ac_name = userDetail[AC_NAME],
+            ac_email = userDetail[AC_EMAIL],
+            ac_phone = "082192089334"
+        )
         bind.engineerModel = EngineerModel(
             en_job_title = "Android Developer",
             en_domicile = "Manado, Sulawesi Utara",
@@ -44,8 +47,8 @@ class ProfileEngineerFragment : BaseFragment<FragmentProfileEngineerBinding>(), 
         )
     }
 
-    private fun setContentViewEngineer(view: View) {
-        bind.tabLayout.setupWithViewPager(view.view_pager)
+    private fun setContentViewEngineer() {
+        bind.tabLayout.setupWithViewPager(bind.viewPager)
         val adapter = ViewPagerAdapter(childFragmentManager)
 
         adapter.addFrag(PortfolioFragment(), "Portfolio")
@@ -59,29 +62,7 @@ class ProfileEngineerFragment : BaseFragment<FragmentProfileEngineerBinding>(), 
 
     private fun setSkillRecyclerView() {
         bind.rvSkill.layoutManager = FlexboxLayoutManager(context)
-
-        skillModel = ArrayList()
-        skillModel.add(SkillModel(sk_skill_name = "PHP"))
-        skillModel.add(SkillModel(sk_skill_name = "Javascript"))
-        skillModel.add(SkillModel(sk_skill_name = "Dart"))
-        skillModel.add(SkillModel(sk_skill_name = "Kotlin"))
-        skillModel.add(SkillModel(sk_skill_name = "Java"))
-        skillModel.add(SkillModel(sk_skill_name = "HTML5"))
-        skillModel.add(SkillModel(sk_skill_name = "CSS3"))
-        skillModel.add(SkillModel(sk_skill_name = "C++"))
-        skillModel.add(SkillModel(sk_skill_name = "C#"))
-        skillModel.add(SkillModel(sk_skill_name = "C"))
-        skillModel.add(SkillModel(sk_skill_name = "Node JS"))
-        skillModel.add(SkillModel(sk_skill_name = "Express JS"))
-        skillModel.add(SkillModel(sk_skill_name = "React JS"))
-        skillModel.add(SkillModel(sk_skill_name = "Vue JS"))
-        skillModel.add(SkillModel(sk_skill_name = "Angular JS"))
-        skillModel.add(SkillModel(sk_skill_name = "CodeIgniter"))
-        skillModel.add(SkillModel(sk_skill_name = "Laravel"))
-        skillModel.add(SkillModel(sk_skill_name = "Spring"))
-        skillModel.add(SkillModel(sk_skill_name = "Golang"))
-        skillModel.add(SkillModel(sk_skill_name = "Python"))
-        skillModel.add(SkillModel(sk_skill_name = "Flutter"))
+        dataSkill()
 
         val adapter = ProfileSkillAdapter(skillModel)
         bind.rvSkill.adapter = adapter
@@ -105,6 +86,31 @@ class ProfileEngineerFragment : BaseFragment<FragmentProfileEngineerBinding>(), 
                 startActivity(Intent(activity, SkillActivity::class.java))
             }
         }
+    }
+
+    private fun dataSkill() {
+        skillModel = ArrayList()
+        skillModel.add(SkillModel(sk_skill_name = "PHP"))
+        skillModel.add(SkillModel(sk_skill_name = "Javascript"))
+        skillModel.add(SkillModel(sk_skill_name = "Dart"))
+        skillModel.add(SkillModel(sk_skill_name = "Kotlin"))
+        skillModel.add(SkillModel(sk_skill_name = "Java"))
+        skillModel.add(SkillModel(sk_skill_name = "HTML5"))
+        skillModel.add(SkillModel(sk_skill_name = "CSS3"))
+        skillModel.add(SkillModel(sk_skill_name = "C++"))
+        skillModel.add(SkillModel(sk_skill_name = "C#"))
+        skillModel.add(SkillModel(sk_skill_name = "C"))
+        skillModel.add(SkillModel(sk_skill_name = "Node JS"))
+        skillModel.add(SkillModel(sk_skill_name = "Express JS"))
+        skillModel.add(SkillModel(sk_skill_name = "React JS"))
+        skillModel.add(SkillModel(sk_skill_name = "Vue JS"))
+        skillModel.add(SkillModel(sk_skill_name = "Angular JS"))
+        skillModel.add(SkillModel(sk_skill_name = "CodeIgniter"))
+        skillModel.add(SkillModel(sk_skill_name = "Laravel"))
+        skillModel.add(SkillModel(sk_skill_name = "Spring"))
+        skillModel.add(SkillModel(sk_skill_name = "Golang"))
+        skillModel.add(SkillModel(sk_skill_name = "Python"))
+        skillModel.add(SkillModel(sk_skill_name = "Flutter"))
     }
 
     override fun onStart() {

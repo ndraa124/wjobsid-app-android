@@ -12,6 +12,7 @@ import com.id124.wjobsid.activity.profile.ProfileDetailActivity
 import com.id124.wjobsid.databinding.FragmentHomeBinding
 import com.id124.wjobsid.model.AccountModel
 import com.id124.wjobsid.model.EngineerModel
+import com.id124.wjobsid.util.SharedPreference.Companion.AC_NAME
 
 class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
     private var engineerModel = ArrayList<EngineerModel>()
@@ -24,7 +25,7 @@ class HomeFragment : BaseFragment<FragmentHomeBinding>(), View.OnClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        bind.accountModel = AccountModel(ac_name = userDetail["AC_NAME"])
+        bind.accountModel = AccountModel(ac_name = userDetail[AC_NAME])
         setupWebDevRecyclerView()
         setupAndroidDevRecyclerView()
 

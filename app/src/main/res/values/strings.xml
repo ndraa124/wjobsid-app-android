@@ -50,6 +50,7 @@
     <string name="back">Back</string>
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="back_to_profile">Back to profile</string>
+    <string name="contact">Contact</string>
 
     <!-- Preference Titles -->
     <string name="account_header">Account</string>
