@@ -5,7 +5,7 @@ import android.os.Handler
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.activity.main.MainActivity
 import com.id124.wjobsid.activity.onboarding.OnboardingActivity
 import com.id124.wjobsid.databinding.ActivitySplashBinding

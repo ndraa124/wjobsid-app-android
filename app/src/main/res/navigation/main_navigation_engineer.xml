@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/menu_home"
-        android:name="com.id124.wjobsid.activity.main.fragment.HomeFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/menu_search"
-        android:name="com.id124.wjobsid.activity.main.fragment.SearchFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.search.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" >
         <action
@@ -27,7 +27,7 @@
 
     <fragment
         android:id="@+id/menu_project"
-        android:name="com.id124.wjobsid.activity.main.fragment.ProjectFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.project.ProjectFragment"
         android:label="@string/project"
         tools:layout="@layout/fragment_project" >
         <action
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/menu_profile"
-        android:name="com.id124.wjobsid.activity.main.fragment.profile.ProfileEngineerFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.profile.engineer_user.ProfileEngineerFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_home" />
 

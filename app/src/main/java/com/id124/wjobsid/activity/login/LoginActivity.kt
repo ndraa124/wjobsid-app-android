@@ -2,79 +2,89 @@ package com.id124.wjobsid.activity.login
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
-import android.widget.EditText
-import com.google.android.material.textfield.TextInputLayout
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
-import com.id124.wjobsid.activity.forgetpassword.ForgetPasswordVerifyActivity
+import com.id124.wjobsid.activity.forget_password.ForgetPasswordVerifyActivity
 import com.id124.wjobsid.activity.main.MainActivity
 import com.id124.wjobsid.activity.onboarding.OnboardingActivity
 import com.id124.wjobsid.activity.signup.SignUpActivity
+import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityLoginBinding
-import kotlinx.android.synthetic.main.activity_login.*
+import com.id124.wjobsid.model.account.AccountResponse
+import com.id124.wjobsid.service.AccountApiService
+import com.id124.wjobsid.util.form_validate.ValidateAccount
+import kotlinx.coroutines.*
 
-class LoginActivity : BaseActivity<ActivityLoginBinding>(), View.OnClickListener {
+class LoginActivity : BaseActivityCoroutine<ActivityLoginBinding>(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_login
         super.onCreate(savedInstanceState)
+
+        initTextWatcher()
+    }
+
+    private fun initTextWatcher() {
+        bind.etEmail.addTextChangedListener(MyTextWatcher(bind.etEmail))
+        bind.etPassword.addTextChangedListener(MyTextWatcher(bind.etPassword))
     }
 
     override fun onClick(v: View?) {
-        val acLevel = intent.getIntExtra("level", 0)
-
         when (v?.id) {
             R.id.tv_forget_password -> {
                 intents<ForgetPasswordVerifyActivity>(this@LoginActivity)
             }
             R.id.tv_sign_up -> {
                 val intentAct = Intent(this@LoginActivity, SignUpActivity::class.java)
-                intentAct.putExtra("level", acLevel)
+                intentAct.putExtra("level", intent.getIntExtra("level", 0))
                 startActivity(intentAct)
             }
             R.id.btn_login -> {
                 when {
-                    bind.etEmail.text.toString().isEmpty() -> {
-                        valTextLayout(input_layout_password)
-                        valEditText(input_layout_email, et_email, "Please enter your email!")
-                    }
-                    bind.etPassword.text.toString().isEmpty() -> {
-                        valTextLayout(input_layout_email)
-                        valEditText(input_layout_password, et_password, "Please enter your password!")
-                    }
+                    !ValidateAccount.valEmail(bind.inputLayoutEmail, bind.etEmail) -> {}
+                    !ValidateAccount.valPassword(bind.inputLayoutPassword, bind.etPassword) -> {}
                     else -> {
-                        valTextLayout(input_layout_email)
-                        valTextLayout(input_layout_password)
-
-                        sharedPref.createAccountUser(acLevel, "Indra David Pesik", et_email.text.toString(), "1234567890")
-                        intents<MainActivity>(this@LoginActivity)
-                        this@LoginActivity.finish()
+                        loginAccount()
                     }
                 }
             }
         }
     }
 
-    private fun valTextLayout(inputLayout: TextInputLayout) {
-        inputLayout.isHelperTextEnabled = false
-    }
+    private fun loginAccount() {
+        val service = createApi<AccountApiService>(this@LoginActivity)
 
-    private fun valEditText(inputLayout: TextInputLayout, editText: EditText, hint: String) {
-        val text = editText.text.toString().trim()
+        coroutineScope.launch {
+            val response = withContext(Dispatchers.IO) {
+                try {
+                    service.loginAccount(
+                        email = bind.etEmail.text.toString(),
+                        password = bind.etPassword.text.toString()
+                    )
+                } catch (t: Throwable) {
+                    Log.e("msg", "${t.message}")
+                }
+            }
 
-        if (text.isEmpty()) {
-            inputLayout.isHelperTextEnabled = true
-            inputLayout.helperText = hint
-            editText.requestFocus()
-        } else {
-            inputLayout.isHelperTextEnabled = false
+            if (response is AccountResponse) {
+                val data = response.data
+                sharedPref.createAccountUser(data.acLevel, data.acName, data.acEmail, data.token)
+
+                intents<MainActivity>(this@LoginActivity)
+                this@LoginActivity.finish()
+            }
         }
     }
 
     override fun onBackPressed() {
         super.onBackPressed()
+
         intents<OnboardingActivity>(this@LoginActivity)
         this@LoginActivity.finish()
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
     }
+
+    inner class MyTextWatcher(private val view: View) : TextWatcher
 }

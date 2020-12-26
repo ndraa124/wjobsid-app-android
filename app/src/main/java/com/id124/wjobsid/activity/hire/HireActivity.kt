@@ -3,7 +3,7 @@ package com.id124.wjobsid.activity.hire
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.databinding.ActivityHireBinding
 
 class HireActivity : BaseActivity<ActivityHireBinding>(), View.OnClickListener {

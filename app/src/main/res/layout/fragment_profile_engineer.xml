@@ -8,11 +8,11 @@
 
         <variable
             name="accountModel"
-            type="com.id124.wjobsid.model.AccountModel" />
+            type="com.id124.wjobsid.model.account.AccountModel" />
 
         <variable
             name="engineerModel"
-            type="com.id124.wjobsid.model.EngineerModel" />
+            type="com.id124.wjobsid.model.engineer.EngineerModel" />
     </data>
 
     <ScrollView
@@ -79,7 +79,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="18dp"
                         android:fontFamily="sans-serif-thin"
-                        android:text="@{accountModel.ac_name}"
+                        android:text="@{accountModel.acName}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="24sp"
@@ -95,7 +95,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{engineerModel.en_job_title}"
+                        android:text="@{engineerModel.enJobTitle}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -103,16 +103,32 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
+                    <TextView
+                        android:id="@+id/tv_job_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="5dp"
+                        android:fontFamily="sans-serif-condensed"
+                        android:text="@{engineerModel.enJobType}"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray_700"
+                        android:textSize="16sp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_job_title" />
+
                     <LinearLayout
                         android:id="@+id/ln_domicile"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center"
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_job_title"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_job_type"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
@@ -127,26 +143,11 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="5dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{engineerModel.en_domicile}"
+                            android:text="@{engineerModel.enDomicile}"
                             android:textAlignment="center"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
                     </LinearLayout>
-
-                    <TextView
-                        android:id="@+id/tv_job_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginHorizontal="16dp"
-                        android:layout_marginTop="5dp"
-                        android:fontFamily="sans-serif-condensed"
-                        android:text="@{engineerModel.en_job_type}"
-                        android:textAlignment="center"
-                        android:textColor="@color/gray_700"
-                        android:textSize="16sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ln_domicile" />
 
                     <TextView
                         android:id="@+id/tv_description"
@@ -155,13 +156,13 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{engineerModel.en_description}"
+                        android:text="@{engineerModel.enDescription}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_job_type" />
+                        app:layout_constraintTop_toBottomOf="@+id/ln_domicile" />
 
                     <Button
                         android:id="@+id/btn_edit_engineer"
@@ -264,7 +265,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{accountModel.ac_email}"
+                            android:text="@{accountModel.acEmail}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -272,7 +273,7 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:id="@+id/ln_instagram"
+                        android:id="@+id/ln_phone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
@@ -296,7 +297,7 @@
                             android:layout_marginHorizontal="16dp"
                             android:layout_marginBottom="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{accountModel.ac_phone}"
+                            android:text="@{accountModel.acPhone}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />

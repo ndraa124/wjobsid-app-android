@@ -2,13 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.main.fragment.HomeFragment">
+    tools:context=".activity.main.fragment.home.HomeFragment">
 
     <data>
 
         <variable
-            name="AccountModel"
-            type="com.id124.wjobsid.model.AccountModel" />
+            name="accountModel"
+            type="com.id124.wjobsid.model.account.AccountModel" />
+
+        <variable
+            name="title"
+            type="String" />
     </data>
 
     <ScrollView
@@ -56,13 +60,14 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/tv_date_today"
+                android:id="@+id/tv_company"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
                 android:fontFamily="sans-serif-thin"
-                android:text="@string/dummy_date"
+                android:minLines="1"
+                android:text="@{title}"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textSize="16sp"
@@ -79,14 +84,14 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:fontFamily="sans-serif-thin"
-                android:text="@{AccountModel.ac_name}"
+                android:text="@{accountModel.acName}"
                 android:textAlignment="textStart"
                 android:textColor="@color/white"
                 android:textSize="24sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_date_today" />
+                app:layout_constraintTop_toBottomOf="@+id/tv_company" />
 
             <TextView
                 android:id="@+id/tv_web"

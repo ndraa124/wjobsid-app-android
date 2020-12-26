@@ -5,7 +5,7 @@ import android.util.Log
 import android.view.View
 import android.webkit.WebSettings
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.activity.github.client.ChromeClient
 import com.id124.wjobsid.activity.github.client.WebClient
 import com.id124.wjobsid.activity.github.client.WebViewListener

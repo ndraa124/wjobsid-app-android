@@ -7,7 +7,7 @@ import androidx.preference.ListPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.databinding.ActivitySettingsEngineerBinding
 
 class SettingsActivity : BaseActivity<ActivitySettingsEngineerBinding>() {

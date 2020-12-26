@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemSkillBinding
-import com.id124.wjobsid.model.SkillModel
+import com.id124.wjobsid.model.skill.SkillModel
 
 class ProfileSkillAdapter(private val model: ArrayList<SkillModel>) : RecyclerView.Adapter<ProfileSkillAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemSkillBinding

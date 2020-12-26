@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.databinding.ActivityExperienceBinding
 import kotlinx.android.synthetic.main.activity_experience.*
 import java.text.SimpleDateFormat

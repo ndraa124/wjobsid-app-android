@@ -4,6 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.main.MainActivity">
 
+    <data>
+
+        <variable
+            name="accountModel"
+            type="com.id124.wjobsid.model.account.AccountModel" />
+
+        <variable
+            name="companyModel"
+            type="com.id124.wjobsid.model.company.CompanyModel" />
+    </data>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,13 +73,13 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/tv_name"
+                        android:id="@+id/tv_company"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="18dp"
                         android:fontFamily="sans-serif-thin"
-                        android:text="PT. Technology Associate"
+                        android:text="@{companyModel.cn_company}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="24sp"
@@ -78,62 +89,65 @@
                         app:layout_constraintTop_toBottomOf="@+id/iv_image_profile" />
 
                     <TextView
-                        android:id="@+id/tv_job_title"
+                        android:id="@+id/tv_position"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Chief Technology Officer"
+                        android:text="@{companyModel.cn_position}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
-                    <LinearLayout
-                        android:id="@+id/ln_domicile"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_job_title">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:src="@drawable/ic_place_maker" />
-
-                        <TextView
-                            android:id="@+id/tv_domicile"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginHorizontal="5dp"
-                            android:fontFamily="sans-serif-condensed"
-                            android:text="Palu, Sulawesi Tengah"
-                            android:textAlignment="center"
-                            android:textColor="@color/gray_700"
-                            android:textSize="16sp" />
-                    </LinearLayout>
+                        app:layout_constraintTop_toBottomOf="@+id/tv_company" />
 
                     <TextView
-                        android:id="@+id/tv_job_type"
+                        android:id="@+id/tv_field"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Financial"
+                        android:text="@{companyModel.cn_field}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ln_domicile" />
+                        app:layout_constraintTop_toBottomOf="@+id/tv_position" />
+
+                    <LinearLayout
+                        android:id="@+id/ln_city"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/tv_field"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/img_icon"
+                            android:src="@drawable/ic_place_maker" />
+
+                        <TextView
+                            android:id="@+id/tv_city"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="5dp"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@{companyModel.cn_city}"
+                            android:textAlignment="center"
+                            android:textColor="@color/gray_700"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_description"
@@ -142,13 +156,13 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at. "
+                        android:text="@{companyModel.cn_description}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/tv_job_type" />
+                        app:layout_constraintTop_toBottomOf="@+id/ln_city" />
 
                     <Button
                         android:id="@+id/btn_edit_company"
@@ -209,7 +223,7 @@
                         android:layout_marginTop="24dp"
                         android:layout_marginBottom="16dp"
                         android:fontFamily="sans-serif-thin"
-                        android:text="Email &amp; Social Media"
+                        android:text="@string/contact"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"
                         android:textSize="18sp"
@@ -252,7 +266,38 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="Palu, Sulawesi Tengah"
+                            android:text="@{accountModel.acEmail}"
+                            android:textAlignment="textStart"
+                            android:textColor="@color/gray_700"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/ln_phone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="14dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/ln_email"
+                        tools:ignore="UseCompoundDrawables">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:contentDescription="@string/img_icon"
+                            android:src="@drawable/ic_call" />
+
+                        <TextView
+                            android:id="@+id/tv_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginHorizontal="16dp"
+                            android:fontFamily="sans-serif-condensed"
+                            android:text="@{accountModel.acPhone}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -268,7 +313,7 @@
                         android:orientation="horizontal"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/ln_email"
+                        app:layout_constraintTop_toBottomOf="@+id/ln_phone"
                         tools:ignore="UseCompoundDrawables">
 
                         <ImageView
@@ -283,7 +328,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="\@teckassociate"
+                            android:text="@{companyModel.cn_instagram}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -316,7 +361,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="\@teckassociate"
+                            android:text="@{companyModel.cn_linkedin}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />

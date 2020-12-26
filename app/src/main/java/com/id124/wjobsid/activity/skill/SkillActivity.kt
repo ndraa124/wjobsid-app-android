@@ -3,7 +3,7 @@ package com.id124.wjobsid.activity.skill
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.databinding.ActivitySkillBinding
 
 class SkillActivity : BaseActivity<ActivitySkillBinding>(), View.OnClickListener {

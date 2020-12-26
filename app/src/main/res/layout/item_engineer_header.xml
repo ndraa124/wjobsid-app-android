@@ -6,7 +6,7 @@
 
         <variable
             name="engineer"
-            type="com.id124.wjobsid.model.EngineerModel" />
+            type="com.id124.wjobsid.model.engineer.EngineerModel" />
 
     </data>
 

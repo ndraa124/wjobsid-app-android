@@ -3,7 +3,7 @@ package com.id124.wjobsid.activity.portfolio
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.databinding.ActivityPortfolioBinding
 
 class PortfolioActivity : BaseActivity<ActivityPortfolioBinding>(), View.OnClickListener {

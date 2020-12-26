@@ -6,7 +6,7 @@
 
         <variable
             name="experience"
-            type="com.id124.wjobsid.model.ExperienceModel" />
+            type="com.id124.wjobsid.model.experience.ExperienceModel" />
     </data>
 
     <androidx.cardview.widget.CardView

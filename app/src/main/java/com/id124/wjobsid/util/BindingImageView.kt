@@ -11,7 +11,7 @@ import com.bumptech.glide.request.transition.Transition
 import com.id124.wjobsid.R
 
 @BindingAdapter("loadImage")
-fun loadImage(iv_image_profile: ImageView, url: String) {
+fun loadImage(iv_image_profile: ImageView, url: String?) {
     Glide.with(iv_image_profile.context)
         .asBitmap()
         .load(url)

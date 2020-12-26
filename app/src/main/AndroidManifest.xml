@@ -34,7 +34,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.profile.ProfileDetailActivity"
+            android:name=".activity.detail_profile.ProfileDetailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
@@ -42,11 +42,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.forgetpassword.ForgetPasswordActivity"
+            android:name=".activity.forget_password.ForgetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.forgetpassword.ForgetPasswordVerifyActivity"
+            android:name=".activity.forget_password.ForgetPasswordVerifyActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity

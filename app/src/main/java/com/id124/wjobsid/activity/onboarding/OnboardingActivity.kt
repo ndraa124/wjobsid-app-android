@@ -3,9 +3,8 @@ package com.id124.wjobsid.activity.onboarding
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.bumptech.glide.Glide
 import com.id124.wjobsid.R
-import com.id124.wjobsid.activity.BaseActivity
+import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.activity.login.LoginActivity
 import com.id124.wjobsid.databinding.ActivityOnboardingBinding
 

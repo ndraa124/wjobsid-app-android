@@ -43,6 +43,10 @@ class SharedPreference(private val context: Context) {
         return user
     }
 
+    fun getToken(): String? {
+        return sharedPreferences.getString(TOKEN, "Not set")
+    }
+
     fun getLevelUser(): Int {
         return sharedPreferences.getInt(AC_LEVEL, 0)
     }

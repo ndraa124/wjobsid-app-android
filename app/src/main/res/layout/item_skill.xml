@@ -5,7 +5,7 @@
 
         <variable
             name="skill"
-            type="com.id124.wjobsid.model.SkillModel" />
+            type="com.id124.wjobsid.model.skill.SkillModel" />
     </data>
 
     <TextView
