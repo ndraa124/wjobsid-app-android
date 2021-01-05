@@ -17,12 +17,5 @@ fun loadImage(iv_image_profile: ImageView, url: String?) {
         .load(url)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
         .placeholder(R.drawable.ic_logo_blue)
-        .into(object : CustomTarget<Bitmap?>() {
-            override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap?>?) {
-                iv_image_profile.setImageBitmap(resource)
-                iv_image_profile.buildLayer()
-            }
-
-            override fun onLoadCleared(placeholder: Drawable?) {}
-        })
+        .into(iv_image_profile)
 }

@@ -116,7 +116,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_company">
 
                 <EditText
-                    android:id="@+id/et_pub_link"
+                    android:id="@+id/et_company"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/form_input_white"
@@ -202,11 +202,12 @@
                     android:background="@drawable/form_input_white"
                     android:clickable="true"
                     android:focusable="true"
-                    android:focusableInTouchMode="true"
+                    android:focusableInTouchMode="false"
                     android:gravity="top"
                     android:hint="@string/end_exp"
                     android:importantForAutofill="no"
                     android:inputType="text"
+                    android:onClick="onClick"
                     android:padding="18dp"
                     android:paddingBottom="10dp" />
 
@@ -245,7 +246,6 @@
                     android:hint="@string/description_exp"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
-                    android:maxLength="5"
                     android:minLines="5"
                     android:padding="18dp"
                     android:paddingBottom="10dp" />
@@ -267,6 +267,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_description" />
 
+            <Button
+                android:id="@+id/btn_delete_experience"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:backgroundTint="@color/red"
+                android:onClick="onClick"
+                android:padding="14dp"
+                android:text="@string/delete_experience"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_experience" />
+
             <LinearLayout
                 android:id="@+id/ln_back"
                 android:layout_width="match_parent"
@@ -278,7 +293,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_experience"
+                app:layout_constraintTop_toBottomOf="@+id/btn_delete_experience"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView
@@ -296,7 +311,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="24dp"
                     android:fontFamily="sans-serif"
-                    android:text="@string/back_to_profile"
+                    android:text="@string/back_to_project"
                     android:textColor="@color/gray_500"
                     android:textSize="14sp"
                     android:textStyle="bold" />

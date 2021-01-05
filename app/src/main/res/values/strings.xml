@@ -72,6 +72,7 @@
     <string name="cn_company">Company Name</string>
     <string name="cn_position">Position in Company</string>
     <string name="cn_field">Field</string>
+    <string name="cn_city">City</string>
     <string name="cn_description">Description</string>
     <string name="cn_instagram">Instagram</string>
     <string name="cn_linkedin">LinkedIn</string>
@@ -87,6 +88,8 @@
 
     <!-- Skill -->
     <string name="add_skill">ADD SKILL</string>
+    <string name="update_skill">UPDATE SKILL</string>
+    <string name="delete_skill">DELETE SKILL</string>
     <string name="instruction_add_skill">Please fill the skill for add new skill below</string>
     <string name="new_skill">New Skill</string>
     <string name="skill_hint">Your new skill</string>
@@ -94,6 +97,8 @@
 
     <!-- Portfolio -->
     <string name="add_portfolio">ADD PORTFOLIO</string>
+    <string name="update_portfolio">UPDATE PORTFOLIO</string>
+    <string name="delete_portfolio">DELETE PORTFOLIO</string>
     <string name="instruction_add_portfolio">Please fill the portfolio for add new portfolio below</string>
     <string name="app_name_portfolio">App Name</string>
     <string name="description">Description</string>
@@ -113,6 +118,8 @@
 
     <!-- Experience -->
     <string name="add_experience">ADD EXPERIENCE</string>
+    <string name="update_experience">UPDATE EXPERIENCE</string>
+    <string name="delete_experience">DELETE EXPERIENCE</string>
     <string name="instruction_add_experience">Please fill the experience for add new experience below</string>
     <string name="position_exp">Position</string>
     <string name="company_exp">Company</string>
@@ -121,10 +128,48 @@
     <string name="description_exp">Description</string>
 
     <!-- Hire -->
-    <string name="project_hire">Project Hire</string>
+    <string name="project_hire">PROJECT HIRE</string>
     <string name="instruction_hire">Please fill the project hire below</string>
     <string name="select_project">Select Project</string>
     <string name="price">Price</string>
     <string name="process_hire">Process Hire</string>
-    <string name="project_price">Project Price</string>
+    <string name="project_price">Project price (ex: 15000000)</string>
+    <string name="short_message">Short message of yout project hiring</string>
+    <string name="message_hire">Hire Message</string>
+
+    <!-- Project -->
+    <string name="add_project">ADD PROJECT</string>
+    <string name="update_project">UPDATE PROJECT</string>
+    <string name="delete_project">DELETE PROJECT</string>
+    <string name="instruction_add_project">Please fill the project for add new project below</string>
+    <string name="project_name">Project Name</string>
+    <string name="project_name_hint">Your project name</string>
+    <string name="project_description">Description</string>
+    <string name="project_description_hint">Description of your project</string>
+    <string name="project_deadline">Project Deadline</string>
+    <string name="project_deadline_hint">Deadline of your project</string>
+    <string name="back_to_project">Back to list project</string>
+    <string name="detail_project">Detail Project</string>
+    <string name="project_data_not_found">No project data. Please add data!</string>
+
+    <!-- Not set -->
+    <string name="ac_name_not_set">Name Not Set</string>
+    <string name="en_job_title_not_set">Job Title Not Set</string>
+    <string name="en_job_type_not_set">Job Type Not Set</string>
+    <string name="en_domicile_not_set">Domicile Not Set</string>
+    <string name="en_description_not_set">Description Not Set</string>
+
+    <!-- Not set -->
+    <string name="cn_company_not_set">Company Not Set</string>
+    <string name="cn_position_not_set">Position Not Set</string>
+    <string name="cn_field_not_set">Field Not Set</string>
+    <string name="cn_city_not_set">City Not Set</string>
+    <string name="cn_description_not_set">Description Not Set</string>
+
+    <!-- Hiring -->
+    <string name="hire_project_name">Project Name</string>
+    <string name="hire_project_description">Description</string>
+    <string name="hire_project_deadline">Deadline Project</string>
+    <string name="hire_approve">Approve</string>
+    <string name="hire_reject">Reject</string>
 </resources>

@@ -15,6 +15,9 @@ class SharedPreference(private val context: Context) {
         const val AC_DETAIL = "AC_DETAIL"
         const val AC_EMAIL = "AC_EMAIL"
         const val AC_NAME = "AC_NAME"
+        const val AC_ID = "AC_ID"
+        const val EN_ID = "EN_ID"
+        const val CN_ID = "CN_ID"
     }
 
     private val sharedPreferences: SharedPreferences = context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
@@ -25,12 +28,20 @@ class SharedPreference(private val context: Context) {
         editor.commit()
     }
 
-    fun createAccountUser(acLevel: Int, acName: String, acEmail: String, token: String) {
+    fun createAccountUser(id: Int, acId: Int, acLevel: Int, acName: String, acEmail: String, token: String) {
         editor.putBoolean(LOGIN, true)
         editor.putInt(AC_LEVEL, acLevel)
         editor.putString(AC_NAME, acName)
         editor.putString(AC_EMAIL, acEmail)
         editor.putString(TOKEN, token)
+        editor.putInt(AC_ID, acId)
+
+        if (acLevel == 0) {
+            editor.putInt(EN_ID, id)
+        } else {
+            editor.putInt(CN_ID, id)
+        }
+
         editor.commit()
     }
 
@@ -57,6 +68,18 @@ class SharedPreference(private val context: Context) {
 
     fun getIsLogin(): Boolean {
         return sharedPreferences.getBoolean(LOGIN, false)
+    }
+
+    fun getIdAccount(): Int {
+        return sharedPreferences.getInt(AC_ID, 0)
+    }
+
+    fun getIdEngineer(): Int {
+        return sharedPreferences.getInt(EN_ID, 0)
+    }
+
+    fun getIdCompany(): Int {
+        return sharedPreferences.getInt(CN_ID, 0)
     }
 
     fun checkIsLogin() {

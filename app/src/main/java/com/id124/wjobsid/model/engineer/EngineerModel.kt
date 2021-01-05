@@ -1,8 +1,8 @@
 package com.id124.wjobsid.model.engineer
 
 data class EngineerModel(
-    val enId: String,
-    val acId: String,
+    val enId: Int,
+    val acId: Int,
     val acName: String,
     val enJobTitle: String? = null,
     val enJobType: String? = null,

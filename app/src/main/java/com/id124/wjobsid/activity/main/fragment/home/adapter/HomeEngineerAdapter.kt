@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemEngineerBinding
 import com.id124.wjobsid.model.engineer.EngineerModel
+import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 
 class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemEngineerBinding
@@ -21,6 +22,7 @@ class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerVie
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(en: EngineerModel) {
             bind.engineer = en
+            bind.imageUrl = BASE_URL_IMAGE + en.enProfile
             bind.executePendingBindings()
 
             itemView.setOnClickListener {

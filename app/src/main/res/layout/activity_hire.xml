@@ -77,7 +77,6 @@
                 android:paddingHorizontal="4dp"
                 android:paddingVertical="16dp"
                 android:spinnerMode="dropdown"
-                android:entries="@array/project_list_entries"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_project" />
@@ -127,14 +126,14 @@
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="18dp"
                 android:fontFamily="sans-serif"
-                android:text="@string/description"
+                android:text="@string/message_hire"
                 android:textColor="@color/gray_500"
                 android:textSize="14sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_price" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_layout_description"
+                android:id="@+id/input_layout_message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -145,15 +144,14 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_description">
 
                 <EditText
-                    android:id="@+id/et_description"
+                    android:id="@+id/et_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/form_input_white"
                     android:gravity="top"
-                    android:hint="@string/description_hint"
+                    android:hint="@string/short_message"
                     android:importantForAutofill="no"
                     android:inputType="textMultiLine"
-                    android:maxLength="5"
                     android:minLines="5"
                     android:padding="18dp"
                     android:paddingBottom="10dp" />
@@ -173,7 +171,7 @@
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_description" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_message" />
 
             <LinearLayout
                 android:id="@+id/ln_back"

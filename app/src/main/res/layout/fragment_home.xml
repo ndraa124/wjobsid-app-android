@@ -93,59 +93,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_company" />
 
-            <TextView
-                android:id="@+id/tv_web"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_engineer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="32dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="@string/web_developer"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/v_background" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_web"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_web" />
-
-            <TextView
-                android:id="@+id/tv_android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="32dp"
-                android:fontFamily="sans-serif-thin"
-                android:text="@string/android_developer"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/rv_web" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/tv_android" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

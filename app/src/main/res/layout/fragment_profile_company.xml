@@ -13,6 +13,10 @@
         <variable
             name="companyModel"
             type="com.id124.wjobsid.model.company.CompanyModel" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <ScrollView
@@ -64,13 +68,14 @@
                         android:layout_marginTop="32dp"
                         android:contentDescription="@string/img_profile"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img_users"
+                        android:src="@drawable/bg_onboarding"
                         app:barrierMargin="2dp"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:loadImage="@{imageUrl}" />
 
                     <TextView
                         android:id="@+id/tv_company"
@@ -79,7 +84,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="18dp"
                         android:fontFamily="sans-serif-thin"
-                        android:text="@{companyModel.cn_company}"
+                        android:text="@{companyModel.cn_company != null ? companyModel.cn_company : @string/cn_company_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="24sp"
@@ -95,7 +100,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{companyModel.cn_position}"
+                        android:text="@{companyModel.cn_position != null ? companyModel.cn_position : @string/cn_position_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -110,7 +115,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{companyModel.cn_field}"
+                        android:text="@{companyModel.cn_field != null ? companyModel.cn_field : @string/cn_field_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
@@ -143,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="5dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{companyModel.cn_city}"
+                            android:text="@{companyModel.cn_city != null ? companyModel.cn_city : @string/cn_city_not_set}"
                             android:textAlignment="center"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -156,7 +161,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{companyModel.cn_description}"
+                        android:text="@{companyModel.cn_description != null ? companyModel.cn_description : @string/cn_description_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"

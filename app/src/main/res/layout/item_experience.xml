@@ -7,6 +7,10 @@
         <variable
             name="experience"
             type="com.id124.wjobsid.model.experience.ExperienceModel" />
+
+        <variable
+            name="rangeDate"
+            type="String" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -28,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
-                android:text="@{experience.ex_potition}"
+                android:text="@{experience.ex_position}"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -51,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="5dp"
-                android:text="@{experience.ex_start + experience.ex_end}"
+                android:text="@{experience.ex_start + ` - ` + experience.ex_end}"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
                 android:textSize="16sp" />
@@ -62,7 +66,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="5dp"
-                android:text="14 months"
+                android:text="@{rangeDate}"
                 android:textAlignment="textStart"
                 android:textColor="@color/gray_500"
                 android:textSize="16sp" />

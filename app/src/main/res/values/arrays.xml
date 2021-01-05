@@ -5,8 +5,8 @@
     </string-array>
 
     <string-array name="job_title_values">
-        <item>web developer</item>
-        <item>android developer</item>
+        <item>Web Developer</item>
+        <item>Android Developer</item>
     </string-array>
 
     <string-array name="job_type_entries">

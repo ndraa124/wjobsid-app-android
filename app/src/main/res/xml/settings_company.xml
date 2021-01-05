@@ -48,6 +48,12 @@
 
         <EditTextPreference
             app:iconSpaceReserved="false"
+            app:key="cn_city"
+            app:title="@string/cn_city"
+            app:useSimpleSummaryProvider="true" />
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
             app:key="cn_description"
             app:title="@string/cn_description"
             app:useSimpleSummaryProvider="true" />

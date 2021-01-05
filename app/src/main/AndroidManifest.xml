@@ -1,9 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.id124.wjobsid">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -13,6 +22,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.WJobsID"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
+        <activity
+            android:name=".base.ImagePickerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
+        <activity
+            android:name=".activity.detail_project.DetailProjectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
+        <activity
+            android:name=".activity.project.ProjectActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
             android:name=".activity.hire.HireActivity"
             android:screenOrientation="portrait"
@@ -75,6 +100,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
     </application>
 
 </manifest>

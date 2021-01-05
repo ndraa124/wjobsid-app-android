@@ -8,13 +8,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemPortfolioBinding
 import com.id124.wjobsid.model.portfolio.PortfolioModel
+import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 
-class ProfileDetailPortfolioAdapter(private val model: List<PortfolioModel>) : RecyclerView.Adapter<ProfileDetailPortfolioAdapter.RecyclerViewHolder>() {
+class ProfileDetailPortfolioAdapter : RecyclerView.Adapter<ProfileDetailPortfolioAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemPortfolioBinding
+    private var items = mutableListOf<PortfolioModel>()
 
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(portfolio: PortfolioModel) {
-            bind.imageUrl = portfolio.pr_image
+            bind.imageUrl = BASE_URL_IMAGE + portfolio.pr_image
             bind.executePendingBindings()
         }
     }
@@ -25,10 +27,16 @@ class ProfileDetailPortfolioAdapter(private val model: List<PortfolioModel>) : R
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder.bind(model[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return model.size
+        return items.size
+    }
+
+    fun addList(list: List<PortfolioModel>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
     }
 }

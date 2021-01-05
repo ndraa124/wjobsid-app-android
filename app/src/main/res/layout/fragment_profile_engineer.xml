@@ -13,6 +13,10 @@
         <variable
             name="engineerModel"
             type="com.id124.wjobsid.model.engineer.EngineerModel" />
+
+        <variable
+            name="imageUrl"
+            type="String" />
     </data>
 
     <ScrollView
@@ -64,13 +68,14 @@
                         android:layout_marginTop="32dp"
                         android:contentDescription="@string/img_profile"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/img_users"
+                        android:src="@drawable/bg_onboarding"
                         app:barrierMargin="2dp"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="4dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:loadImage="@{imageUrl}" />
 
                     <TextView
                         android:id="@+id/tv_name"
@@ -95,7 +100,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{engineerModel.enJobTitle}"
+                        android:text="@{engineerModel.enJobTitle != null ? engineerModel.enJobTitle : @string/en_job_title_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:textSize="16sp"
@@ -110,7 +115,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="5dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{engineerModel.enJobType}"
+                        android:text="@{engineerModel.enJobType != null ? engineerModel.enJobType : @string/en_job_type_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"
@@ -143,7 +148,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="5dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{engineerModel.enDomicile}"
+                            android:text="@{engineerModel.enDomicile != null ? engineerModel.enDomicile : @string/en_domicile_not_set}"
                             android:textAlignment="center"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -156,7 +161,7 @@
                         android:layout_marginHorizontal="16dp"
                         android:layout_marginTop="16dp"
                         android:fontFamily="sans-serif-condensed"
-                        android:text="@{engineerModel.enDescription}"
+                        android:text="@{engineerModel.enDescription != null ? engineerModel.enDescription : @string/en_description_not_set}"
                         android:textAlignment="center"
                         android:textColor="@color/gray_700"
                         android:textSize="16sp"

@@ -5,17 +5,17 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
-import com.id124.wjobsid.base.BaseFragment
-import com.id124.wjobsid.activity.experience.ExperienceActivity
 import com.id124.wjobsid.activity.detail_profile.fragment.experience.adapter.ProfileDetailExperienceAdapter
+import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentExperienceBinding
 import com.id124.wjobsid.model.experience.ExperienceModel
-import kotlinx.android.synthetic.main.fragment_experience.view.*
-import kotlinx.android.synthetic.main.fragment_portfolio.view.*
+import com.id124.wjobsid.model.experience.ExperienceResponse
+import com.id124.wjobsid.service.ExperienceApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DetailProfileExperienceFragment : BaseFragment<FragmentExperienceBinding>(), View.OnClickListener {
-    private var experienceModel = ArrayList<ExperienceModel>()
-
+class DetailProfileExperienceFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentExperienceBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_experience
         super.onCreate(savedInstanceState)
@@ -31,52 +31,46 @@ class DetailProfileExperienceFragment : BaseFragment<FragmentExperienceBinding>(
         }
 
         setupExperienceRecyclerView()
-        bind.btnAddExperience.setOnClickListener(this@DetailProfileExperienceFragment)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        setExperience()
     }
 
     private fun setupExperienceRecyclerView() {
         bind.rvExperience.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        experienceModel = ArrayList()
-        experienceModel.add(
-            ExperienceModel(
-            ex_potition = "Web Developer",
-            ex_company = "PT. Kawanua Tech",
-            ex_start = "January 2019 - ",
-            ex_end = "March 2020",
-            ex_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, " +
-                    "mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
-        )
-        )
-        experienceModel.add(
-            ExperienceModel(
-            ex_potition = "Android Developer",
-            ex_company = "PT. Telkom Indonesia",
-            ex_start = "April 2018 - ",
-            ex_end = "June 2020",
-            ex_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, " +
-                    "mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
-        )
-        )
-        experienceModel.add(
-            ExperienceModel(
-            ex_potition = "Android Developer",
-            ex_company = "PT. Bank Central Indonesia",
-            ex_start = "June 2019 - ",
-            ex_end = "September 2020",
-            ex_description = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum erat orci, " +
-                    "mollis nec gravida sed, ornare quis urna. Curabitur eu lacus fringilla, vestibulum risus at."
-        )
-        )
-
-        val adapter = ProfileDetailExperienceAdapter(experienceModel)
+        val adapter = ProfileDetailExperienceAdapter()
         bind.rvExperience.adapter = adapter
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_add_experience -> {
-                intents<ExperienceActivity>(activity)
+    private fun setExperience() {
+        val service = createApi<ExperienceApiService>(activity)
+
+        coroutineScope.launch {
+            val response = withContext(Dispatchers.IO) {
+                try {
+                    service.getAllExperience(enId)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (response is ExperienceResponse) {
+                val list = response.data.map {
+                    ExperienceModel(
+                        ex_id = it.exId,
+                        en_id = it.enId,
+                        ex_position = it.exPosition,
+                        ex_company = it.exCompany,
+                        ex_start = it.exStart.split('T')[0] + " - ",
+                        ex_end = it.exEnd.split('T')[0],
+                        ex_description = it.exDescription
+                    )
+                }
+
+                (bind.rvExperience.adapter as ProfileDetailExperienceAdapter).addList(list)
             }
         }
     }

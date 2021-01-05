@@ -8,14 +8,25 @@ import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemPortfolioBinding
 import com.id124.wjobsid.model.portfolio.PortfolioModel
+import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 
-class ProfilePortfolioAdapter(private val model: List<PortfolioModel>) : RecyclerView.Adapter<ProfilePortfolioAdapter.RecyclerViewHolder>() {
+class ProfilePortfolioAdapter : RecyclerView.Adapter<ProfilePortfolioAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemPortfolioBinding
+    private lateinit var onItemClickCallback: OnItemClickCallback
+    private var items = mutableListOf<PortfolioModel>()
+
+    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
+        this.onItemClickCallback = onItemClickCallback
+    }
 
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(portfolio: PortfolioModel) {
-            bind.imageUrl = portfolio.pr_image
+            bind.imageUrl = BASE_URL_IMAGE + portfolio.pr_image
             bind.executePendingBindings()
+
+            itemView.setOnClickListener {
+                onItemClickCallback.onItemClick(portfolio)
+            }
         }
     }
 
@@ -25,10 +36,20 @@ class ProfilePortfolioAdapter(private val model: List<PortfolioModel>) : Recycle
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder.bind(model[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return model.size
+        return items.size
+    }
+
+    interface OnItemClickCallback {
+        fun onItemClick(data: PortfolioModel)
+    }
+
+    fun addList(list: List<PortfolioModel>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
     }
 }

@@ -9,9 +9,10 @@ import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemSkillBinding
 import com.id124.wjobsid.model.skill.SkillModel
 
-class ProfileSkillAdapter(private val model: ArrayList<SkillModel>) : RecyclerView.Adapter<ProfileSkillAdapter.RecyclerViewHolder>() {
+class ProfileSkillAdapter : RecyclerView.Adapter<ProfileSkillAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemSkillBinding
     private lateinit var onItemClickCallback: OnItemClickCallback
+    private var items = mutableListOf<SkillModel>()
 
     fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
         this.onItemClickCallback = onItemClickCallback
@@ -34,14 +35,20 @@ class ProfileSkillAdapter(private val model: ArrayList<SkillModel>) : RecyclerVi
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
-        holder.bind(model[position])
+        holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
-        return model.size
+        return items.size
     }
 
     interface OnItemClickCallback {
         fun onItemClick(data: SkillModel)
+    }
+
+    fun addList(list: List<SkillModel>) {
+        items.clear()
+        items.addAll(list)
+        notifyDataSetChanged()
     }
 }

@@ -106,6 +106,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/input_layout_skill" />
 
+            <Button
+                android:id="@+id/btn_delete_skill"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:backgroundTint="@color/red"
+                android:onClick="onClick"
+                android:padding="14dp"
+                android:text="@string/delete_skill"
+                android:textColor="@color/white"
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/btn_add_skill" />
+
             <LinearLayout
                 android:id="@+id/ln_back"
                 android:layout_width="match_parent"
@@ -117,7 +132,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_skill"
+                app:layout_constraintTop_toBottomOf="@+id/btn_delete_skill"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView

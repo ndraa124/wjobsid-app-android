@@ -1,9 +1,9 @@
 package com.id124.wjobsid.service
 
 import com.id124.wjobsid.model.account.AccountResponse
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.POST
+import com.id124.wjobsid.model.account.LoginResponse
+import com.id124.wjobsid.model.account.SignUpResponse
+import retrofit2.http.*
 
 interface AccountApiService {
     @FormUrlEncoded
@@ -11,7 +11,7 @@ interface AccountApiService {
     suspend fun loginAccount(
         @Field("email") email: String,
         @Field("password") password: String
-    ): AccountResponse
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("account")
@@ -21,7 +21,7 @@ interface AccountApiService {
         @Field("ac_phone") acPhone: String,
         @Field("ac_password") acPassword: String,
         @Field("ac_level") acLevel: Int
-    ): AccountResponse
+    ): SignUpResponse
 
     @FormUrlEncoded
     @POST("account")
@@ -33,5 +33,17 @@ interface AccountApiService {
         @Field("ac_level") acLevel: Int,
         @Field("cn_company") cnCompany: String,
         @Field("cn_position") cnPosition: String
+    ): SignUpResponse
+
+    @FormUrlEncoded
+    @PUT("account/{acId}")
+    suspend fun updateAccount(
+        @Path("acId") acId: Int,
+        @FieldMap fields: Map<String, String>
+    ): AccountResponse
+
+    @GET("account/detail/{acId}")
+    suspend fun detailAccount(
+        @Path("acId") acId: Int
     ): AccountResponse
 }

@@ -5,14 +5,17 @@ import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
-import com.id124.wjobsid.base.BaseFragment
-import com.id124.wjobsid.activity.portfolio.PortfolioActivity
 import com.id124.wjobsid.activity.detail_profile.fragment.portfolio.adapter.ProfileDetailPortfolioAdapter
+import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentPortfolioBinding
 import com.id124.wjobsid.model.portfolio.PortfolioModel
-import kotlinx.android.synthetic.main.fragment_portfolio.view.*
+import com.id124.wjobsid.model.portfolio.PortfolioResponse
+import com.id124.wjobsid.service.PortfolioApiService
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class DetailProfilePortfolioFragment : BaseFragment<FragmentPortfolioBinding>(), View.OnClickListener {
+class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentPortfolioBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_portfolio
         super.onCreate(savedInstanceState)
@@ -28,51 +31,44 @@ class DetailProfilePortfolioFragment : BaseFragment<FragmentPortfolioBinding>(),
         }
 
         setupPortfolioRecyclerView()
-        bind.btnAddPortfolio.setOnClickListener(this@DetailProfilePortfolioFragment)
+        setPortfolio()
     }
 
     private fun setupPortfolioRecyclerView() {
         bind.rvPortfolio.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
-        val portfolioModel: ArrayList<PortfolioModel> = ArrayList()
-        portfolioModel.add(
-            PortfolioModel(
-            pr_image = "http://192.168.43.123:3000/images/IMG-1605622615798.png"
-        )
-        )
-        portfolioModel.add(
-            PortfolioModel(
-            pr_image = "http://192.168.43.123:3000/images/IMG-1605622381179.png"
-        )
-        )
-        portfolioModel.add(
-            PortfolioModel(
-            pr_image = "http://192.168.43.123:3000/images/IMG-1605617120374.png"
-        )
-        )
-        portfolioModel.add(
-            PortfolioModel(
-            pr_image = "http://192.168.43.123:3000/images/IMG-1605622615798.png"
-        )
-        )
-        portfolioModel.add(
-            PortfolioModel(
-            pr_image = "http://192.168.43.123:3000/images/IMG-1605622381179.png"
-        )
-        )
-        portfolioModel.add(
-            PortfolioModel(
-            pr_image = "http://192.168.43.123:3000/images/IMG-1605617120374.png"
-        )
-        )
-
-        bind.rvPortfolio.adapter = ProfileDetailPortfolioAdapter(portfolioModel)
+        val adapter = ProfileDetailPortfolioAdapter()
+        bind.rvPortfolio.adapter = adapter
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_add_portfolio -> {
-                intents<PortfolioActivity>(activity)
+    private fun setPortfolio() {
+        val service = createApi<PortfolioApiService>(activity)
+
+        coroutineScope.launch {
+            val response = withContext(Dispatchers.IO) {
+                try {
+                    service.getAllPortfolio(enId)
+                } catch (e: Throwable) {
+                    e.printStackTrace()
+                }
+            }
+
+            if (response is PortfolioResponse) {
+                val list = response.data.map {
+                    PortfolioModel(
+                        pr_id = it.prId,
+                        en_id = it.enId,
+                        pr_app = it.prApp,
+                        pr_description = it.prDescription,
+                        pr_link_pub = it.prLinkPub,
+                        pr_link_repo = it.prLinkRepo,
+                        pr_work_place = it.prWorkPlace,
+                        pr_type = it.prType,
+                        pr_image = it.prImage
+                    )
+                }
+
+                (bind.rvPortfolio.adapter as ProfileDetailPortfolioAdapter).addList(list)
             }
         }
     }
