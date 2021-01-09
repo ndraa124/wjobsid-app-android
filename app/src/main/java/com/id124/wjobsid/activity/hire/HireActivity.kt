@@ -3,18 +3,16 @@ package com.id124.wjobsid.activity.hire
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.hire.adapter.ProjectAdapter
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityHireBinding
-import com.id124.wjobsid.model.hire.HireResponse
 import com.id124.wjobsid.model.project.ProjectModel
 import com.id124.wjobsid.model.project.ProjectResponse
-import com.id124.wjobsid.service.HireApiService
 import com.id124.wjobsid.service.ProjectApiService
 import com.id124.wjobsid.util.form_validate.ValidateHire.Companion.valMessage
 import com.id124.wjobsid.util.form_validate.ValidateHire.Companion.valPrice
@@ -23,6 +21,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickListener {
+    private lateinit var viewModel: HireViewModel
     private var pjId: Int? = 0
     private var enId: Int? = 0
 
@@ -31,12 +30,13 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
         super.onCreate(savedInstanceState)
         enId = intent.getIntExtra("en_id", 0)
 
-        Log.d("msg", "ID ENNGINEER: $enId")
-
         setToolbarActionBar()
         initTextWatcher()
         setProjectAdapter()
         setProject()
+
+        setViewModel()
+        subscribeLiveData()
     }
 
     override fun onClick(v: View?) {
@@ -46,7 +46,12 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
                     !valPrice(bind.inputLayoutPrice, bind.etPrice) -> {}
                     !valMessage(bind.inputLayoutMessage, bind.etMessage) -> {}
                     else -> {
-                        createHire()
+                        viewModel.serviceCreateApi(
+                            enId = enId!!,
+                            pjId = pjId!!,
+                            hrPrice = bind.etPrice.text.toString().toLong(),
+                            hrMessage = bind.etMessage.text.toString()
+                        )
                     }
                 }
             }
@@ -68,6 +73,11 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
     private fun initTextWatcher() {
         bind.etPrice.addTextChangedListener(MyTextWatcher(bind.etPrice))
         bind.etMessage.addTextChangedListener(MyTextWatcher(bind.etMessage))
+    }
+
+    private fun setProjectAdapter() {
+        val adapter = ProjectAdapter(this@HireActivity)
+        bind.spProject.adapter = adapter
     }
 
     private fun setProject() {
@@ -108,33 +118,37 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
         }
     }
 
-    private fun setProjectAdapter() {
-        val adapter = ProjectAdapter(this@HireActivity)
-        bind.spProject.adapter = adapter
+    private fun setViewModel() {
+        viewModel = ViewModelProvider(this@HireActivity).get(HireViewModel::class.java)
+        viewModel.setService(createApi(this@HireActivity))
     }
 
-    private fun createHire() {
-        val service = createApi<HireApiService>(this@HireActivity)
+    private fun subscribeLiveData() {
+        viewModel.isLoadingLiveData.observe(this@HireActivity, {
+            bind.btnProcessHire.visibility = View.GONE
+            bind.progressBar.visibility = View.VISIBLE
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.createHire(
-                        enId = enId!!,
-                        pjId = pjId!!,
-                        hrPrice = bind.etPrice.text.toString().toLong(),
-                        hrMessage = bind.etMessage.text.toString()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is HireResponse) {
-                noticeToast("Hire success")
+        viewModel.onSuccessLiveData.observe(this@HireActivity, {
+            if (it) {
+                setResult(RESULT_OK)
                 this@HireActivity.finish()
+
+                bind.progressBar.visibility = View.GONE
+                bind.btnProcessHire.visibility = View.VISIBLE
+            } else {
+                bind.progressBar.visibility = View.GONE
+                bind.btnProcessHire.visibility = View.VISIBLE
             }
-        }
+        })
+
+        viewModel.onMessageLiveData.observe(this@HireActivity, {
+            noticeToast(it)
+        })
+
+        viewModel.onFailLiveData.observe(this@HireActivity, {
+            noticeToast(it)
+        })
     }
 
     inner class MyTextWatcher(private val view: View) : TextWatcher {

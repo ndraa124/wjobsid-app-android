@@ -28,7 +28,7 @@ interface ProjectApiService {
         @Part("pj_project_name") pjProjectName: RequestBody,
         @Part("pj_description") pjDescription: RequestBody,
         @Part("pj_deadline") pjDeadline: RequestBody,
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part? = null
     ): ProjectResponse
 
     @DELETE("project/{pjId}")

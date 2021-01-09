@@ -2,46 +2,92 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".activity.main.fragment.search.SearchFragment">
+    tools:context=".activity.main.fragment.home.HomeFragment">
+
+    <data>
+
+        <variable
+            name="dataNotFound"
+            type="String" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_200">
+        android:background="@color/gray_200"
+        android:fillViewport="true">
 
-        <SearchView
-            android:id="@+id/sv_engineer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="16dp"
-            android:layout_marginTop="16dp"
-            android:background="@drawable/form_input_white"
-            android:iconifiedByDefault="false"
-            android:queryHint="Search here"
+        <View
+            android:id="@+id/v_background"
+            android:layout_width="wrap_content"
+            android:layout_height="?actionBarSize"
+            android:background="@color/primary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <SearchView
+            android:id="@+id/sv_engineer"
+            android:layout_width="0dp"
+            android:layout_height="?actionBarSize"
+            android:closeIcon="@drawable/ic_close"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search here"
+            android:searchIcon="@drawable/ic_search_view"
+            android:theme="@style/SearchViewTheme"
+            android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toStartOf="@+id/iv_filter"
+            app:layout_constraintStart_toStartOf="@+id/v_background"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_filter"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginHorizontal="16dp"
+            android:background="@color/transparent"
+            android:contentDescription="@string/img_icon"
+            android:src="@drawable/ic_filter"
+            app:layout_constraintBottom_toBottomOf="@+id/v_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/v_background" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/primary"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv_engineer" />
+
+        <TextView
+            android:id="@+id/tv_data_not_found"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="sans-serif"
+            android:text="@{dataNotFound}"
+            android:textAlignment="center"
+            android:textColor="@color/gray_500"
+            android:textSize="16sp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv_engineer" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_engineer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sv_engineer" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/btn_add_project"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="16dp"
-            android:backgroundTint="@color/white"
-            android:contentDescription="@string/img_icon"
-            android:src="@drawable/ic_filter"
-            app:elevation="8dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

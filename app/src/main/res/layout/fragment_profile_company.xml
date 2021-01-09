@@ -37,6 +37,21 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primary"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_identity"
                 android:layout_width="match_parent"
@@ -68,10 +83,11 @@
                         android:layout_marginTop="32dp"
                         android:contentDescription="@string/img_profile"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_onboarding"
+                        android:src="@drawable/ic_profile_2"
                         app:barrierMargin="2dp"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="4dp"
+                        app:civ_circle_background_color="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -203,7 +219,7 @@
             </androidx.cardview.widget.CardView>
 
             <androidx.cardview.widget.CardView
-                android:id="@+id/cv_skill"
+                android:id="@+id/cv_contact"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -333,7 +349,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{companyModel.cn_instagram}"
+                            android:text="@{companyModel.cn_instagram != null ? companyModel.cn_instagram : @string/cn_instagram_not_set}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />
@@ -366,7 +382,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginHorizontal="16dp"
                             android:fontFamily="sans-serif-condensed"
-                            android:text="@{companyModel.cn_linkedin}"
+                            android:text="@{companyModel.cn_linkedin != null ? companyModel.cn_linkedin : @string/cn_linked_not_set}"
                             android:textAlignment="textStart"
                             android:textColor="@color/gray_700"
                             android:textSize="16sp" />

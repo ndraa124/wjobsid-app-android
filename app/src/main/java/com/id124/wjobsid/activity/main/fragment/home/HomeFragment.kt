@@ -13,12 +13,12 @@ import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentHomeBinding
 import com.id124.wjobsid.model.account.AccountModel
 import com.id124.wjobsid.model.engineer.EngineerModel
-import com.id124.wjobsid.model.engineer.EngineerResponse
-import com.id124.wjobsid.service.EngineerApiService
 import com.id124.wjobsid.util.SharedPreference.Companion.AC_NAME
 import kotlinx.coroutines.*
 
-class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), View.OnClickListener {
+class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.View, View.OnClickListener {
+    private var presenter: HomePresenter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_home
         super.onCreate(savedInstanceState)
@@ -26,6 +26,7 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), View.OnClickL
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = HomePresenter(createApi(activity))
 
         bind.ivGithub.setOnClickListener(this@HomeFragment)
 
@@ -36,9 +37,7 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), View.OnClickL
         }
 
         bind.accountModel = AccountModel(acName = "Hai, ${userDetail[AC_NAME]}")
-
         setupWebDevRecyclerView()
-        getAllEngineer()
     }
 
     override fun onClick(v: View?) {
@@ -49,15 +48,55 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), View.OnClickL
         }
     }
 
+    override fun onResultSuccess(list: List<EngineerModel>) {
+        (bind.rvEngineer.adapter as HomeEngineerAdapter).addList(list)
+        bind.rvEngineer.visibility = View.VISIBLE
+        bind.tvDataNotFound.visibility = View.GONE
+    }
+
+    override fun onResultFail(message: String) {
+        if (message == "expired") {
+            noticeToast("Please sign back in!")
+            sharedPref.accountLogout()
+        } else {
+            bind.rvEngineer.visibility = View.GONE
+            bind.tvDataNotFound.visibility = View.VISIBLE
+            bind.dataNotFound = message
+        }
+    }
+
+    override fun showLoading() {
+        bind.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        bind.progressBar.visibility = View.GONE
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter?.bindToView(this@HomeFragment)
+        presenter?.callService()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter = null
+    }
+
     private fun setupWebDevRecyclerView() {
-        bind.rvEngineer.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         bind.rvEngineer.isNestedScrollingEnabled = false
+        bind.rvEngineer.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         val adapter = HomeEngineerAdapter()
-        adapter.notifyDataSetChanged()
         bind.rvEngineer.adapter = adapter
 
-        adapter.setOnItemClickCallback(object: HomeEngineerAdapter.OnItemClickCallback {
+        adapter.setOnItemClickCallback(object : HomeEngineerAdapter.OnItemClickCallback {
             override fun onItemClick(data: EngineerModel) {
                 val intent = Intent(activity, ProfileDetailActivity::class.java)
                 intent.putExtra("en_id", data.enId)
@@ -71,36 +110,5 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), View.OnClickL
                 startActivity(intent)
             }
         })
-    }
-
-    private fun getAllEngineer() {
-        val service = createApi<EngineerApiService>(activity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.getAllEngineer()
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (response is EngineerResponse) {
-                val list = response.data.map {
-                    EngineerModel(
-                        enId = it.enId,
-                        acId = it.acId,
-                        acName = it.acName,
-                        enJobTitle = it.enJobTitle,
-                        enJobType = it.enJobType,
-                        enDomicile = it.enDomicile,
-                        enDescription = it.enDescription,
-                        enProfile = it.enProfile
-                    )
-                }
-
-                (bind.rvEngineer.adapter as HomeEngineerAdapter).addList(list)
-            }
-        }
     }
 }

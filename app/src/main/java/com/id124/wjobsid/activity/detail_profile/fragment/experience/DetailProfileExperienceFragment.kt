@@ -9,13 +9,10 @@ import com.id124.wjobsid.activity.detail_profile.fragment.experience.adapter.Pro
 import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentExperienceBinding
 import com.id124.wjobsid.model.experience.ExperienceModel
-import com.id124.wjobsid.model.experience.ExperienceResponse
-import com.id124.wjobsid.service.ExperienceApiService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class DetailProfileExperienceFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentExperienceBinding>() {
+class DetailProfileExperienceFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentExperienceBinding>(), DetailProfileExperienceContract.View {
+    private var presenter: DetailProfileExperiencePresenter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_experience
         super.onCreate(savedInstanceState)
@@ -23,6 +20,7 @@ class DetailProfileExperienceFragment(private val enId: Int) : BaseFragmentCorou
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = DetailProfileExperiencePresenter(createApi(activity))
 
         if (sharedPref.getInDetail() == 0) {
             bind.btnAddExperience.visibility = View.VISIBLE
@@ -33,9 +31,44 @@ class DetailProfileExperienceFragment(private val enId: Int) : BaseFragmentCorou
         setupExperienceRecyclerView()
     }
 
+    override fun onResultSuccess(list: List<ExperienceModel>) {
+        (bind.rvExperience.adapter as ProfileDetailExperienceAdapter).addList(list)
+        bind.rvExperience.visibility = View.VISIBLE
+    }
+
+    override fun onResultFail(message: String) {
+        if (message == "expired") {
+            noticeToast("Please sign back in!")
+            sharedPref.accountLogout()
+        } else {
+            bind.rvExperience.visibility = View.GONE
+            bind.tvDataNotFound.visibility = View.VISIBLE
+            bind.dataNotFound = message
+        }
+    }
+
+    override fun showLoading() {
+        bind.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        bind.progressBar.visibility = View.GONE
+    }
+
     override fun onStart() {
         super.onStart()
-        setExperience()
+        presenter?.bindToView(this@DetailProfileExperienceFragment)
+        presenter?.callService(enId)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter = null
     }
 
     private fun setupExperienceRecyclerView() {
@@ -43,35 +76,5 @@ class DetailProfileExperienceFragment(private val enId: Int) : BaseFragmentCorou
 
         val adapter = ProfileDetailExperienceAdapter()
         bind.rvExperience.adapter = adapter
-    }
-
-    private fun setExperience() {
-        val service = createApi<ExperienceApiService>(activity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.getAllExperience(enId)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (response is ExperienceResponse) {
-                val list = response.data.map {
-                    ExperienceModel(
-                        ex_id = it.exId,
-                        en_id = it.enId,
-                        ex_position = it.exPosition,
-                        ex_company = it.exCompany,
-                        ex_start = it.exStart.split('T')[0] + " - ",
-                        ex_end = it.exEnd.split('T')[0],
-                        ex_description = it.exDescription
-                    )
-                }
-
-                (bind.rvExperience.adapter as ProfileDetailExperienceAdapter).addList(list)
-            }
-        }
     }
 }

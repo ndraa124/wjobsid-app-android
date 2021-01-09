@@ -32,6 +32,6 @@ data class CompanyResponse(val success: Boolean, val message: String, val data: 
         val cnLinkedin: String,
 
         @SerializedName("cn_profile")
-        val cnProfile: String
+        val cnProfile: String? = null
     )
 }

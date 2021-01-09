@@ -315,7 +315,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/tv_image_upload">
 
                 <ImageView
-                    android:id="@+id/iv_image_view"
+                    android:id="@+id/iv_image_load"
                     android:layout_width="match_parent"
                     android:layout_height="275dp"
                     android:layout_marginHorizontal="16dp"
@@ -324,6 +324,18 @@
                     android:onClick="onClick"
                     android:scaleType="centerCrop"
                     android:visibility="gone" />
+
+                <ImageView
+                    android:id="@+id/iv_image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="275dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="18dp"
+                    android:contentDescription="@string/img_background"
+                    android:onClick="onClick"
+                    android:scaleType="centerCrop"
+                    android:visibility="gone"
+                    app:loadImage="@{imageUrl}"/>
 
                 <ImageButton
                     android:id="@+id/ib_choose_image"
@@ -340,35 +352,47 @@
                     android:src="@drawable/ic_add_image" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/btn_add_portfolio"
+            <LinearLayout
+                android:id="@+id/ln_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/primary"
-                android:onClick="onClick"
-                android:padding="14dp"
-                android:text="@string/add_portfolio"
-                android:textColor="@color/white"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ln_imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/ln_imageView">
 
-            <Button
-                android:id="@+id/btn_delete_portfolio"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:backgroundTint="@color/red"
-                android:onClick="onClick"
-                android:padding="14dp"
-                android:text="@string/delete_portfolio"
-                android:textColor="@color/white"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_portfolio" />
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_add_portfolio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary"
+                    android:onClick="onClick"
+                    android:padding="14dp"
+                    android:text="@string/add_portfolio"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_delete_portfolio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:onClick="onClick"
+                    android:padding="14dp"
+                    android:text="@string/delete_portfolio"
+                    android:textColor="@color/white"
+                    android:visibility="gone" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ln_back"
@@ -381,7 +405,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_delete_portfolio"
+                app:layout_constraintTop_toBottomOf="@+id/ln_btn"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView

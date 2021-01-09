@@ -34,7 +34,7 @@ interface PortfolioApiService {
         @Part("pr_link_repo") prLinkRepo: RequestBody,
         @Part("pr_work_place") prWorkPlace: RequestBody,
         @Part("pr_type") prType: RequestBody,
-        @Part image: MultipartBody.Part
+        @Part image: MultipartBody.Part? = null
     ): PortfolioResponse
 
     @DELETE("portfolio/{prId}")

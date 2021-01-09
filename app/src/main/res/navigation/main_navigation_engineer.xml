@@ -27,9 +27,9 @@
 
     <fragment
         android:id="@+id/menu_project"
-        android:name="com.id124.wjobsid.activity.main.fragment.project.ProjectFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.project.engineer.ProjectHiringFragment"
         android:label="@string/project"
-        tools:layout="@layout/fragment_project" >
+        tools:layout="@layout/fragment_hiring_project" >
         <action
             android:id="@+id/action_menu_project_to_menu_profile"
             app:destination="@id/menu_profile" />
@@ -37,7 +37,7 @@
 
     <fragment
         android:id="@+id/menu_profile"
-        android:name="com.id124.wjobsid.activity.main.fragment.profile.engineer_user.ProfileEngineerFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.profile.engineer.ProfileEngineerFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_home" />
 

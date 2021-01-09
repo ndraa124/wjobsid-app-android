@@ -11,8 +11,13 @@ data class HireModel(
     val pjProjectName: String? = null,
     val pjDescription: String? = null,
     val pjDeadline: String? = null,
+    val pjImage: String? = null,
     val cnCompany: String? = null,
     val cnField: String? = null,
     val cnCity: String? = null,
-    val cnProfile: String? = null
+    val cnProfile: String? = null,
+    val enProfile: String? = null,
+    val acName: String? = null,
+    val acEmail: String? = null,
+    val acPhone: String? = null
 )

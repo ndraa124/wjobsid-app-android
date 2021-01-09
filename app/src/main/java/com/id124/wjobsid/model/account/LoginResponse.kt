@@ -29,6 +29,9 @@ data class LoginResponse(val success: Boolean, val message: String, val data: Ac
         val acLevel: Int,
 
         @SerializedName("token")
-        val token: String
+        val token: String,
+
+        @SerializedName("exp")
+        val expired: Long
     )
 }

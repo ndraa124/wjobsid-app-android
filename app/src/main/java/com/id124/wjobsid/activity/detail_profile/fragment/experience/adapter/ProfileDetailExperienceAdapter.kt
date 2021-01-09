@@ -31,6 +31,7 @@ class ProfileDetailExperienceAdapter : RecyclerView.Adapter<ProfileDetailExperie
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.bind(items[position])
     }
 

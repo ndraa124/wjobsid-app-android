@@ -9,6 +9,12 @@ interface HireApiService {
         @Path("enId") enId: Int
     ): HireResponse
 
+    @GET("hire/company/{cnId}")
+    suspend fun getAllHireCompany(
+        @Path("cnId") cnId: Int,
+        @Query("status") status: String
+    ): HireResponse
+
     @FormUrlEncoded
     @POST("hire")
     suspend fun createHire(

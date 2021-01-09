@@ -91,35 +91,47 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btn_add_skill"
+            <LinearLayout
+                android:id="@+id/ln_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/primary"
-                android:onClick="onClick"
-                android:padding="14dp"
-                android:text="@string/add_skill"
-                android:textColor="@color/white"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_skill" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_skill">
 
-            <Button
-                android:id="@+id/btn_delete_skill"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:backgroundTint="@color/red"
-                android:onClick="onClick"
-                android:padding="14dp"
-                android:text="@string/delete_skill"
-                android:textColor="@color/white"
-                android:visibility="gone"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_add_skill" />
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_add_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary"
+                    android:onClick="onClick"
+                    android:padding="14dp"
+                    android:text="@string/add_skill"
+                    android:textColor="@color/white" />
+
+                <Button
+                    android:id="@+id/btn_delete_skill"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/red"
+                    android:onClick="onClick"
+                    android:padding="14dp"
+                    android:text="@string/delete_skill"
+                    android:textColor="@color/white"
+                    android:visibility="visible" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ln_back"
@@ -132,7 +144,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_delete_skill"
+                app:layout_constraintTop_toBottomOf="@+id/ln_btn"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView

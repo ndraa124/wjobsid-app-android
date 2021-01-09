@@ -5,27 +5,24 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityPortfolioBinding
-import com.id124.wjobsid.model.portfolio.PortfolioResponse
+import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
-import com.id124.wjobsid.service.PortfolioApiService
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valAppName
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valDescription
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valLinkPub
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valLinkRepo
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valWorkPlace
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.IOException
 import java.util.*
 
 class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), View.OnClickListener {
+    private lateinit var viewModel: PortfolioViewModel
     private var typePortfolio: String? = null
     private var prId: Int? = null
 
@@ -37,6 +34,8 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
         setToolbarActionBar()
         initTextWatcher()
         setDataFromIntent()
+        setViewModel()
+        subscribeLiveData()
     }
 
     override fun onClick(v: View?) {
@@ -65,9 +64,43 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
                         }
 
                         if (prId != 0) {
-                            updatePortfolio()
+                            if (bitmap == null) {
+                                viewModel.serviceUpdateApi(
+                                    prId = prId!!,
+                                    prApp = createPartFromString(bind.etApp.text.toString()),
+                                    prDescription = createPartFromString(bind.etDescription.text.toString()),
+                                    prLinkPub = createPartFromString(bind.etPubLink.text.toString()),
+                                    prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
+                                    prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
+                                    prType = createPartFromString(typePortfolio!!)
+                                )
+                            } else {
+                                viewModel.serviceUpdateApi(
+                                    prId = prId!!,
+                                    prApp = createPartFromString(bind.etApp.text.toString()),
+                                    prDescription = createPartFromString(bind.etDescription.text.toString()),
+                                    prLinkPub = createPartFromString(bind.etPubLink.text.toString()),
+                                    prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
+                                    prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
+                                    prType = createPartFromString(typePortfolio!!),
+                                    image = createPartFromFile()
+                                )
+                            }
                         } else {
-                            createPortfolio()
+                            if (bitmap != null) {
+                                viewModel.serviceCreateApi(
+                                    enId = createPartFromString(sharedPref.getIdEngineer().toString()),
+                                    prApp = createPartFromString(bind.etApp.text.toString()),
+                                    prDescription = createPartFromString(bind.etDescription.text.toString()),
+                                    prLinkPub = createPartFromString(bind.etPubLink.text.toString()),
+                                    prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
+                                    prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
+                                    prType = createPartFromString(typePortfolio!!),
+                                    image = createPartFromFile()
+                                )
+                            } else {
+                                noticeToast("Please select image!")
+                            }
                         }
                     }
                 }
@@ -77,6 +110,26 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
             }
             R.id.ln_back -> {
                 this@PortfolioActivity.finish()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                uri = data?.getParcelableExtra("path")!!
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+
+                    bind.ivImageView.visibility = View.GONE
+                    bind.ibChooseImage.visibility = View.GONE
+                    bind.ivImageLoad.visibility = View.VISIBLE
+                    bind.ivImageLoad.setImageBitmap(bitmap)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -118,104 +171,49 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
                 bind.rbWeb.isChecked = true
             }
 
-            bind.imageUrl = BASE_URL_IMAGE + intent.getStringExtra("pr_image")
+            if (intent.getStringExtra("pr_image") != null) {
+                bind.imageUrl = BASE_URL_IMAGE + intent.getStringExtra("pr_image")
+            } else {
+                bind.imageUrl = ApiClient.BASE_URL_IMAGE_DEFAULT_BACKGROUND
+            }
+
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                uri = data?.getParcelableExtra("path")!!
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
-
-                    bind.ivImageView.visibility = View.VISIBLE
-                    bind.ibChooseImage.visibility = View.GONE
-                    bind.ivImageView.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
+    private fun setViewModel() {
+        viewModel = ViewModelProvider(this@PortfolioActivity).get(PortfolioViewModel::class.java)
+        viewModel.setService(createApi(this@PortfolioActivity))
     }
 
-    private fun createPortfolio() {
-        val service = createApi<PortfolioApiService>(this@PortfolioActivity)
+    private fun subscribeLiveData() {
+        viewModel.isLoadingLiveData.observe(this@PortfolioActivity, {
+            bind.btnAddPortfolio.visibility = View.GONE
+            bind.btnDeletePortfolio.visibility = View.GONE
+            bind.progressBar.visibility = View.VISIBLE
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.createPortfolio(
-                        enId = createPartFromString(sharedPref.getIdEngineer().toString()),
-                        prApp = createPartFromString(bind.etApp.text.toString()),
-                        prDescription = createPartFromString(bind.etDescription.text.toString()),
-                        prLinkPub = createPartFromString(bind.etPubLink.text.toString()),
-                        prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
-                        prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
-                        prType = createPartFromString(typePortfolio!!),
-                        image = createPartFromFile()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is PortfolioResponse) {
+        viewModel.onSuccessLiveData.observe(this@PortfolioActivity, {
+            if (it) {
                 setResult(RESULT_OK)
                 this@PortfolioActivity.finish()
+
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddPortfolio.visibility = View.VISIBLE
+                bind.btnDeletePortfolio.visibility = View.VISIBLE
+            } else {
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddPortfolio.visibility = View.VISIBLE
+                bind.btnDeletePortfolio.visibility = View.VISIBLE
             }
-        }
-    }
+        })
 
-    private fun updatePortfolio() {
-        val service = createApi<PortfolioApiService>(this@PortfolioActivity)
+        viewModel.onMessageLiveData.observe(this@PortfolioActivity, {
+            noticeToast(it)
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.updatePortfolio(
-                        prId = prId!!,
-                        prApp = createPartFromString(bind.etApp.text.toString()),
-                        prDescription = createPartFromString(bind.etDescription.text.toString()),
-                        prLinkPub = createPartFromString(bind.etPubLink.text.toString()),
-                        prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
-                        prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
-                        prType = createPartFromString(typePortfolio!!),
-                        image = createPartFromFile()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is PortfolioResponse) {
-                setResult(RESULT_OK)
-                this@PortfolioActivity.finish()
-            }
-        }
-    }
-
-    private fun deletePortfolio() {
-        val service = createApi<PortfolioApiService>(this@PortfolioActivity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.deletePortfolio(
-                        prId = prId!!
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is PortfolioResponse) {
-                setResult(RESULT_OK)
-                this@PortfolioActivity.finish()
-            }
-        }
+        viewModel.onFailLiveData.observe(this@PortfolioActivity, {
+            noticeToast(it)
+        })
     }
 
     private fun deleteConfirmation() {
@@ -224,7 +222,7 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
             .setTitle("Notice!")
             .setMessage("Are you sure to delete this portfolio?")
             .setPositiveButton("OK") { _, _ ->
-                deletePortfolio()
+                viewModel.serviceDeleteApi(prId!!)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

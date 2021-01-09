@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemPortfolioBinding
 import com.id124.wjobsid.model.portfolio.PortfolioModel
+import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 
 class ProfileDetailPortfolioAdapter : RecyclerView.Adapter<ProfileDetailPortfolioAdapter.RecyclerViewHolder>() {
@@ -16,7 +17,12 @@ class ProfileDetailPortfolioAdapter : RecyclerView.Adapter<ProfileDetailPortfoli
 
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(portfolio: PortfolioModel) {
-            bind.imageUrl = BASE_URL_IMAGE + portfolio.pr_image
+            if (portfolio.pr_image != null) {
+                bind.imageUrl = BASE_URL_IMAGE + portfolio.pr_image
+            } else {
+                bind.imageUrl = ApiClient.BASE_URL_IMAGE_DEFAULT_BACKGROUND
+            }
+
             bind.executePendingBindings()
         }
     }
@@ -27,6 +33,7 @@ class ProfileDetailPortfolioAdapter : RecyclerView.Adapter<ProfileDetailPortfoli
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.bind(items[position])
     }
 

@@ -1,8 +1,14 @@
 package com.id124.wjobsid.util
 
+import android.graphics.Rect
 import android.text.TextUtils
+import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.ItemDecoration
+import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
+
 
 class Utils {
     companion object {
@@ -50,6 +56,30 @@ class Utils {
                 }
             }
             return diff
+        }
+
+        fun currencyFormat(amount: String): String? {
+            val formatter = DecimalFormat("#,###")
+            return formatter.format(amount.toDouble())
+        }
+
+        class BottomOffsetDecoration(private val mBottomOffset: Int) : RecyclerView.ItemDecoration() {
+            override fun getItemOffsets(
+                outRect: Rect,
+                view: View,
+                parent: RecyclerView,
+                state: RecyclerView.State
+            ) {
+                super.getItemOffsets(outRect, view, parent, state)
+
+                val dataSize = state.itemCount
+                val position: Int = parent.getChildAdapterPosition(view)
+                if (dataSize > 0 && position == dataSize - 1) {
+                    outRect[0, 0, 0] = mBottomOffset
+                } else {
+                    outRect[0, 0, 0] = 0
+                }
+            }
         }
     }
 }

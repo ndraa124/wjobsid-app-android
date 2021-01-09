@@ -3,20 +3,16 @@ package com.id124.wjobsid.activity.skill
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivitySkillBinding
-import com.id124.wjobsid.model.skill.SkillResponse
-import com.id124.wjobsid.service.SkillApiService
 import com.id124.wjobsid.util.form_validate.ValidateSkill.Companion.valSkill
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class SkillActivity : BaseActivityCoroutine<ActivitySkillBinding>(), View.OnClickListener {
+    private lateinit var viewModel: SkillViewModel
     private var skId: Int? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,6 +24,8 @@ class SkillActivity : BaseActivityCoroutine<ActivitySkillBinding>(), View.OnClic
         setToolbarActionBar()
         initTextWatcher()
         setDataFromIntent()
+        setViewModel()
+        subscribeLiveData()
     }
 
     override fun onClick(v: View?) {
@@ -37,9 +35,15 @@ class SkillActivity : BaseActivityCoroutine<ActivitySkillBinding>(), View.OnClic
                     !valSkill(bind.inputLayoutSkill, bind.etSkill) -> {}
                     else -> {
                         if (skId != 0) {
-                            updateSkill()
+                            viewModel.serviceUpdateApi(
+                                skId = skId!!,
+                                skSkillName = bind.etSkill.text.toString()
+                            )
                         } else {
-                            createSkill()
+                            viewModel.serviceCreateApi(
+                                enId = sharedPref.getIdEngineer(),
+                                skSkillName = bind.etSkill.text.toString()
+                            )
                         }
                     }
                 }
@@ -76,69 +80,40 @@ class SkillActivity : BaseActivityCoroutine<ActivitySkillBinding>(), View.OnClic
         }
     }
 
-    private fun createSkill() {
-        val service = createApi<SkillApiService>(this@SkillActivity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.createSkill(
-                        enId = sharedPref.getIdEngineer(),
-                        skSkillName = bind.etSkill.text.toString()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is SkillResponse) {
-                setResult(RESULT_OK)
-                this@SkillActivity.finish()
-            }
-        }
+    private fun setViewModel() {
+        viewModel = ViewModelProvider(this@SkillActivity).get(SkillViewModel::class.java)
+        viewModel.setService(createApi(this@SkillActivity))
     }
 
-    private fun updateSkill() {
-        val service = createApi<SkillApiService>(this@SkillActivity)
+    private fun subscribeLiveData() {
+        viewModel.isLoadingLiveData.observe(this@SkillActivity, {
+            bind.btnAddSkill.visibility = View.GONE
+            bind.btnDeleteSkill.visibility = View.GONE
+            bind.progressBar.visibility = View.VISIBLE
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.updateSkill(
-                        skId = skId!!,
-                        skSkillName = bind.etSkill.text.toString()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is SkillResponse) {
+        viewModel.onSuccessLiveData.observe(this@SkillActivity, {
+            if (it) {
                 setResult(RESULT_OK)
                 this@SkillActivity.finish()
-            }
-        }
-    }
 
-    private fun deleteSkill() {
-        val service = createApi<SkillApiService>(this@SkillActivity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.deleteSkill(
-                        skId = skId!!
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddSkill.visibility = View.VISIBLE
+                bind.btnDeleteSkill.visibility = View.VISIBLE
+            } else {
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddSkill.visibility = View.VISIBLE
+                bind.btnDeleteSkill.visibility = View.VISIBLE
             }
+        })
 
-            if (response is SkillResponse) {
-                setResult(RESULT_OK)
-                this@SkillActivity.finish()
-            }
-        }
+        viewModel.onMessageLiveData.observe(this@SkillActivity, {
+            noticeToast(it)
+        })
+
+        viewModel.onFailLiveData.observe(this@SkillActivity, {
+            noticeToast(it)
+        })
     }
 
     private fun deleteConfirmation() {
@@ -147,7 +122,9 @@ class SkillActivity : BaseActivityCoroutine<ActivitySkillBinding>(), View.OnClic
             .setTitle("Notice!")
             .setMessage("Are you sure to delete this skill?")
             .setPositiveButton("OK") { _, _ ->
-                deleteSkill()
+                viewModel.serviceDeleteApi(
+                    skId = skId!!
+                )
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

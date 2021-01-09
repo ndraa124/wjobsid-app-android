@@ -15,13 +15,12 @@
     <string name="search">Search</string>
     <string name="project">Project</string>
     <string name="profile">Profile</string>
+    <string name="hiring">Hiring</string>
 
     <!-- Onboarding Page -->
     <string name="quotes_onboarding1">Look For The People Who Want To Change The World</string>
     <string name="quotes_onboarding2">Join Now To Find The Best Developer And Company</string>
     <string name="or">or</string>
-    <string name="as_engineer">LOGIN AS ENGINEER</string>
-    <string name="as_company">LOGIN AS COMPANY</string>
 
     <!-- Login Page -->
     <string name="login">LOGIN</string>
@@ -34,7 +33,8 @@
     <string name="don_t_have_an_account">You don\'t have an account?</string>
 
     <!-- Sign Up Page -->
-    <string name="sign_up">Sign up</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="sign_up_now">Sign Up</string>
     <string name="instruction_sign_up">Please fill the form below correctly</string>
     <string name="full_name">Full Name</string>
     <string name="company">Company</string>
@@ -51,6 +51,9 @@
     <string name="title_activity_settings">SettingsActivity</string>
     <string name="back_to_profile">Back to profile</string>
     <string name="contact">Contact</string>
+    <string name="update_image_profile">SELECT IMAGE</string>
+    <string name="update_image_upload">UPDATE IMAGE</string>
+    <string name="instruction_update_image_profile">Please choose image if you want to change</string>
 
     <!-- Preference Titles -->
     <string name="account_header">Account</string>
@@ -165,6 +168,9 @@
     <string name="cn_field_not_set">Field Not Set</string>
     <string name="cn_city_not_set">City Not Set</string>
     <string name="cn_description_not_set">Description Not Set</string>
+    <string name="ac_phone_number_not_set">Phone Number Not Set</string>
+    <string name="cn_instagram_not_set">Instagram Not Set</string>
+    <string name="cn_linked_not_set">LinkedIn Not Set</string>
 
     <!-- Hiring -->
     <string name="hire_project_name">Project Name</string>

@@ -5,29 +5,24 @@ import android.app.DatePickerDialog.OnDateSetListener
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityExperienceBinding
-import com.id124.wjobsid.model.experience.ExperienceResponse
-import com.id124.wjobsid.model.portfolio.PortfolioResponse
-import com.id124.wjobsid.service.ExperienceApiService
 import com.id124.wjobsid.util.form_validate.ValidateExperience.Companion.valCompany
 import com.id124.wjobsid.util.form_validate.ValidateExperience.Companion.valDescription
 import com.id124.wjobsid.util.form_validate.ValidateExperience.Companion.valEnd
 import com.id124.wjobsid.util.form_validate.ValidateExperience.Companion.valPosition
 import com.id124.wjobsid.util.form_validate.ValidateExperience.Companion.valStart
 import kotlinx.android.synthetic.main.activity_experience.*
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ExperienceActivity : BaseActivityCoroutine<ActivityExperienceBinding>(), View.OnClickListener {
+    private lateinit var viewModel: ExperienceViewModel
     private lateinit var myCalendar: Calendar
     private lateinit var dateStart: OnDateSetListener
     private lateinit var dateEnd: OnDateSetListener
@@ -45,6 +40,9 @@ class ExperienceActivity : BaseActivityCoroutine<ActivityExperienceBinding>(), V
         myCalendar = Calendar.getInstance()
         dateStart()
         dateEnd()
+
+        setViewModel()
+        subscribeLiveData()
     }
 
     override fun onClick(v: View?) {
@@ -72,9 +70,23 @@ class ExperienceActivity : BaseActivityCoroutine<ActivityExperienceBinding>(), V
                     !valDescription(bind.inputLayoutDescription, bind.etDescription) -> {}
                     else -> {
                         if (exId != 0) {
-                            updateExperience()
+                            viewModel.serviceUpdateApi(
+                                exId = exId!!,
+                                exPosition = bind.etPosition.text.toString(),
+                                exCompany = bind.etCompany.text.toString(),
+                                exStart = bind.etStart.text.toString(),
+                                exEnd = bind.etEnd.text.toString(),
+                                exDescription = bind.etDescription.text.toString()
+                            )
                         } else {
-                            createExperience()
+                            viewModel.serviceCreateApi(
+                                enId = sharedPref.getIdEngineer(),
+                                exPosition = bind.etPosition.text.toString(),
+                                exCompany = bind.etCompany.text.toString(),
+                                exStart = bind.etStart.text.toString(),
+                                exEnd = bind.etEnd.text.toString(),
+                                exDescription = bind.etDescription.text.toString()
+                            )
                         }
                     }
                 }
@@ -105,6 +117,20 @@ class ExperienceActivity : BaseActivityCoroutine<ActivityExperienceBinding>(), V
         bind.etDescription.addTextChangedListener(MyTextWatcher(bind.etDescription))
     }
 
+    private fun setDataFromIntent() {
+        if (exId != 0) {
+            bind.etPosition.setText(intent.getStringExtra("ex_position"))
+            bind.etCompany.setText(intent.getStringExtra("ex_company"))
+            bind.etStart.setText(intent.getStringExtra("ex_start"))
+            bind.etEnd.setText(intent.getStringExtra("ex_end"))
+            bind.etDescription.setText(intent.getStringExtra("ex_description"))
+
+            bind.btnDeleteExperience.visibility = View.VISIBLE
+            bind.tvAddExperience.text = getString(R.string.update_experience)
+            bind.btnAddExperience.text = getString(R.string.update_experience)
+        }
+    }
+
     private fun dateStart() {
         dateStart = OnDateSetListener { _, year, month, dayOfMonth ->
             myCalendar.set(Calendar.YEAR, year)
@@ -133,91 +159,40 @@ class ExperienceActivity : BaseActivityCoroutine<ActivityExperienceBinding>(), V
         }
     }
 
-    private fun setDataFromIntent() {
-        if (exId != 0) {
-            bind.etPosition.setText(intent.getStringExtra("ex_position"))
-            bind.etCompany.setText(intent.getStringExtra("ex_company"))
-            bind.etStart.setText(intent.getStringExtra("ex_start"))
-            bind.etEnd.setText(intent.getStringExtra("ex_end"))
-            bind.etDescription.setText(intent.getStringExtra("ex_description"))
-
-            bind.btnDeleteExperience.visibility = View.VISIBLE
-            bind.tvAddExperience.text = getString(R.string.update_experience)
-            bind.btnAddExperience.text = getString(R.string.update_experience)
-        }
+    private fun setViewModel() {
+        viewModel = ViewModelProvider(this@ExperienceActivity).get(ExperienceViewModel::class.java)
+        viewModel.setService(createApi(this@ExperienceActivity))
     }
 
-    private fun createExperience() {
-        val service = createApi<ExperienceApiService>(this@ExperienceActivity)
+    private fun subscribeLiveData() {
+        viewModel.isLoadingLiveData.observe(this@ExperienceActivity, {
+            bind.btnAddExperience.visibility = View.GONE
+            bind.btnDeleteExperience.visibility = View.GONE
+            bind.progressBar.visibility = View.VISIBLE
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.createExperience(
-                        enId = sharedPref.getIdEngineer(),
-                        exPosition = bind.etPosition.text.toString(),
-                        exCompany = bind.etCompany.text.toString(),
-                        exStart = bind.etStart.text.toString(),
-                        exEnd = bind.etEnd.text.toString(),
-                        exDescription = bind.etDescription.text.toString()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is PortfolioResponse) {
+        viewModel.onSuccessLiveData.observe(this@ExperienceActivity, {
+            if (it) {
                 setResult(RESULT_OK)
                 this@ExperienceActivity.finish()
+
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddExperience.visibility = View.VISIBLE
+                bind.btnDeleteExperience.visibility = View.VISIBLE
+            } else {
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddExperience.visibility = View.VISIBLE
+                bind.btnDeleteExperience.visibility = View.VISIBLE
             }
-        }
-    }
+        })
 
-    private fun updateExperience() {
-        val service = createApi<ExperienceApiService>(this@ExperienceActivity)
+        viewModel.onMessageLiveData.observe(this@ExperienceActivity, {
+            noticeToast(it)
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.updateExperience(
-                        exId = exId!!,
-                        exPosition = bind.etPosition.text.toString(),
-                        exCompany = bind.etCompany.text.toString(),
-                        exStart = bind.etStart.text.toString(),
-                        exEnd = bind.etEnd.text.toString(),
-                        exDescription = bind.etDescription.text.toString()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is ExperienceResponse) {
-                setResult(RESULT_OK)
-                this@ExperienceActivity.finish()
-            }
-        }
-    }
-
-    private fun deleteExperience() {
-        val service = createApi<ExperienceApiService>(this@ExperienceActivity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.deleteExperience(
-                        exId = exId!!
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is ExperienceResponse) {
-                setResult(RESULT_OK)
-                this@ExperienceActivity.finish()
-            }
-        }
+        viewModel.onFailLiveData.observe(this@ExperienceActivity, {
+            noticeToast(it)
+        })
     }
 
     private fun deleteConfirmation() {
@@ -226,7 +201,9 @@ class ExperienceActivity : BaseActivityCoroutine<ActivityExperienceBinding>(), V
             .setTitle("Notice!")
             .setMessage("Are you sure to delete this experience?")
             .setPositiveButton("OK") { _, _ ->
-                deleteExperience()
+                viewModel.serviceDeleteApi(
+                    exId = exId!!
+                )
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

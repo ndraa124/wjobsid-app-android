@@ -9,13 +9,10 @@ import com.id124.wjobsid.activity.detail_profile.fragment.portfolio.adapter.Prof
 import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentPortfolioBinding
 import com.id124.wjobsid.model.portfolio.PortfolioModel
-import com.id124.wjobsid.model.portfolio.PortfolioResponse
-import com.id124.wjobsid.service.PortfolioApiService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
-class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentPortfolioBinding>() {
+class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentPortfolioBinding>(), DetailProfilePortfolioContract.View {
+    private var presenter: DetailProfilePortfolioPresenter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_portfolio
         super.onCreate(savedInstanceState)
@@ -23,6 +20,7 @@ class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCorout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = DetailProfilePortfolioPresenter(createApi(activity))
 
         if (sharedPref.getInDetail() == 0) {
             bind.btnAddPortfolio.visibility = View.VISIBLE
@@ -31,7 +29,46 @@ class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCorout
         }
 
         setupPortfolioRecyclerView()
-        setPortfolio()
+    }
+
+    override fun onResultSuccess(list: List<PortfolioModel>) {
+        (bind.rvPortfolio.adapter as ProfileDetailPortfolioAdapter).addList(list)
+        bind.rvPortfolio.visibility = View.VISIBLE
+    }
+
+    override fun onResultFail(message: String) {
+        if (message == "expired") {
+            noticeToast("Please sign back in!")
+            sharedPref.accountLogout()
+        } else {
+            bind.rvPortfolio.visibility = View.GONE
+            bind.tvDataNotFound.visibility = View.VISIBLE
+            bind.dataNotFound = message
+        }
+    }
+
+    override fun showLoading() {
+        bind.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        bind.progressBar.visibility = View.GONE
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter?.bindToView(this@DetailProfilePortfolioFragment)
+        presenter?.callService(enId)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter = null
     }
 
     private fun setupPortfolioRecyclerView() {
@@ -39,37 +76,5 @@ class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCorout
 
         val adapter = ProfileDetailPortfolioAdapter()
         bind.rvPortfolio.adapter = adapter
-    }
-
-    private fun setPortfolio() {
-        val service = createApi<PortfolioApiService>(activity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.getAllPortfolio(enId)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
-                }
-            }
-
-            if (response is PortfolioResponse) {
-                val list = response.data.map {
-                    PortfolioModel(
-                        pr_id = it.prId,
-                        en_id = it.enId,
-                        pr_app = it.prApp,
-                        pr_description = it.prDescription,
-                        pr_link_pub = it.prLinkPub,
-                        pr_link_repo = it.prLinkRepo,
-                        pr_work_place = it.prWorkPlace,
-                        pr_type = it.prType,
-                        pr_image = it.prImage
-                    )
-                }
-
-                (bind.rvPortfolio.adapter as ProfileDetailPortfolioAdapter).addList(list)
-            }
-        }
     }
 }

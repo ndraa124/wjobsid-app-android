@@ -7,27 +7,24 @@ import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityProjectBinding
-import com.id124.wjobsid.model.project.ProjectResponse
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
-import com.id124.wjobsid.service.ProjectApiService
+import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE_DEFAULT_BACKGROUND
 import com.id124.wjobsid.util.form_validate.ValidateProject.Companion.valDeadline
 import com.id124.wjobsid.util.form_validate.ValidateProject.Companion.valDescription
 import com.id124.wjobsid.util.form_validate.ValidateProject.Companion.valProjectName
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import java.io.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.OnClickListener {
+    private lateinit var viewModel: ProjectViewModel
     private lateinit var myCalendar: Calendar
     private lateinit var deadline: OnDateSetListener
     private var pjId: Int? = null
@@ -43,6 +40,9 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
 
         myCalendar = Calendar.getInstance()
         deadlineProject()
+
+        setViewModel()
+        subscribeLiveData()
     }
 
     override fun onClick(v: View?) {
@@ -70,9 +70,34 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
                     }
                     else -> {
                         if (pjId != 0) {
-                            updateProject()
+                            if (bitmap == null) {
+                                viewModel.serviceUpdateApi(
+                                    pjId = pjId!!,
+                                    pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
+                                    pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
+                                    pjDescription = createPartFromString(bind.etDescription.text.toString())
+                                )
+                            } else {
+                                viewModel.serviceUpdateApi(
+                                    pjId = pjId!!,
+                                    pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
+                                    pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
+                                    pjDescription = createPartFromString(bind.etDescription.text.toString()),
+                                    image = createPartFromFile()
+                                )
+                            }
                         } else {
-                            createProject()
+                            if (bitmap != null) {
+                                viewModel.serviceCreateApi(
+                                    cnId = createPartFromString(sharedPref.getIdCompany().toString()),
+                                    pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
+                                    pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
+                                    pjDescription = createPartFromString(bind.etDescription.text.toString()),
+                                    image = createPartFromFile()
+                                )
+                            } else {
+                                noticeToast("Please select image!")
+                            }
                         }
                     }
                 }
@@ -82,6 +107,26 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
             }
             R.id.ln_back -> {
                 this@ProjectActivity.finish()
+            }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                uri = data?.getParcelableExtra("path")!!
+                try {
+                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+
+                    bind.ibChooseImage.visibility = View.GONE
+                    bind.ivImageView.visibility = View.GONE
+                    bind.ivImageLoad.visibility = View.VISIBLE
+                    bind.ivImageLoad.setImageBitmap(bitmap)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
             }
         }
     }
@@ -113,7 +158,11 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
             bind.etDeadline.setText(intent.getStringExtra("pj_deadline"))
             bind.etDescription.setText(intent.getStringExtra("pj_description"))
 
-            bind.imageUrl = BASE_URL_IMAGE + intent.getStringExtra("pj_image")
+            if (intent.getStringExtra("pj_image") != null) {
+                bind.imageUrl = BASE_URL_IMAGE + intent.getStringExtra("pj_image")
+            } else {
+                bind.imageUrl = BASE_URL_IMAGE_DEFAULT_BACKGROUND
+            }
         }
     }
 
@@ -131,106 +180,40 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                uri = data?.getParcelableExtra("path")!!
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
-
-                    bind.ivImageView.visibility = View.VISIBLE
-                    bind.ibChooseImage.visibility = View.GONE
-                    bind.ivImageView.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
-        }
+    private fun setViewModel() {
+        viewModel = ViewModelProvider(this@ProjectActivity).get(ProjectViewModel::class.java)
+        viewModel.setService(createApi(this@ProjectActivity))
     }
 
-    private fun createProject() {
-        val service = createApi<ProjectApiService>(this@ProjectActivity)
+    private fun subscribeLiveData() {
+        viewModel.isLoadingLiveData.observe(this@ProjectActivity, {
+            bind.btnAddProject.visibility = View.GONE
+            bind.btnDeleteProject.visibility = View.GONE
+            bind.progressBar.visibility = View.VISIBLE
+        })
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.createProject(
-                        cnId = createPartFromString(sharedPref.getIdCompany().toString()),
-                        pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
-                        pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
-                        pjDescription = createPartFromString(bind.etDescription.text.toString()),
-                        image = createPartFromFile()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
+        viewModel.onSuccessLiveData.observe(this@ProjectActivity, {
+            if (it) {
+                setResult(RESULT_OK)
+                this@ProjectActivity.finish()
+
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddProject.visibility = View.VISIBLE
+                bind.btnDeleteProject.visibility = View.VISIBLE
+            } else {
+                bind.progressBar.visibility = View.GONE
+                bind.btnAddProject.visibility = View.VISIBLE
+                bind.btnDeleteProject.visibility = View.VISIBLE
             }
+        })
 
-            if (response is ProjectResponse) {
-                if (response.success) {
-                    noticeToast(response.message)
-                    this@ProjectActivity.finish()
-                } else {
-                    noticeToast(response.message)
-                }
-            }
-        }
-    }
+        viewModel.onMessageLiveData.observe(this@ProjectActivity, {
+            noticeToast(it)
+        })
 
-    private fun updateProject() {
-        val service = createApi<ProjectApiService>(this@ProjectActivity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.updateProject(
-                        pjId = pjId!!,
-                        pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
-                        pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
-                        pjDescription = createPartFromString(bind.etDescription.text.toString()),
-                        image = createPartFromFile()
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is ProjectResponse) {
-                if (response.success) {
-                    noticeToast(response.message)
-                    this@ProjectActivity.finish()
-                } else {
-                    noticeToast(response.message)
-                }
-            }
-        }
-    }
-
-    private fun deleteProject() {
-        val service = createApi<ProjectApiService>(this@ProjectActivity)
-
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.deleteProject(
-                        pjId = pjId!!
-                    )
-                } catch (t: Throwable) {
-                    Log.e("msg", "${t.message}")
-                }
-            }
-
-            if (response is ProjectResponse) {
-                if (response.success) {
-                    noticeToast(response.message)
-                    this@ProjectActivity.finish()
-                } else {
-                    noticeToast(response.message)
-                }
-            }
-        }
+        viewModel.onFailLiveData.observe(this@ProjectActivity, {
+            noticeToast(it)
+        })
     }
 
     private fun deleteConfirmation() {
@@ -239,7 +222,7 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
             .setTitle("Notice!")
             .setMessage("Are you sure to delete this project?")
             .setPositiveButton("OK") { _, _ ->
-                deleteProject()
+                viewModel.serviceDeleteApi(pjId = pjId!!)
             }
             .setNegativeButton("Cancel") { dialog, _ ->
                 dialog.dismiss()

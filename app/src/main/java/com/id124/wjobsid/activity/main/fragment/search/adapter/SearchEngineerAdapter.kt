@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemEngineerBinding
 import com.id124.wjobsid.model.engineer.EngineerModel
+import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 
 class SearchEngineerAdapter : RecyclerView.Adapter<SearchEngineerAdapter.RecyclerViewHolder>() {
@@ -22,7 +23,13 @@ class SearchEngineerAdapter : RecyclerView.Adapter<SearchEngineerAdapter.Recycle
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(en: EngineerModel) {
             bind.engineer = en
-            bind.imageUrl = BASE_URL_IMAGE + en.enProfile
+
+            if (en.enProfile != null) {
+                bind.imageUrl = BASE_URL_IMAGE + en.enProfile
+            } else {
+                bind.imageUrl = ApiClient.BASE_URL_IMAGE_DEFAULT_PROFILE
+            }
+
             bind.executePendingBindings()
 
             itemView.setOnClickListener {
@@ -37,6 +44,7 @@ class SearchEngineerAdapter : RecyclerView.Adapter<SearchEngineerAdapter.Recycle
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.bind(items[position])
     }
 

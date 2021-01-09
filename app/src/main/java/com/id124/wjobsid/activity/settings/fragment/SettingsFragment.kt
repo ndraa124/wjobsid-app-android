@@ -2,6 +2,7 @@ package com.id124.wjobsid.activity.settings.fragment
 
 import android.os.Bundle
 import android.util.Log
+import androidx.lifecycle.ViewModelProvider
 import androidx.preference.EditTextPreference
 import androidx.preference.ListPreference
 import androidx.preference.Preference
@@ -10,7 +11,6 @@ import com.id124.wjobsid.R
 import com.id124.wjobsid.model.account.AccountResponse
 import com.id124.wjobsid.model.company.CompanyResponse
 import com.id124.wjobsid.model.engineer.EngineerResponse
-import com.id124.wjobsid.model.project.ProjectResponse
 import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.service.AccountApiService
 import com.id124.wjobsid.service.CompanyApiService
@@ -19,6 +19,7 @@ import kotlinx.coroutines.*
 
 class SettingsFragment(private val ids: Int, private val acId: Int, private val level: Int) : PreferenceFragmentCompat(), Preference.OnPreferenceChangeListener {
     private lateinit var coroutineScope: CoroutineScope
+    private lateinit var viewModel: SettingsViewModel
 
     private lateinit var acName: EditTextPreference
     private lateinit var acEmail: EditTextPreference
@@ -55,57 +56,116 @@ class SettingsFragment(private val ids: Int, private val acId: Int, private val 
             prefsAccount()
             prefsCompany()
         }
+
+        setViewModel()
+        subscribeLiveData()
     }
 
     override fun onPreferenceChange(preference: Preference?, newValue: Any?): Boolean {
         when (preference?.key) {
             "ac_name" -> {
-                updateAccount("ac_name", "$newValue")
+                viewModel.serviceUpdateAccount(
+                    field = "ac_name",
+                    value = "$newValue",
+                    acId = acId
+                )
             }
             "ac_email" -> {
-                updateAccount("ac_email", "$newValue")
+                viewModel.serviceUpdateAccount(
+                    field = "ac_email",
+                    value = "$newValue",
+                    acId = acId
+                )
             }
             "ac_phone" -> {
-                updateAccount("ac_phone", "$newValue")
+                viewModel.serviceUpdateAccount(
+                    field = "ac_phone",
+                    value = "$newValue",
+                    acId = acId
+                )
             }
         }
 
         when (preference?.key) {
             "en_job_title" -> {
-                updateEngineer("en_job_title", "$newValue")
+                viewModel.serviceUpdateEngineer(
+                    field = "en_job_title",
+                    value = "$newValue",
+                    enId = ids
+                )
             }
             "en_job_type" -> {
-                updateEngineer("en_job_type", "$newValue")
+                viewModel.serviceUpdateEngineer(
+                    field = "en_job_type",
+                    value = "$newValue",
+                    enId = ids
+                )
             }
             "en_domicile" -> {
-                updateEngineer("en_domicile", "$newValue")
+                viewModel.serviceUpdateEngineer(
+                    field = "en_domicile",
+                    value = "$newValue",
+                    enId = ids
+                )
             }
             "en_description" -> {
-                updateEngineer("en_description", "$newValue")
+                viewModel.serviceUpdateEngineer(
+                    field = "en_description",
+                    value = "$newValue",
+                    enId = ids
+                )
             }
         }
 
         when (preference?.key) {
             "cn_company" -> {
-                updateCompany("cn_company", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_company",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
             "cn_position" -> {
-                updateCompany("cn_position", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_position",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
             "cn_field" -> {
-                updateCompany("cn_field", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_field",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
             "cn_city" -> {
-                updateCompany("cn_city", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_city",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
             "cn_description" -> {
-                updateCompany("cn_description", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_description",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
             "cn_instagram" -> {
-                updateCompany("cn_instagram", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_instagram",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
             "cn_linkedin" -> {
-                updateCompany("cn_linkedin", "$newValue")
+                viewModel.serviceUpdateCompany(
+                    field = "cn_linkedin",
+                    value = "$newValue",
+                    cnId = ids
+                )
             }
         }
 
@@ -235,7 +295,7 @@ class SettingsFragment(private val ids: Int, private val acId: Int, private val 
         }
     }
 
-    private fun updateAccount(field: String, value: String) {
+    /*private fun updateAccount(field: String, value: String) {
         val service = activity?.let { ApiClient.getApiClient(it).create(AccountApiService::class.java) }
 
         val map: HashMap<String, String> = HashMap()
@@ -259,9 +319,9 @@ class SettingsFragment(private val ids: Int, private val acId: Int, private val 
                 }
             }
         }
-    }
+    }*/
 
-    private fun updateEngineer(field: String, value: String) {
+    /*private fun updateEngineer(field: String, value: String) {
         val service = activity?.let { ApiClient.getApiClient(it).create(EngineerApiService::class.java) }
 
         val map: HashMap<String, String> = HashMap()
@@ -285,9 +345,9 @@ class SettingsFragment(private val ids: Int, private val acId: Int, private val 
                 }
             }
         }
-    }
+    }*/
 
-    private fun updateCompany(field: String, value: String) {
+    /*private fun updateCompany(field: String, value: String) {
         val service = activity?.let { ApiClient.getApiClient(it).create(CompanyApiService::class.java) }
 
         val map: HashMap<String, String> = HashMap()
@@ -311,5 +371,36 @@ class SettingsFragment(private val ids: Int, private val acId: Int, private val 
                 }
             }
         }
+    }*/
+
+    private fun setViewModel() {
+        val serviceAccount = activity?.let { ApiClient.getApiClient(it).create(AccountApiService::class.java) }
+        val serviceEngineer = activity?.let { ApiClient.getApiClient(it).create(EngineerApiService::class.java) }
+        val serviceCompany = activity?.let { ApiClient.getApiClient(it).create(CompanyApiService::class.java) }
+
+        viewModel = ViewModelProvider(this@SettingsFragment).get(SettingsViewModel::class.java)
+        viewModel.setService(
+            serviceAccount = serviceAccount!!,
+            serviceEngineer = serviceEngineer!!,
+            serviceCompany = serviceCompany!!
+        )
+    }
+
+    private fun subscribeLiveData() {
+        viewModel.onSuccessLiveData.observe(this@SettingsFragment, {
+            if (it) {
+                Log.d("msg", "Success")
+            } else {
+                Log.d("msg", "Error!")
+            }
+        })
+
+        viewModel.onMessageLiveData.observe(this@SettingsFragment, {
+            Log.d("msg", it)
+        })
+
+        viewModel.onFailLiveData.observe(this@SettingsFragment, {
+            Log.d("msg", it)
+        })
     }
 }

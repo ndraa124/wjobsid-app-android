@@ -9,6 +9,7 @@ import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemEngineerBinding
 import com.id124.wjobsid.model.engineer.EngineerModel
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
+import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE_DEFAULT_PROFILE
 
 class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemEngineerBinding
@@ -22,7 +23,13 @@ class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerVie
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(en: EngineerModel) {
             bind.engineer = en
-            bind.imageUrl = BASE_URL_IMAGE + en.enProfile
+
+            if (en.enProfile != null) {
+                bind.imageUrl = BASE_URL_IMAGE + en.enProfile
+            } else {
+                bind.imageUrl = BASE_URL_IMAGE_DEFAULT_PROFILE
+            }
+
             bind.executePendingBindings()
 
             itemView.setOnClickListener {
@@ -37,6 +44,7 @@ class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerVie
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.bind(items[position])
     }
 

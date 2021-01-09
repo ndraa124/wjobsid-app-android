@@ -9,7 +9,7 @@
         android:id="@+id/menu_home"
         android:name="com.id124.wjobsid.activity.main.fragment.home.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_menu_home_to_menu_search"
             app:destination="@id/menu_search" />
@@ -19,17 +19,27 @@
         android:id="@+id/menu_search"
         android:name="com.id124.wjobsid.activity.main.fragment.search.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search" >
+        tools:layout="@layout/fragment_search">
         <action
-            android:id="@+id/action_menu_search_to_menu_project"
+            android:id="@+id/action_menu_search_to_menu_hiring"
+            app:destination="@id/menu_hiring" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/menu_hiring"
+        android:name="com.id124.wjobsid.activity.main.fragment.hiring.HiringFragment"
+        android:label="@string/hiring"
+        tools:layout="@layout/fragment_hiring">
+        <action
+            android:id="@+id/action_menu_hiring_to_menu_project"
             app:destination="@id/menu_project" />
     </fragment>
 
     <fragment
         android:id="@+id/menu_project"
-        android:name="com.id124.wjobsid.activity.main.fragment.project.ProjectFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.project.company.ProjectCompanyFragment"
         android:label="@string/project"
-        tools:layout="@layout/fragment_project" >
+        tools:layout="@layout/fragment_company_project">
         <action
             android:id="@+id/action_menu_project_to_menu_profile"
             app:destination="@id/menu_profile" />
@@ -37,7 +47,7 @@
 
     <fragment
         android:id="@+id/menu_profile"
-        android:name="com.id124.wjobsid.activity.main.fragment.profile.company_user.ProfileCompanyFragment"
+        android:name="com.id124.wjobsid.activity.main.fragment.profile.company.ProfileCompanyFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_home" />
 

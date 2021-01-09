@@ -345,20 +345,36 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <Button
-                    android:id="@+id/btn_sign_up"
+                <LinearLayout
+                    android:id="@+id/ln_register"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="16dp"
-                    android:backgroundTint="@color/secondary"
-                    android:onClick="onClick"
-                    android:padding="14dp"
-                    android:text="@string/sign_up"
-                    android:textColor="@color/white"
+                    android:orientation="vertical"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/input_layout_password_confirm" />
+                    app:layout_constraintTop_toBottomOf="@+id/input_layout_password_confirm">
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/white"
+                        android:visibility="gone" />
+
+                    <Button
+                        android:id="@+id/btn_sign_up"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="@color/secondary"
+                        android:onClick="onClick"
+                        android:padding="14dp"
+                        android:text="@string/sign_up"
+                        android:textColor="@color/white" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/ln_divider"
@@ -370,7 +386,7 @@
                     android:orientation="horizontal"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/btn_sign_up">
+                    app:layout_constraintTop_toBottomOf="@+id/ln_register">
 
                     <TextView
                         android:id="@+id/tv_have_account"

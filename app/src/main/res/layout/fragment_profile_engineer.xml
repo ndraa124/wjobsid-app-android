@@ -17,6 +17,10 @@
         <variable
             name="imageUrl"
             type="String" />
+
+        <variable
+            name="dataNotFound"
+            type="String" />
     </data>
 
     <ScrollView
@@ -33,6 +37,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
                 android:background="@color/secondary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:indeterminate="true"
+                android:indeterminateTint="@color/primary"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -68,10 +87,11 @@
                         android:layout_marginTop="32dp"
                         android:contentDescription="@string/img_profile"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/bg_onboarding"
+                        android:src="@drawable/ic_profile_2"
                         app:barrierMargin="2dp"
                         app:civ_border_color="@color/white"
                         app:civ_border_width="4dp"
+                        app:civ_circle_background_color="@color/white"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -367,7 +387,41 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/tv_skill" />
 
+                    <TextView
+                        android:id="@+id/tv_data_not_found"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:fontFamily="sans-serif"
+                        android:text="@{dataNotFound}"
+                        android:textAlignment="center"
+                        android:textColor="@color/gray_500"
+                        android:textSize="16sp"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/v_divider_skill" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        android:indeterminate="true"
+                        android:indeterminateTint="@color/primary"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/v_divider_skill" />
+
                     <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/fl_skill"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginBottom="16dp"
@@ -412,7 +466,7 @@
                     <com.google.android.material.tabs.TabLayout
                         android:id="@+id/tab_layout"
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
+                        android:layout_height="?actionBarSize"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

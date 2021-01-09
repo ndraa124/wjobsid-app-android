@@ -158,20 +158,36 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <Button
-                android:id="@+id/btn_process_hire"
+            <LinearLayout
+                android:id="@+id/ln_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
-                android:backgroundTint="@color/primary"
-                android:onClick="onClick"
-                android:padding="14dp"
-                android:text="@string/process_hire"
-                android:textColor="@color/white"
+                android:orientation="vertical"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/input_layout_message" />
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_message">
+
+                <ProgressBar
+                    android:id="@+id/progress_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:indeterminate="true"
+                    android:indeterminateTint="@color/white"
+                    android:visibility="gone" />
+
+                <Button
+                    android:id="@+id/btn_process_hire"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="@color/primary"
+                    android:onClick="onClick"
+                    android:padding="14dp"
+                    android:text="@string/process_hire"
+                    android:textColor="@color/white" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ln_back"
@@ -184,7 +200,7 @@
                 android:orientation="horizontal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_process_hire"
+                app:layout_constraintTop_toBottomOf="@+id/ln_btn"
                 tools:ignore="UseCompoundDrawables">
 
                 <ImageView

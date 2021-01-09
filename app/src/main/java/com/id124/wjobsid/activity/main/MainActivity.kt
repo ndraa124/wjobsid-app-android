@@ -21,8 +21,10 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
 
         if (sharedPref.getLevelUser() == 0) {
             navHostFragment.setGraph(R.navigation.main_navigation_engineer)
+            bind.bnvMain.inflateMenu(R.menu.menu_bottom_navigation_engineer)
         } else {
             navHostFragment.setGraph(R.navigation.main_navigation_company)
+            bind.bnvMain.inflateMenu(R.menu.menu_bottom_navigation_company)
         }
 
         bind.bnvMain.setupWithNavController(navHostFragment)

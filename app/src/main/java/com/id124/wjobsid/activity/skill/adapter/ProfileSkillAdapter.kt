@@ -35,6 +35,7 @@ class ProfileSkillAdapter : RecyclerView.Adapter<ProfileSkillAdapter.RecyclerVie
     }
 
     override fun onBindViewHolder(holder: RecyclerViewHolder, position: Int) {
+        holder.setIsRecyclable(false)
         holder.bind(items[position])
     }
 

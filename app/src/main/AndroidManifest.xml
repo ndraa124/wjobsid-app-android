@@ -23,6 +23,14 @@
         android:theme="@style/Theme.WJobsID"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".activity.image_profile.company.ImageProfileCompanyActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
+        <activity
+            android:name=".activity.image_profile.engineer.ImageProfileEngineerActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.WJobsID.NoActionBar" />
+        <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
@@ -67,11 +75,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.forget_password.ForgetPasswordActivity"
+            android:name=".activity.forget_password.check_email.CheckEmailActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name=".activity.forget_password.ForgetPasswordVerifyActivity"
+            android:name=".activity.forget_password.reset_password.ResetPasswordActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity

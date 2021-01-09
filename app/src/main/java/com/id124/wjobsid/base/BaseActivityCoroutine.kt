@@ -10,6 +10,8 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.ViewModelProvider
+import com.id124.wjobsid.activity.login.LoginViewModel
 import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.util.SharedPreference
 import com.karumi.dexter.Dexter
@@ -24,6 +26,8 @@ import kotlinx.coroutines.cancel
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
+import okhttp3.RequestBody.Companion.toRequestBody
 import java.io.File
 
 abstract class BaseActivityCoroutine<ActivityBinding : ViewDataBinding> : AppCompatActivity() {
@@ -128,12 +132,12 @@ abstract class BaseActivityCoroutine<ActivityBinding : ViewDataBinding> : AppCom
     }
 
     protected fun createPartFromString(descriptionString: String): RequestBody {
-        return RequestBody.create(MultipartBody.FORM, descriptionString)
+        return descriptionString.toRequestBody(MultipartBody.FORM)
     }
 
     protected fun createPartFromFile():  MultipartBody.Part {
         val file = File("${uri?.path}")
-        val reqFile: RequestBody = RequestBody.create("image/jpeg".toMediaTypeOrNull(), file)
+        val reqFile: RequestBody = file.asRequestBody("image/jpeg".toMediaTypeOrNull())
 
         return MultipartBody.Part.createFormData("image", file.name, reqFile)
     }

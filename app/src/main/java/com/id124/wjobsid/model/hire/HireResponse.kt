@@ -34,6 +34,9 @@ data class HireResponse(val success: Boolean, val message: String, val data: Lis
         @SerializedName("pj_deadline")
         val pjDeadline: String,
 
+        @SerializedName("pj_image")
+        val pjImage: String,
+
         @SerializedName("cn_company")
         val cnCompany: String,
 
@@ -44,6 +47,18 @@ data class HireResponse(val success: Boolean, val message: String, val data: Lis
         val cnCity: String,
 
         @SerializedName("cn_profile")
-        val cnProfile: String
+        val cnProfile: String,
+
+        @SerializedName("en_profile")
+        val enProfile: String,
+
+        @SerializedName("ac_name")
+        val acName: String,
+
+        @SerializedName("ac_email")
+        val acEmail: String,
+
+        @SerializedName("ac_phone")
+        val acPhone: String
     )
 }

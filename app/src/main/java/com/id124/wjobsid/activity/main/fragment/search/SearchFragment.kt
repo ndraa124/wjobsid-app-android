@@ -3,6 +3,7 @@ package com.id124.wjobsid.activity.main.fragment.search
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,13 +13,12 @@ import com.id124.wjobsid.activity.main.fragment.search.adapter.SearchEngineerAda
 import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentSearchBinding
 import com.id124.wjobsid.model.engineer.EngineerModel
-import com.id124.wjobsid.model.engineer.EngineerResponse
-import com.id124.wjobsid.service.EngineerApiService
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import com.id124.wjobsid.util.Utils
 
-class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>() {
+
+class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchContract.View, View.OnClickListener {
+    private var presenter: SearchPresenter? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_search
         super.onCreate(savedInstanceState)
@@ -26,12 +26,65 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        presenter = SearchPresenter(createApi(activity))
 
-        setupWebDevRecyclerView()
-        getAllEngineer(null)
+        bind.ivFilter.setOnClickListener(this@SearchFragment)
+
+        setSearchView()
+        setWebDevRecyclerView()
     }
 
-    private fun setupWebDevRecyclerView() {
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.iv_filter -> {
+                selectFilter()
+            }
+        }
+    }
+
+    override fun onResultSuccess(list: List<EngineerModel>) {
+        (bind.rvEngineer.adapter as SearchEngineerAdapter).addList(list)
+        bind.rvEngineer.visibility = View.VISIBLE
+        bind.tvDataNotFound.visibility = View.GONE
+    }
+
+    override fun onResultFail(message: String) {
+        if (message == "expired") {
+            noticeToast("Please sign back in!")
+            sharedPref.accountLogout()
+        } else {
+            bind.rvEngineer.visibility = View.GONE
+            bind.tvDataNotFound.visibility = View.VISIBLE
+            bind.dataNotFound = message
+        }
+    }
+
+    override fun showLoading() {
+        bind.tvDataNotFound.visibility = View.GONE
+        bind.progressBar.visibility = View.VISIBLE
+    }
+
+    override fun hideLoading() {
+        bind.progressBar.visibility = View.GONE
+    }
+
+    override fun onStart() {
+        super.onStart()
+        presenter?.bindToView(this@SearchFragment)
+        presenter?.callServiceSearch(null)
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter = null
+    }
+
+    private fun setSearchView() {
         bind.svEngineer.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -39,18 +92,31 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>() {
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                getAllEngineer(newText!!)
+                if (newText == "") {
+                    presenter?.callServiceSearch(null)
+                } else {
+                    if (newText?.length == 3) {
+                        presenter?.callServiceSearch(newText)
+                    }
+                }
+
                 return true
             }
         })
+    }
 
-        bind.rvEngineer.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+    private fun setWebDevRecyclerView() {
+        val offsetPx = resources.getDimension(R.dimen.bottom_end_recyclerview)
+        val bottomOffsetDecoration = Utils.Companion.BottomOffsetDecoration(offsetPx.toInt())
+        bind.rvEngineer.addItemDecoration(bottomOffsetDecoration)
+
         bind.rvEngineer.isNestedScrollingEnabled = false
+        bind.rvEngineer.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         val adapter = SearchEngineerAdapter()
         bind.rvEngineer.adapter = adapter
 
-        adapter.setOnItemClickCallback(object: SearchEngineerAdapter.OnItemClickCallback {
+        adapter.setOnItemClickCallback(object : SearchEngineerAdapter.OnItemClickCallback {
             override fun onItemClick(data: EngineerModel) {
                 val intent = Intent(activity, ProfileDetailActivity::class.java)
                 intent.putExtra("en_id", data.enId)
@@ -65,34 +131,30 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>() {
         })
     }
 
-    private fun getAllEngineer(search: String?) {
-        val service = createApi<EngineerApiService>(activity)
+    private fun selectFilter() {
+        val builder: AlertDialog.Builder? = activity?.let { AlertDialog.Builder(it) }
+        builder?.setTitle("Filter")
+        builder?.setIcon(R.drawable.ic_filter_gray)
 
-        coroutineScope.launch {
-            val response = withContext(Dispatchers.IO) {
-                try {
-                    service.getAllEngineer(search = search)
-                } catch (e: Throwable) {
-                    e.printStackTrace()
+        val user = arrayOf("Name", "Skill", "Domicile", "Freelance", "Full Time")
+        builder?.setItems(user) { _, which ->
+            when (which) {
+                0 -> {
+                    presenter?.callServiceFilter(0)
+                }
+                1 -> {
+                    presenter?.callServiceFilter(1)
+                }
+                2 -> {
+                    presenter?.callServiceFilter(2)
+                }
+                3 -> {
+                    presenter?.callServiceFilter(3)
+                }
+                4 -> {
+                    presenter?.callServiceFilter(4)
                 }
             }
-
-            if (response is EngineerResponse) {
-                val list = response.data.map {
-                    EngineerModel(
-                        enId = it.enId,
-                        acId = it.acId,
-                        acName = it.acName,
-                        enJobTitle = it.enJobTitle,
-                        enJobType = it.enJobType,
-                        enDomicile = it.enDomicile,
-                        enDescription = it.enDescription,
-                        enProfile = it.enProfile
-                    )
-                }
-
-                (bind.rvEngineer.adapter as SearchEngineerAdapter).addList(list)
-            }
-        }
+        }?.show()
     }
 }

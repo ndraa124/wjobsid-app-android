@@ -2,7 +2,7 @@ package com.id124.wjobsid.model.engineer
 
 import com.google.gson.annotations.SerializedName
 
-class EngineerResponse(val success: String, val message: String, val data: List<EngineerItem>) {
+class EngineerResponse(val success: Boolean, val message: String, val data: List<EngineerItem>) {
     data class EngineerItem(
         @SerializedName("en_id")
         val enId: Int,
@@ -26,6 +26,6 @@ class EngineerResponse(val success: String, val message: String, val data: List<
         val enDescription: String,
 
         @SerializedName("en_profile")
-        val enProfile: String
+        val enProfile: String? = null
     )
 }
