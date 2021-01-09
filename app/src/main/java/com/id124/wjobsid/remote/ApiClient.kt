@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 class ApiClient {
     companion object {
-        private const val BASE_URL = "http://10.0.2.2:3000/"
+        private const val BASE_URL = "http://3.90.2.253:3000/"
         const val BASE_URL_IMAGE = BASE_URL + "images/"
         const val BASE_URL_IMAGE_DEFAULT_PROFILE = BASE_URL + "images/default_profile.png"
         const val BASE_URL_IMAGE_DEFAULT_PROFILE_2 = BASE_URL + "images/default_profile_2.png"

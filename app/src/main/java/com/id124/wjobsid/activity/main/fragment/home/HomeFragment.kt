@@ -14,6 +14,7 @@ import com.id124.wjobsid.databinding.FragmentHomeBinding
 import com.id124.wjobsid.model.account.AccountModel
 import com.id124.wjobsid.model.engineer.EngineerModel
 import com.id124.wjobsid.util.SharedPreference.Companion.AC_NAME
+import com.id124.wjobsid.util.Utils
 import kotlinx.coroutines.*
 
 class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.View, View.OnClickListener {
@@ -90,6 +91,10 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.
     }
 
     private fun setupWebDevRecyclerView() {
+        val offsetPx = resources.getDimension(R.dimen.bottom_end_recyclerview_home)
+        val bottomOffsetDecoration = Utils.Companion.BottomOffsetDecoration(offsetPx.toInt())
+        bind.rvEngineer.addItemDecoration(bottomOffsetDecoration)
+
         bind.rvEngineer.isNestedScrollingEnabled = false
         bind.rvEngineer.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
