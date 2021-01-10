@@ -1,15 +1,16 @@
 package com.id124.wjobsid.activity.image_profile.engineer
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityImageProfileBinding
 import com.id124.wjobsid.remote.ApiClient
-import java.io.IOException
+import com.id124.wjobsid.util.FileHelper
+import com.id124.wjobsid.util.FileHelper.Companion.createPartFromFile
 
 class ImageProfileEngineerActivity : BaseActivityCoroutine<ActivityImageProfileBinding>(), View.OnClickListener {
     private lateinit var viewModel: ImageProfileEngineerViewModel
@@ -32,24 +33,45 @@ class ImageProfileEngineerActivity : BaseActivityCoroutine<ActivityImageProfileB
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ib_choose_image -> {
-                selectImage()
+                pickImageFromGallery()
             }
             R.id.iv_image_view -> {
-                selectImage()
+                pickImageFromGallery()
             }
             R.id.btn_update_image -> {
                 if (enId != 0) {
-                    if (bitmap == null) {
+                    if (pathImage == null) {
                         setResult(RESULT_OK)
                         this@ImageProfileEngineerActivity.finish()
                     } else {
                         viewModel.serviceUpdateImageEngineer(
                             enId = enId!!,
-                            image = createPartFromFile()
+                            image = createPartFromFile(pathImage!!)
                         )
                     }
                 } else {
                     noticeToast("Please login again!")
+                }
+            }
+            R.id.ln_back -> {
+                this@ImageProfileEngineerActivity.finish()
+            }
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGallery()
+                } else {
+                    noticeToast("Permission denied...!")
                 }
             }
         }
@@ -58,20 +80,13 @@ class ImageProfileEngineerActivity : BaseActivityCoroutine<ActivityImageProfileB
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                uri = data?.getParcelableExtra("path")!!
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            bind.ibChooseImage.visibility = View.GONE
+            bind.ivImageView.visibility = View.GONE
+            bind.ivImageLoad.visibility = View.VISIBLE
+            bind.ivImageLoad.setImageURI(data?.data)
 
-                    bind.ivImageView.visibility = View.GONE
-                    bind.ibChooseImage.visibility = View.GONE
-                    bind.ivImageLoad.visibility = View.VISIBLE
-                    bind.ivImageLoad.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
+            pathImage = FileHelper.getPathFromURI(this@ImageProfileEngineerActivity, data?.data!!)
         }
     }
 

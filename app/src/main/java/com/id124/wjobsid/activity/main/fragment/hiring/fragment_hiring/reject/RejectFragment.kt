@@ -46,6 +46,8 @@ class RejectFragment : BaseFragmentCoroutine<FragmentRejectBinding>(), RejectCon
 
     override fun showLoading() {
         bind.progressBar.visibility = View.VISIBLE
+        bind.rvHire.visibility = View.GONE
+        bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {

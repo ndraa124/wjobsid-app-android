@@ -1,8 +1,8 @@
 package com.id124.wjobsid.activity.portfolio
 
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -13,12 +13,14 @@ import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityPortfolioBinding
 import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
+import com.id124.wjobsid.util.FileHelper
+import com.id124.wjobsid.util.FileHelper.Companion.createPartFromFile
+import com.id124.wjobsid.util.FileHelper.Companion.createPartFromString
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valAppName
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valDescription
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valLinkPub
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valLinkRepo
 import com.id124.wjobsid.util.form_validate.ValidatePortfolio.Companion.valWorkPlace
-import java.io.IOException
 import java.util.*
 
 class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), View.OnClickListener {
@@ -41,10 +43,10 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ib_choose_image -> {
-                selectImage()
+                pickImageFromGallery()
             }
             R.id.iv_image_view -> {
-                selectImage()
+                pickImageFromGallery()
             }
             R.id.btn_add_portfolio -> {
                 when {
@@ -64,7 +66,7 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
                         }
 
                         if (prId != 0) {
-                            if (bitmap == null) {
+                            if (pathImage == null) {
                                 viewModel.serviceUpdateApi(
                                     prId = prId!!,
                                     prApp = createPartFromString(bind.etApp.text.toString()),
@@ -83,11 +85,11 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
                                     prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
                                     prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
                                     prType = createPartFromString(typePortfolio!!),
-                                    image = createPartFromFile()
+                                    image = createPartFromFile(pathImage!!)
                                 )
                             }
                         } else {
-                            if (bitmap != null) {
+                            if (pathImage != null) {
                                 viewModel.serviceCreateApi(
                                     enId = createPartFromString(sharedPref.getIdEngineer().toString()),
                                     prApp = createPartFromString(bind.etApp.text.toString()),
@@ -96,7 +98,7 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
                                     prLinkRepo = createPartFromString(bind.etRepoLink.text.toString()),
                                     prWorkPlace = createPartFromString(bind.etWorkPlace.text.toString()),
                                     prType = createPartFromString(typePortfolio!!),
-                                    image = createPartFromFile()
+                                    image = createPartFromFile(pathImage!!)
                                 )
                             } else {
                                 noticeToast("Please select image!")
@@ -114,23 +116,34 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGallery()
+                } else {
+                    noticeToast("Permission denied...!")
+                }
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                uri = data?.getParcelableExtra("path")!!
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            bind.ibChooseImage.visibility = View.GONE
+            bind.ivImageView.visibility = View.GONE
+            bind.ivImageLoad.visibility = View.VISIBLE
+            bind.ivImageLoad.setImageURI(data?.data)
 
-                    bind.ivImageView.visibility = View.GONE
-                    bind.ibChooseImage.visibility = View.GONE
-                    bind.ivImageLoad.visibility = View.VISIBLE
-                    bind.ivImageLoad.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
+            pathImage = FileHelper.getPathFromURI(this@PortfolioActivity, data?.data!!)
         }
     }
 

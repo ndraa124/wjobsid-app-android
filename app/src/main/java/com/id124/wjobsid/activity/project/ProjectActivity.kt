@@ -3,8 +3,8 @@ package com.id124.wjobsid.activity.project
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -16,6 +16,9 @@ import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityProjectBinding
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE_DEFAULT_BACKGROUND
+import com.id124.wjobsid.util.FileHelper
+import com.id124.wjobsid.util.FileHelper.Companion.createPartFromFile
+import com.id124.wjobsid.util.FileHelper.Companion.createPartFromString
 import com.id124.wjobsid.util.form_validate.ValidateProject.Companion.valDeadline
 import com.id124.wjobsid.util.form_validate.ValidateProject.Companion.valDescription
 import com.id124.wjobsid.util.form_validate.ValidateProject.Companion.valProjectName
@@ -48,10 +51,10 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.ib_choose_image -> {
-                selectImage()
+                pickImageFromGallery()
             }
             R.id.iv_image_view -> {
-                selectImage()
+                pickImageFromGallery()
             }
             R.id.et_deadline -> {
                 DatePickerDialog(
@@ -70,7 +73,7 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
                     }
                     else -> {
                         if (pjId != 0) {
-                            if (bitmap == null) {
+                            if (pathImage == null) {
                                 viewModel.serviceUpdateApi(
                                     pjId = pjId!!,
                                     pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
@@ -83,17 +86,17 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
                                     pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
                                     pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
                                     pjDescription = createPartFromString(bind.etDescription.text.toString()),
-                                    image = createPartFromFile()
+                                    image = createPartFromFile(pathImage!!)
                                 )
                             }
                         } else {
-                            if (bitmap != null) {
+                            if (pathImage != null) {
                                 viewModel.serviceCreateApi(
                                     cnId = createPartFromString(sharedPref.getIdCompany().toString()),
                                     pjProjectName = createPartFromString(bind.etProjectName.text.toString()),
                                     pjDeadline = createPartFromString(bind.etDeadline.text.toString()),
                                     pjDescription = createPartFromString(bind.etDescription.text.toString()),
-                                    image = createPartFromFile()
+                                    image = createPartFromFile(pathImage!!)
                                 )
                             } else {
                                 noticeToast("Please select image!")
@@ -111,23 +114,34 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        when (requestCode) {
+            PERMISSION_CODE -> {
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    pickImageFromGallery()
+                } else {
+                    noticeToast("Permission denied...!")
+                }
+            }
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_IMAGE) {
-            if (resultCode == RESULT_OK) {
-                uri = data?.getParcelableExtra("path")!!
-                try {
-                    bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+        if (resultCode == RESULT_OK && requestCode == IMAGE_PICK_CODE) {
+            bind.ibChooseImage.visibility = View.GONE
+            bind.ivImageView.visibility = View.GONE
+            bind.ivImageLoad.visibility = View.VISIBLE
+            bind.ivImageLoad.setImageURI(data?.data)
 
-                    bind.ibChooseImage.visibility = View.GONE
-                    bind.ivImageView.visibility = View.GONE
-                    bind.ivImageLoad.visibility = View.VISIBLE
-                    bind.ivImageLoad.setImageBitmap(bitmap)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
-            }
+            pathImage = FileHelper.getPathFromURI(this@ProjectActivity, data?.data!!)
         }
     }
 

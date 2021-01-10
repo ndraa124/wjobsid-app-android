@@ -68,6 +68,8 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.
 
     override fun showLoading() {
         bind.progressBar.visibility = View.VISIBLE
+        bind.rvEngineer.visibility = View.GONE
+        bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {

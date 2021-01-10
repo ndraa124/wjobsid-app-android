@@ -60,8 +60,9 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
     }
 
     override fun showLoading() {
-        bind.tvDataNotFound.visibility = View.GONE
         bind.progressBar.visibility = View.VISIBLE
+        bind.rvEngineer.visibility = View.GONE
+        bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {

@@ -35,7 +35,7 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
 
                         when {
                             e.code() == 404 -> {
-                                view?.onResultFail("Data not found!")
+                                view?.onResultFail("No data engineer!")
                             }
                             e.code() == 400 -> {
                                 view?.onResultFail("expired")

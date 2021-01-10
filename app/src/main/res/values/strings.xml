@@ -9,6 +9,8 @@
     <string name="web_developer">Web Developer</string>
     <string name="android_developer">Android Developer</string>
     <string name="dummy_date">Monday, 07 December 2020</string>
+    <string name="permission_dialog">Accessing Location Permissions required</string>
+    <string name="go_to_permissions_settings">Go to App settings and enable permissions</string>
 
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>

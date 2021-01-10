@@ -10,7 +10,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
 import android.provider.OpenableColumns
-import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -26,27 +25,30 @@ import com.yalantis.ucrop.UCrop
 import java.io.File
 
 class ImagePickerActivity : AppCompatActivity() {
-    private val TAG = ImagePickerActivity::class.java.simpleName
-    val INTENT_IMAGE_PICKER_OPTION = "image_picker_option"
-    val INTENT_ASPECT_RATIO_X = "aspect_ratio_x"
-    val INTENT_ASPECT_RATIO_Y = "aspect_ratio_Y"
-    val INTENT_LOCK_ASPECT_RATIO = "lock_aspect_ratio"
-    val INTENT_IMAGE_COMPRESSION_QUALITY = "compression_quality"
-    val INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT = "set_bitmap_max_width_height"
-    val INTENT_BITMAP_MAX_WIDTH = "max_width"
-    val INTENT_BITMAP_MAX_HEIGHT = "max_height"
-
-    val REQUEST_IMAGE_CAPTURE = 0
-    val REQUEST_GALLERY_IMAGE = 1
-
-    private var lockAspectRatio = false
-    private var setBitmapMaxWidthHeight: Boolean = false
-    private var ASPECT_RATIO_X = 16
-    private var ASPECT_RATIO_Y: Int = 9
-    private var bitmapMaxWidth: Int = 1000
-    private var bitmapMaxHeight: Int = 1000
-    private var IMAGE_COMPRESSION = 80
     var fileName: String? = null
+
+    companion object {
+        private val TAG = ImagePickerActivity::class.java.simpleName
+        const val INTENT_IMAGE_PICKER_OPTION = "image_picker_option"
+        const val INTENT_ASPECT_RATIO_X = "aspect_ratio_x"
+        const val INTENT_ASPECT_RATIO_Y = "aspect_ratio_Y"
+        const val INTENT_LOCK_ASPECT_RATIO = "lock_aspect_ratio"
+        const val INTENT_IMAGE_COMPRESSION_QUALITY = "compression_quality"
+        const val INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT = "set_bitmap_max_width_height"
+        const val INTENT_BITMAP_MAX_WIDTH = "max_width"
+        const val INTENT_BITMAP_MAX_HEIGHT = "max_height"
+
+        const val REQUEST_IMAGE_CAPTURE = 0
+        const val REQUEST_GALLERY_IMAGE = 1
+
+        private var lockAspectRatio = false
+        private var setBitmapMaxWidthHeight: Boolean = false
+        private var ASPECT_RATIO_X = 16
+        private var ASPECT_RATIO_Y: Int = 9
+        private var bitmapMaxWidth: Int = 1000
+        private var bitmapMaxHeight: Int = 1000
+        private var IMAGE_COMPRESSION = 80
+    }
 
     interface PickerOptionListener {
         fun onTakeCameraSelected()
@@ -81,7 +83,7 @@ class ImagePickerActivity : AppCompatActivity() {
         listener.onChooseGallerySelected()
     }
 
-    fun showImagePickerOptions1(context: Context?, listener: PickerOptionListener) {
+    /*fun showImagePickerOptions1(context: Context?, listener: PickerOptionListener) {
         // setup the alert builder
         val builder: AlertDialog.Builder = AlertDialog.Builder(context!!)
         builder.setTitle("Choose Media")
@@ -98,7 +100,7 @@ class ImagePickerActivity : AppCompatActivity() {
         // create and show the alert dialog
         val dialog: AlertDialog = builder.create()
         dialog.show()
-    }
+    }*/
 
     private fun takeCameraImage() {
         Dexter.withActivity(this)
@@ -155,17 +157,19 @@ class ImagePickerActivity : AppCompatActivity() {
 
         when (requestCode) {
             REQUEST_IMAGE_CAPTURE -> if (resultCode == RESULT_OK) {
-                cropImage(getCacheImagePath(fileName))
+                //cropImage(getCacheImagePath(fileName))
+                getCacheImagePath(fileName)
             } else {
                 setResultCancelled()
             }
             REQUEST_GALLERY_IMAGE -> if (resultCode == RESULT_OK) {
                 val imageUri: Uri? = data?.data
-                cropImage(imageUri)
+                setResultOk(imageUri)
+                //cropImage(imageUri)
             } else {
                 setResultCancelled()
             }
-            UCrop.REQUEST_CROP -> if (resultCode == RESULT_OK) {
+            /*UCrop.REQUEST_CROP -> if (resultCode == RESULT_OK) {
                 handleUCropResult(data)
             } else {
                 setResultCancelled()
@@ -174,12 +178,12 @@ class ImagePickerActivity : AppCompatActivity() {
                 val cropError = UCrop.getError(data!!)
                 Log.e(TAG, "Crop error: $cropError")
                 setResultCancelled()
-            }
+            }*/
             else -> setResultCancelled()
         }
     }
 
-    private fun cropImage(sourceUri: Uri?) {
+    /*private fun cropImage(sourceUri: Uri?) {
         val destinationUri: Uri =
             Uri.fromFile(File(cacheDir, queryName(contentResolver, sourceUri)))
         val options = UCrop.Options()
@@ -206,7 +210,7 @@ class ImagePickerActivity : AppCompatActivity() {
         }
         val resultUri: Uri? = UCrop.getOutput(data)
         setResultOk(resultUri)
-    }
+    }*/
 
     private fun setResultOk(imagePath: Uri?) {
         val intent = Intent()
@@ -228,7 +232,7 @@ class ImagePickerActivity : AppCompatActivity() {
         return getUriForFile(this@ImagePickerActivity, "$packageName.provider", image)
     }
 
-    @SuppressLint("Recycle")
+    /*@SuppressLint("Recycle")
     private fun queryName(resolver: ContentResolver, uri: Uri?): String {
         val returnCursor: Cursor = resolver.query(uri!!, null, null, null, null)!!
         val nameIndex: Int = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME)
@@ -245,5 +249,5 @@ class ImagePickerActivity : AppCompatActivity() {
                 child.delete()
             }
         }
-    }
+    }*/
 }

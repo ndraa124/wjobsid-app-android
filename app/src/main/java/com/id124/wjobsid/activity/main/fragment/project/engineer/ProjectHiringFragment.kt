@@ -69,6 +69,8 @@ class ProjectHiringFragment : BaseFragmentCoroutine<FragmentHiringProjectBinding
 
     override fun showLoading() {
         bind.progressBar.visibility = View.VISIBLE
+        bind.rvHiring.visibility = View.GONE
+        bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {
