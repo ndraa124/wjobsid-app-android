@@ -48,6 +48,9 @@ class PortfolioActivity : BaseActivityCoroutine<ActivityPortfolioBinding>(), Vie
             R.id.iv_image_view -> {
                 pickImageFromGallery()
             }
+            R.id.iv_image_load -> {
+                pickImageFromGallery()
+            }
             R.id.btn_add_portfolio -> {
                 when {
                     !valAppName(bind.inputLayoutApp, bind.etApp) -> {}

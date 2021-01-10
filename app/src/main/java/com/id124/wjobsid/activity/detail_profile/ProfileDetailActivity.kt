@@ -113,7 +113,11 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityProfileDetailBinding
             noticeToast("Please sign back in!")
             sharedPref.accountLogout()
         } else {
-            bind.btnHire.visibility = View.VISIBLE
+            if (sharedPref.getLevelUser() == 0) {
+                bind.btnHire.visibility = View.GONE
+            } else {
+                bind.btnHire.visibility = View.VISIBLE
+            }
         }
     }
 

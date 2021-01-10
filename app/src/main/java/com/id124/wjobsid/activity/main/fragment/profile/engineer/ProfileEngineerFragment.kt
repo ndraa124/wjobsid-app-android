@@ -130,6 +130,7 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
         bind.cvContact.visibility = View.GONE
         bind.cvSkill.visibility = View.GONE
         bind.cvCurriculumVitae.visibility = View.GONE
+        bind.flSkill.visibility = View.GONE
         bind.progressBarDetail.visibility = View.VISIBLE
         bind.progressBar.visibility = View.VISIBLE
     }

@@ -58,6 +58,9 @@ class PortfolioViewModel : ViewModel(), CoroutineScope {
                             e.code() == 400 -> {
                                 onFailLiveData.value = "Fail to add data!"
                             }
+                            e.code() == 404 -> {
+                                onFailLiveData.value = "Image to large!"
+                            }
                             else -> {
                                 onFailLiveData.value = "Internal Server Error!"
                             }

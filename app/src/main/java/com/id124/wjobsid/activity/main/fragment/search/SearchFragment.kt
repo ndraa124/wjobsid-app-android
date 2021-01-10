@@ -137,7 +137,7 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
         builder?.setTitle("Filter")
         builder?.setIcon(R.drawable.ic_filter_gray)
 
-        val user = arrayOf("Name", "Skill", "Domicile", "Freelance", "Full Time")
+        val user = arrayOf("Name", "Domicile", "Freelance", "Full Time")
         builder?.setItems(user) { _, which ->
             when (which) {
                 0 -> {
@@ -151,9 +151,6 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
                 }
                 3 -> {
                     presenter?.callServiceFilter(3)
-                }
-                4 -> {
-                    presenter?.callServiceFilter(4)
                 }
             }
         }?.show()
