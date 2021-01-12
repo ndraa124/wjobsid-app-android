@@ -8,6 +8,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.target.CustomTarget
 import com.bumptech.glide.request.transition.Transition
+import com.id124.wjobsid.R
 
 @BindingAdapter("loadImage")
 fun loadImage(iv_image_profile: ImageView, url: String?) {
@@ -22,5 +23,9 @@ fun loadImage(iv_image_profile: ImageView, url: String?) {
             }
 
             override fun onLoadCleared(placeholder: Drawable?) {}
+
+            override fun onLoadStarted(placeholder: Drawable?) {
+                iv_image_profile.setImageResource(R.drawable.ic_loading)
+            }
         })
 }

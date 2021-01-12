@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
-            name="hire"
-            type="com.id124.wjobsid.model.hire.HireModel" />
+            name="portfolio"
+            type="com.id124.wjobsid.model.portfolio.PortfolioModel" />
 
         <variable
             name="imageUrl"
             type="String" />
 
         <variable
-            name="price"
-            type="String" />
-
-        <variable
-            name="date"
+            name="project_type"
             type="String" />
     </data>
 
@@ -33,14 +28,12 @@
             android:layout_margin="10dp"
             android:clickable="true"
             android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
             app:cardCornerRadius="10dp"
             app:cardElevation="5dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?android:attr/selectableItemBackground">
+                android:layout_height="wrap_content">
 
                 <ImageView
                     android:id="@+id/iv_image_project"
@@ -48,8 +41,8 @@
                     android:layout_height="200dp"
                     android:contentDescription="@string/img_background"
                     android:scaleType="centerCrop"
-                    android:transitionName="img"
                     android:src="@drawable/ic_image"
+                    android:transitionName="img"
                     app:loadImage="@{imageUrl}" />
 
                 <ImageView
@@ -61,24 +54,24 @@
                     android:src="@drawable/shadow_bottom" />
 
                 <TextView
-                    android:id="@+id/tv_project_name"
+                    android:id="@+id/tv_pr_app"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
-                    android:layout_alignStart="@+id/tv_name"
-                    android:layout_alignTop="@+id/layoutDate"
-                    android:layout_alignEnd="@+id/layoutDate"
-                    android:layout_alignParentStart="@+id/tv_name"
-                    android:layout_alignParentEnd="@+id/layoutDate"
+                    android:layout_alignStart="@+id/tv_pr_work_place"
+                    android:layout_alignTop="@+id/layoutType"
+                    android:layout_alignEnd="@+id/layoutType"
+                    android:layout_alignParentStart="@+id/tv_pr_work_place"
+                    android:layout_alignParentEnd="@+id/layoutType"
                     android:layout_marginEnd="160dp"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"
                     android:gravity="bottom"
                     android:singleLine="true"
-                    android:text="@{hire.pjProjectName}"
+                    android:text="@{portfolio.pr_app}"
                     android:textColor="@color/white" />
 
                 <FrameLayout
-                    android:id="@+id/layoutDate"
+                    android:id="@+id/layoutType"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_image_project"
@@ -88,28 +81,19 @@
                     android:background="@drawable/round_white"
                     android:padding="3dp">
 
-                    <ImageView
-                        android:layout_width="14dp"
-                        android:layout_height="14dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginRight="5dp"
-                        android:src="@drawable/ic_date"
-                        tools:ignore="ContentDescription" />
-
                     <TextView
-                        android:id="@+id/tv_deadline"
+                        android:id="@+id/tv_project_type"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="27dp"
-                        android:layout_marginEnd="10dp"
-                        android:text="@{hire.pjDeadline}"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="@{project_type}"
                         android:textColor="@color/gray_700"
                         android:textSize="12sp" />
                 </FrameLayout>
 
                 <TextView
-                    android:id="@+id/tv_name"
+                    android:id="@+id/tv_pr_work_place"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_image_project"
@@ -117,69 +101,40 @@
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
                     android:fontFamily="sans-serif-light"
-                    android:text="@{hire.cnCompany}"
+                    android:text="@{portfolio.pr_work_place}"
                     android:textColor="@color/black"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_email"
+                <com.skyhope.showmoretextview.ShowMoreTextView
+                    android:id="@+id/tv_pr_description"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_name"
+                    android:layout_below="@+id/tv_pr_work_place"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
-                    android:text="@{hire.cnField}"
+                    android:text="@{portfolio.pr_description}"
                     android:textSize="14sp" />
 
-                <ImageView
-                    android:id="@+id/iv_creditcard"
-                    android:layout_width="22dp"
+                <TextView
+                    android:id="@+id/tv_pr_link_pub"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:layout_below="@+id/tv_email"
-                    android:layout_gravity="center_vertical"
+                    android:layout_below="@+id/tv_pr_description"
                     android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
-                    android:contentDescription="@string/img_icon"
-                    android:drawablePadding="10dp"
-                    android:src="@drawable/ic_credit_card" />
-
-                <TextView
-                    android:id="@+id/tv_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_below="@+id/tv_email"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="5dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_toEndOf="@+id/iv_creditcard"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@{price}"
+                    android:text="@{portfolio.pr_link_pub}"
                     android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/tv_confirm_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_below="@+id/tv_email"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_toEndOf="@+id/tv_price"
-                    android:drawablePadding="10dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="@{date}"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>
 
     </FrameLayout>
+
 </layout>

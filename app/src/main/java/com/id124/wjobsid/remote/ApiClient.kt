@@ -27,9 +27,10 @@ class ApiClient {
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(provideHttpLoggingInterceptor())
                 .addInterceptor(HeaderInterceptor(context))
-                .connectTimeout(1, TimeUnit.MINUTES)
-                .readTimeout(1, TimeUnit.MINUTES)
-                .writeTimeout(1, TimeUnit.MINUTES)
+                .connectTimeout(5, TimeUnit.SECONDS)
+                .readTimeout(5, TimeUnit.SECONDS)
+                .writeTimeout(5, TimeUnit.SECONDS)
+                .callTimeout(10, TimeUnit.SECONDS)
                 .build()
 
             return Retrofit.Builder()

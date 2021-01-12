@@ -4,11 +4,9 @@ import android.graphics.Rect
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 class Utils {
     companion object {
@@ -80,6 +78,23 @@ class Utils {
                     outRect[0, 0, 0] = 0
                 }
             }
+        }
+
+        fun sentenceCaseForText(text: String?): String {
+            if (text == null) return ""
+            var pos = 0
+            var capitalize = true
+            val sb = StringBuilder(text)
+            while (pos < sb.length) {
+                if (capitalize && !Character.isWhitespace(sb[pos])) {
+                    sb.setCharAt(pos, Character.toUpperCase(sb[pos]))
+                } else if (!capitalize && !Character.isWhitespace(sb[pos])) {
+                    sb.setCharAt(pos, Character.toLowerCase(sb[pos]))
+                }
+                capitalize = sb[pos] == '.' || capitalize && Character.isWhitespace(sb[pos])
+                pos++
+            }
+            return sb.toString()
         }
     }
 }

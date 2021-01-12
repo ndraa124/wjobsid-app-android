@@ -50,6 +50,9 @@ class ImageProfileCompanyActivity : BaseActivityCoroutine<ActivityImageProfileBi
                     pickImageFromGallery()
                 }
             }
+            R.id.iv_image_load -> {
+                pickImageFromGallery()
+            }
             R.id.btn_update_image -> {
                 if (cnId != 0) {
                     if (pathImage == null) {

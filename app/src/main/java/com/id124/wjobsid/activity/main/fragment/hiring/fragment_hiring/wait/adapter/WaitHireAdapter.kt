@@ -30,6 +30,7 @@ class WaitHireAdapter : RecyclerView.Adapter<WaitHireAdapter.RecyclerViewHolder>
             } else {
                 bind.imageUrl = BASE_URL_IMAGE_DEFAULT_BACKGROUND
             }
+
             bind.price = "Rp. ${currencyFormat(hire.hrPrice.toString())}"
 
             bind.executePendingBindings()

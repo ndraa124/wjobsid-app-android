@@ -61,7 +61,8 @@ class HomePresenter(private val service: EngineerApiService) : CoroutineScope, H
                             enJobType = it.enJobType,
                             enDomicile = it.enDomicile,
                             enDescription = it.enDescription,
-                            enProfile = it.enProfile
+                            enProfile = it.enProfile,
+                            enSkill = it.enSkill
                         )
                     }
 

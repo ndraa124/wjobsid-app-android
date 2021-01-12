@@ -15,6 +15,11 @@ interface HireApiService {
         @Query("status") status: String
     ): HireResponse
 
+    @GET("hire/project/{pjId}")
+    suspend fun getAllHireByProject(
+        @Path("pjId") pjId: Int
+    ): HireResponse
+
     @FormUrlEncoded
     @POST("hire")
     suspend fun createHire(

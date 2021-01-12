@@ -9,7 +9,8 @@ import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemHireBinding
 import com.id124.wjobsid.model.hire.HireModel
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
-import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE_DEFAULT_PROFILE
+import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE_DEFAULT_BACKGROUND
+import com.id124.wjobsid.util.Utils
 
 class ProjectHiringAdapter : RecyclerView.Adapter<ProjectHiringAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemHireBinding
@@ -20,26 +21,51 @@ class ProjectHiringAdapter : RecyclerView.Adapter<ProjectHiringAdapter.RecyclerV
         this.onItemClickCallback = onItemClickCallback
     }
 
-    inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(hire: HireModel) {
             bind.hire = hire
 
-            if (hire.cnProfile != null) {
-                bind.imageUrl = BASE_URL_IMAGE + hire.cnProfile
+            if (hire.pjImage != null) {
+                bind.imageUrl = BASE_URL_IMAGE + hire.pjImage
             } else {
-                bind.imageUrl = BASE_URL_IMAGE_DEFAULT_PROFILE
+                bind.imageUrl = BASE_URL_IMAGE_DEFAULT_BACKGROUND
             }
+
+            if (hire.hrDateConfirm != null) {
+                when (hire.hrStatus) {
+                    "approve" -> {
+                        bind.tvConfirmDate.visibility = View.VISIBLE
+                        bind.date = "approve at ${hire.hrDateConfirm}"
+                    }
+                    "reject" -> {
+                        bind.tvConfirmDate.visibility = View.VISIBLE
+                        bind.date = "reject at ${hire.hrDateConfirm}"
+                    }
+                    else -> {
+                        bind.tvConfirmDate.visibility = View.GONE
+                    }
+                }
+            } else {
+                bind.tvConfirmDate.visibility = View.GONE
+            }
+
+            bind.price = "Rp. ${Utils.currencyFormat(hire.hrPrice.toString())}"
 
             bind.executePendingBindings()
 
-            itemView.setOnClickListener {
+            bind.cvProject.setOnClickListener {
                 onItemClickCallback.onItemClick(hire)
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        bind = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_hire, parent, false)
+        bind = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_hire,
+            parent,
+            false
+        )
         return RecyclerViewHolder(bind.root)
     }
 

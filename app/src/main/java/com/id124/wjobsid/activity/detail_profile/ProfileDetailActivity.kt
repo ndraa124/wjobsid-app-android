@@ -5,12 +5,12 @@ import android.os.Bundle
 import android.view.View
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.detail_profile.adapter.ProfileDetailSkillAdapter
 import com.id124.wjobsid.activity.detail_profile.fragment.experience.DetailProfileExperienceFragment
 import com.id124.wjobsid.activity.detail_profile.fragment.portfolio.DetailProfilePortfolioFragment
 import com.id124.wjobsid.activity.hire.HireActivity
-import com.id124.wjobsid.activity.skill.adapter.ProfileSkillAdapter
 import com.id124.wjobsid.base.BaseActivityCoroutine
-import com.id124.wjobsid.databinding.ActivityProfileDetailBinding
+import com.id124.wjobsid.databinding.ActivityDetailProfileBinding
 import com.id124.wjobsid.model.account.AccountModel
 import com.id124.wjobsid.model.account.AccountResponse
 import com.id124.wjobsid.model.engineer.EngineerModel
@@ -18,15 +18,14 @@ import com.id124.wjobsid.model.engineer.EngineerResponse
 import com.id124.wjobsid.model.skill.SkillModel
 import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.util.ViewPagerAdapter
-import kotlinx.android.synthetic.main.activity_profile_detail.*
 
-class ProfileDetailActivity : BaseActivityCoroutine<ActivityProfileDetailBinding>(), ProfileDetailContract.View, View.OnClickListener {
+class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding>(), ProfileDetailContract.View, View.OnClickListener {
     private var presenter: ProfileDetailPresenter? = null
     private var enId: Int? = 0
     private var acId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setLayout = R.layout.activity_profile_detail
+        setLayout = R.layout.activity_detail_profile
         super.onCreate(savedInstanceState)
 
         enId = intent.getIntExtra("en_id", 0)
@@ -89,7 +88,7 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityProfileDetailBinding
     }
 
     override fun onResultSuccessSkill(list: List<SkillModel>) {
-        (bind.rvSkill.adapter as ProfileSkillAdapter).addList(list)
+        (bind.rvSkill.adapter as ProfileDetailSkillAdapter).addList(list)
         bind.flSkill.visibility = View.VISIBLE
     }
 
@@ -150,7 +149,7 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityProfileDetailBinding
     }
 
     private fun initViewPager() {
-        bind.tabLayout.setupWithViewPager(view_pager)
+        bind.tabLayout.setupWithViewPager(bind.viewPager)
         val adapter = ViewPagerAdapter(supportFragmentManager)
 
         adapter.addFrag(DetailProfilePortfolioFragment(enId!!), "Portfolio")
@@ -161,7 +160,7 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityProfileDetailBinding
     private fun setSkillRecyclerView() {
         bind.rvSkill.layoutManager = FlexboxLayoutManager(this@ProfileDetailActivity)
 
-        val adapter = ProfileSkillAdapter()
+        val adapter = ProfileDetailSkillAdapter()
         bind.rvSkill.adapter = adapter
     }
 }

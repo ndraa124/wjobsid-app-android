@@ -1,4 +1,4 @@
-package com.id124.wjobsid.activity.skill.adapter
+package com.id124.wjobsid.activity.main.fragment.search.adapter
 
 import android.view.LayoutInflater
 import android.view.View
@@ -9,23 +9,14 @@ import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemSkillBinding
 import com.id124.wjobsid.model.skill.SkillModel
 
-class ProfileSkillAdapter : RecyclerView.Adapter<ProfileSkillAdapter.RecyclerViewHolder>() {
+class SearchSkillAdapter : RecyclerView.Adapter<SearchSkillAdapter.RecyclerViewHolder>() {
     private lateinit var bind: ItemSkillBinding
-    private lateinit var onItemClickCallback: OnItemClickCallback
     private var items = mutableListOf<SkillModel>()
-
-    fun setOnItemClickCallback(onItemClickCallback: OnItemClickCallback) {
-        this.onItemClickCallback = onItemClickCallback
-    }
 
     inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(skill: SkillModel) {
             bind.skill = skill
             bind.executePendingBindings()
-
-            itemView.setOnClickListener {
-                onItemClickCallback.onItemClick(skill)
-            }
         }
     }
 
@@ -46,10 +37,6 @@ class ProfileSkillAdapter : RecyclerView.Adapter<ProfileSkillAdapter.RecyclerVie
 
     override fun getItemCount(): Int {
         return items.size
-    }
-
-    interface OnItemClickCallback {
-        fun onItemClick(data: SkillModel)
     }
 
     fun addList(list: List<SkillModel>) {

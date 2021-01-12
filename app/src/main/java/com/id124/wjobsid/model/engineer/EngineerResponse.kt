@@ -1,6 +1,7 @@
 package com.id124.wjobsid.model.engineer
 
 import com.google.gson.annotations.SerializedName
+import com.id124.wjobsid.model.skill.SkillModel
 
 class EngineerResponse(val success: Boolean, val message: String, val data: List<EngineerItem>) {
     data class EngineerItem(
@@ -26,6 +27,9 @@ class EngineerResponse(val success: Boolean, val message: String, val data: List
         val enDescription: String,
 
         @SerializedName("en_profile")
-        val enProfile: String? = null
+        val enProfile: String? = null,
+
+        @SerializedName("en_skill")
+        val enSkill: List<SkillModel>
     )
 }

@@ -22,6 +22,14 @@ class ProfilePortfolioAdapter : RecyclerView.Adapter<ProfilePortfolioAdapter.Rec
 
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(portfolio: PortfolioModel) {
+            bind.portfolio = portfolio
+
+            if (portfolio.pr_type == "aplikasi mobile") {
+                bind.projectType = "Mobile"
+            } else {
+                bind.projectType = "Web"
+            }
+
             if (portfolio.pr_image != null) {
                 bind.imageUrl = BASE_URL_IMAGE + portfolio.pr_image
             } else {
@@ -30,7 +38,7 @@ class ProfilePortfolioAdapter : RecyclerView.Adapter<ProfilePortfolioAdapter.Rec
 
             bind.executePendingBindings()
 
-            itemView.setOnClickListener {
+            bind.cvProject.setOnClickListener {
                 onItemClickCallback.onItemClick(portfolio)
             }
         }

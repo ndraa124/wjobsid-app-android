@@ -28,7 +28,7 @@ class ProjectHiringPresenter(private val service: HireApiService) : CoroutineSco
 
             val response = withContext(Dispatchers.IO) {
                 try {
-                    service.getAllHire(enId)
+                    service.getAllHire(enId = enId)
                 } catch (e: HttpException) {
                     withContext(Dispatchers.Main) {
                         view?.hideLoading()
@@ -60,14 +60,19 @@ class ProjectHiringPresenter(private val service: HireApiService) : CoroutineSco
                             hrPrice = it.hrPrice,
                             hrMessage = it.hrMessage,
                             hrStatus = it.hrStatus,
-                            hrDateConfirm = it.hrDateConfirm,
+                            hrDateConfirm =it.pjDeadline.split('T')[0],
                             pjProjectName = it.pjProjectName,
                             pjDescription = it.pjDescription,
                             pjDeadline = it.pjDeadline.split('T')[0],
+                            pjImage = it.pjImage,
                             cnCompany = it.cnCompany,
                             cnField = it.cnField,
                             cnCity = it.cnCity,
-                            cnProfile = it.cnProfile
+                            cnProfile = it.cnProfile,
+                            enProfile = it.enProfile,
+                            acName = it.acName,
+                            acEmail = it.acEmail,
+                            acPhone = it.acPhone
                         )
                     }
 

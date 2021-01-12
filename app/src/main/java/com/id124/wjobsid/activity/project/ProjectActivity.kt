@@ -3,10 +3,10 @@ package com.id124.wjobsid.activity.project
 import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
@@ -56,6 +56,9 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
             R.id.iv_image_view -> {
                 pickImageFromGallery()
             }
+            R.id.iv_image_load -> {
+                pickImageFromGallery()
+            }
             R.id.et_deadline -> {
                 DatePickerDialog(
                     this@ProjectActivity, deadline, myCalendar.get(Calendar.YEAR),
@@ -65,12 +68,9 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
             }
             R.id.btn_add_project -> {
                 when {
-                    !valProjectName(bind.inputLayoutProjectName, bind.etProjectName) -> {
-                    }
-                    !valDeadline(bind.inputLayoutDeadline, bind.etDeadline) -> {
-                    }
-                    !valDescription(bind.inputLayoutDescription, bind.etDescription) -> {
-                    }
+                    !valProjectName(bind.inputLayoutProjectName, bind.etProjectName) -> return
+                    !valDeadline(bind.inputLayoutDeadline, bind.etDeadline) -> return
+                    !valDescription(bind.inputLayoutDescription, bind.etDescription) -> return
                     else -> {
                         if (pjId != 0) {
                             if (pathImage == null) {
@@ -127,6 +127,11 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+        viewModel.serviceIsHireApi(pjId)
+    }
+
     private fun setToolbarActionBar() {
         setSupportActionBar(bind.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -178,7 +183,8 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
 
     private fun setViewModel() {
         viewModel = ViewModelProvider(this@ProjectActivity).get(ProjectViewModel::class.java)
-        viewModel.setService(createApi(this@ProjectActivity))
+        viewModel.setServiceProject(createApi(this@ProjectActivity))
+        viewModel.setServiceHire(createApi(this@ProjectActivity))
     }
 
     private fun subscribeLiveData() {
@@ -203,12 +209,25 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
             }
         })
 
+        viewModel.onSuccessHireLiveData.observe(this, {
+            if (it) {
+                bind.btnAddProject.visibility = View.GONE
+                bind.btnDeleteProject.visibility = View.GONE
+            }
+        })
+
         viewModel.onMessageLiveData.observe(this@ProjectActivity, {
             noticeToast(it)
         })
 
         viewModel.onFailLiveData.observe(this@ProjectActivity, {
             noticeToast(it)
+        })
+
+        viewModel.onFailHireLiveData.observe(this@ProjectActivity, {
+            Log.d("msg", it)
+            bind.btnAddProject.visibility = View.VISIBLE
+            bind.btnDeleteProject.visibility = View.VISIBLE
         })
     }
 

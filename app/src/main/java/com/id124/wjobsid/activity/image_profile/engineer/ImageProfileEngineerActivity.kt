@@ -38,6 +38,9 @@ class ImageProfileEngineerActivity : BaseActivityCoroutine<ActivityImageProfileB
             R.id.iv_image_view -> {
                 pickImageFromGallery()
             }
+            R.id.iv_image_load -> {
+                pickImageFromGallery()
+            }
             R.id.btn_update_image -> {
                 if (enId != 0) {
                     if (pathImage == null) {

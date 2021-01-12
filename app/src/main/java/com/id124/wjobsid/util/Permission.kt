@@ -4,15 +4,10 @@ import android.Manifest
 import android.app.Activity
 import android.app.AlertDialog
 import android.content.DialogInterface
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.StrictMode
 import android.os.StrictMode.ThreadPolicy
-import android.provider.Settings
-import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.id124.wjobsid.R
@@ -21,8 +16,7 @@ class Permission(private val mActivity: Activity) {
     private var listener: PermissionListener? = null
 
     companion object {
-        private val REQUEST_PERMISSION = 99
-        private val TAG = "PermissionHelper"
+        private const val REQUEST_PERMISSION = 99
     }
 
     fun permissionListener(permissionListener: PermissionListener?) {
@@ -31,29 +25,20 @@ class Permission(private val mActivity: Activity) {
 
     fun checkAndRequestPermissions(): Boolean {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val permissionReadStorage = ContextCompat.checkSelfPermission(
-                mActivity,
-                Manifest.permission.READ_EXTERNAL_STORAGE
-            )
-            val permissionWriteStorage = ContextCompat.checkSelfPermission(
-                mActivity,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
-            )
-
+            val permissionReadStorage = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE)
+            val permissionWriteStorage = ContextCompat.checkSelfPermission(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
             val listPermissionsNeeded: MutableList<String> = ArrayList()
+
             if (permissionReadStorage != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(Manifest.permission.READ_EXTERNAL_STORAGE)
             }
+
             if (permissionWriteStorage != PackageManager.PERMISSION_GRANTED) {
                 listPermissionsNeeded.add(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             }
-            if (listPermissionsNeeded.isNotEmpty()) {
-                ActivityCompat.requestPermissions(
-                    mActivity,
-                    listPermissionsNeeded.toTypedArray(),
-                    REQUEST_PERMISSION
-                )
 
+            if (listPermissionsNeeded.isNotEmpty()) {
+                ActivityCompat.requestPermissions(mActivity, listPermissionsNeeded.toTypedArray(), REQUEST_PERMISSION)
                 return false
             }
         }
@@ -66,11 +51,7 @@ class Permission(private val mActivity: Activity) {
         return true
     }
 
-    fun onRequestCallBack(
-        RequestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray
-    ) {
+    fun onRequestCallBack(RequestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (RequestCode) {
             REQUEST_PERMISSION -> {
                 val perms: MutableMap<String, Int> = HashMap()
@@ -86,37 +67,16 @@ class Permission(private val mActivity: Activity) {
                     }
 
                     if (perms[Manifest.permission.ACCESS_FINE_LOCATION] == PackageManager.PERMISSION_GRANTED && perms[Manifest.permission.ACCESS_COARSE_LOCATION] == PackageManager.PERMISSION_GRANTED && perms[Manifest.permission.CAMERA] == PackageManager.PERMISSION_GRANTED && perms[Manifest.permission.READ_EXTERNAL_STORAGE] == PackageManager.PERMISSION_GRANTED && perms[Manifest.permission.WRITE_EXTERNAL_STORAGE] == PackageManager.PERMISSION_GRANTED) {
-                        Log.e(TAG, "permission granted")
                         checkAndRequestPermissions()
                     } else {
-                        Log.e(TAG, "Some permissions are not granted ask again ")
-                        if (ActivityCompat.shouldShowRequestPermissionRationale(
-                                mActivity,
-                                Manifest.permission.READ_EXTERNAL_STORAGE
-                            ) ||
-                            ActivityCompat.shouldShowRequestPermissionRationale(
-                                mActivity,
-                                Manifest.permission.WRITE_EXTERNAL_STORAGE
-                            )
+                        if (ActivityCompat.shouldShowRequestPermissionRationale(mActivity, Manifest.permission.READ_EXTERNAL_STORAGE) ||
+                            ActivityCompat.shouldShowRequestPermissionRationale(mActivity, Manifest.permission.WRITE_EXTERNAL_STORAGE)
                         ) {
-                            showDialogOK(
-                                mActivity.getString(R.string.permission_dialog)
-                            ) { dialog, which ->
+                            showDialogOK(mActivity.getString(R.string.permission_dialog)) { _, which ->
                                 when (which) {
                                     DialogInterface.BUTTON_POSITIVE -> checkAndRequestPermissions()
                                 }
                             }
-                        } else {
-                            Toast.makeText(
-                                mActivity,
-                                R.string.go_to_permissions_settings,
-                                Toast.LENGTH_LONG
-                            ).show()
-                            val intent = Intent()
-                            intent.action = Settings.ACTION_APPLICATION_DETAILS_SETTINGS
-                            val uri: Uri = Uri.fromParts("package", mActivity.packageName, null)
-                            intent.data = uri
-                            mActivity.startActivity(intent)
                         }
                     }
                 }

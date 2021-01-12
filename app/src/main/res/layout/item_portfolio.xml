@@ -11,24 +11,135 @@
         <variable
             name="imageUrl"
             type="String" />
+
+        <variable
+            name="project_type"
+            type="String" />
     </data>
 
-    <androidx.cardview.widget.CardView
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        android:elevation="10dp"
-        app:cardCornerRadius="8dp">
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/iv_imgae_portfolio"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:contentDescription="@string/img_background"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_image"
-            app:loadImage="@{imageUrl}" />
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cv_project"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            app:cardCornerRadius="10dp"
+            app:cardElevation="5dp">
 
-    </androidx.cardview.widget.CardView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground">
+
+                <ImageView
+                    android:id="@+id/iv_image_project"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:contentDescription="@string/img_background"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/ic_image"
+                    android:transitionName="img"
+                    app:loadImage="@{imageUrl}" />
+
+                <ImageView
+                    android:id="@+id/shadow_bottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:layout_alignBottom="@+id/iv_image_project"
+                    android:contentDescription="@string/img_background"
+                    android:src="@drawable/shadow_bottom" />
+
+                <TextView
+                    android:id="@+id/tv_project_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_alignStart="@+id/tv_name"
+                    android:layout_alignTop="@+id/layoutDate"
+                    android:layout_alignEnd="@+id/layoutDate"
+                    android:layout_alignParentStart="@+id/tv_name"
+                    android:layout_alignParentEnd="@+id/layoutDate"
+                    android:layout_marginEnd="160dp"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:gravity="bottom"
+                    android:singleLine="true"
+                    android:text="@{portfolio.pr_app}"
+                    android:textColor="@color/white" />
+
+                <FrameLayout
+                    android:id="@+id/layoutDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_image_project"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="-40dp"
+                    android:layout_marginEnd="20dp"
+                    android:background="@drawable/round_white"
+                    android:padding="3dp">
+
+                    <TextView
+                        android:id="@+id/tv_deadline"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginEnd="5dp"
+                        android:text="@{project_type}"
+                        android:textColor="@color/gray_700"
+                        android:textSize="12sp" />
+                </FrameLayout>
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/iv_image_project"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="15dp"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@{portfolio.pr_work_place}"
+                    android:textColor="@color/black"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_email"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_name"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginRight="15dp"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:minLines="2"
+                    android:text="@{portfolio.pr_description}"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_below="@+id/tv_email"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:drawablePadding="10dp"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:text="@{portfolio.pr_link_pub}"
+                    android:textSize="13sp" />
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+    </FrameLayout>
 
 </layout>

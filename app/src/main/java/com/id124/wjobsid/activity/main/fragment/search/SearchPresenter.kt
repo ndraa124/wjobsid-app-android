@@ -61,7 +61,8 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
                             enJobType = it.enJobType,
                             enDomicile = it.enDomicile,
                             enDescription = it.enDescription,
-                            enProfile = it.enProfile
+                            enProfile = it.enProfile,
+                            enSkill = it.enSkill
                         )
                     }
 
@@ -112,7 +113,8 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
                             enJobType = it.enJobType,
                             enDomicile = it.enDomicile,
                             enDescription = it.enDescription,
-                            enProfile = it.enProfile
+                            enProfile = it.enProfile,
+                            enSkill = it.enSkill
                         )
                     }
 

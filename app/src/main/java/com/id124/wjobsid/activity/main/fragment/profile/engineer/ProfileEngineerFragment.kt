@@ -112,6 +112,7 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
     override fun onResultSuccessSkill(list: List<SkillModel>) {
         (bind.rvSkill.adapter as ProfileSkillAdapter).addList(list)
         bind.flSkill.visibility = View.VISIBLE
+        bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun onResultFail(message: String) {

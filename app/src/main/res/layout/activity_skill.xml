@@ -129,7 +129,7 @@
                     android:padding="14dp"
                     android:text="@string/delete_skill"
                     android:textColor="@color/white"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
             </LinearLayout>
 

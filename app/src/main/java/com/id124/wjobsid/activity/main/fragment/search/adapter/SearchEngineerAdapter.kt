@@ -5,9 +5,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.flexbox.FlexboxLayoutManager
 import com.id124.wjobsid.R
 import com.id124.wjobsid.databinding.ItemEngineerBinding
 import com.id124.wjobsid.model.engineer.EngineerModel
+import com.id124.wjobsid.model.skill.SkillModel
 import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.remote.ApiClient.Companion.BASE_URL_IMAGE
 
@@ -30,11 +32,31 @@ class SearchEngineerAdapter : RecyclerView.Adapter<SearchEngineerAdapter.Recycle
                 bind.imageUrl = ApiClient.BASE_URL_IMAGE_DEFAULT_PROFILE
             }
 
+            setSkillRecyclerView()
+            setSkillAdapter(en)
+
             bind.executePendingBindings()
 
             itemView.setOnClickListener {
                 onItemClickCallback.onItemClick(en)
             }
+        }
+
+        private fun setSkillRecyclerView() {
+            bind.rvSkill.layoutManager = FlexboxLayoutManager(itemView.context)
+            val adapter = SearchSkillAdapter()
+            bind.rvSkill.adapter = adapter
+        }
+
+        private fun setSkillAdapter(en: EngineerModel) {
+            val listSkill = en.enSkill?.map {
+                SkillModel(
+                    sk_id = it.sk_id,
+                    sk_skill_name = it.sk_skill_name
+                )
+            }
+
+            (bind.rvSkill.adapter as SearchSkillAdapter).addList(listSkill!!)
         }
     }
 
