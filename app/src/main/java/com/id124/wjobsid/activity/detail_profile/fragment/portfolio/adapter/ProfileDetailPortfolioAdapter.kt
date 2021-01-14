@@ -18,7 +18,6 @@ class ProfileDetailPortfolioAdapter : RecyclerView.Adapter<ProfileDetailPortfoli
 
     inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         fun bind(portfolio: PortfolioModel) {
-            //bind.tvPrDescription.setShowingChar(10)
             bind.tvPrDescription.setShowingLine(2)
             bind.tvPrDescription.addShowMoreText("read more")
             bind.tvPrDescription.addShowLessText("less")

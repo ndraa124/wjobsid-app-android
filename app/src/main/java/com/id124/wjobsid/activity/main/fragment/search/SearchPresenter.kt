@@ -22,13 +22,16 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
         this@SearchPresenter.view = null
     }
 
-    override fun callServiceSearch(search: String?) {
+    override fun callServiceSearch(search: String?, page: Int?) {
         launch {
             view?.showLoading()
 
             val response = withContext(Dispatchers.IO) {
                 try {
-                    service.getAllEngineer(search = search)
+                    service.getAllEngineer(
+                        search = search,
+                        page = page
+                    )
                 } catch (e: HttpException) {
                     withContext(Dispatchers.Main) {
                         view?.hideLoading()
@@ -49,8 +52,6 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
             }
 
             if (response is EngineerResponse) {
-                view?.hideLoading()
-
                 if (response.success) {
                     val list = response.data.map {
                         EngineerModel(
@@ -66,7 +67,8 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
                         )
                     }
 
-                    view?.onResultSuccess(list)
+                    view?.hideLoading()
+                    view?.onResultSuccess(list, response.totalPages)
                 } else {
                     view?.onResultFail(response.message)
                 }
@@ -80,7 +82,10 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
 
             val response = withContext(Dispatchers.IO) {
                 try {
-                    service.getFilterEngineer(filter = filter)
+                    service.getFilterEngineer(
+                        filter = filter,
+                        limit = 50
+                    )
                 } catch (e: HttpException) {
                     withContext(Dispatchers.Main) {
                         view?.hideLoading()
@@ -101,8 +106,6 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
             }
 
             if (response is EngineerResponse) {
-                view?.hideLoading()
-
                 if (response.success) {
                     val list = response.data.map {
                         EngineerModel(
@@ -118,7 +121,8 @@ class SearchPresenter(private val service: EngineerApiService) : CoroutineScope,
                         )
                     }
 
-                    view?.onResultSuccess(list)
+                    view?.hideLoading()
+                    view?.onResultSuccess(list, response.totalPages)
                 } else {
                     view?.onResultFail(response.message)
                 }

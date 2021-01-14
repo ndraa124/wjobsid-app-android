@@ -180,4 +180,9 @@
     <string name="hire_project_deadline">Deadline Project</string>
     <string name="hire_approve">Approve</string>
     <string name="hire_reject">Reject</string>
+
+    <!-- Shimmer -->
+    <string name="shimmer_description">
+        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+    </string>
 </resources>

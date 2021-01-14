@@ -3,7 +3,7 @@ package com.id124.wjobsid.model.engineer
 import com.google.gson.annotations.SerializedName
 import com.id124.wjobsid.model.skill.SkillModel
 
-class EngineerResponse(val success: Boolean, val message: String, val data: List<EngineerItem>) {
+class EngineerResponse(val success: Boolean, val message: String, val totalPages: Int, val data: List<EngineerItem>) {
     data class EngineerItem(
         @SerializedName("en_id")
         val enId: Int,

@@ -13,16 +13,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import com.id124.wjobsid.remote.ApiClient
 import com.id124.wjobsid.util.SharedPreference
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
 
 abstract class BaseFragmentCoroutine<FragmentBinding : ViewDataBinding> : Fragment() {
     protected lateinit var bind: FragmentBinding
     protected lateinit var sharedPref: SharedPreference
     protected lateinit var userDetail: HashMap<String, String>
-    protected lateinit var coroutineScope: CoroutineScope
     protected var setLayout: Int? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -34,7 +29,6 @@ abstract class BaseFragmentCoroutine<FragmentBinding : ViewDataBinding> : Fragme
         super.onViewCreated(view, savedInstanceState)
         sharedPref = SharedPreference(view.context)
         userDetail = sharedPref.getAccountUser()
-        coroutineScope = CoroutineScope(Job() + Dispatchers.Main)
     }
 
     protected inline fun <reified ClassActivity> intents(activity: FragmentActivity?) {
@@ -68,10 +62,5 @@ abstract class BaseFragmentCoroutine<FragmentBinding : ViewDataBinding> : Fragme
         }
 
         dialog?.show()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        coroutineScope.cancel()
     }
 }

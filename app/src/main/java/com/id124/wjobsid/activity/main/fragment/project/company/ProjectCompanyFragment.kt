@@ -85,19 +85,27 @@ class ProjectCompanyFragment : BaseFragmentCoroutine<FragmentCompanyProjectBindi
     }
 
     override fun showLoading() {
-        bind.progressBar.visibility = View.VISIBLE
+        bind.shimmerViewContainer.visibility = View.VISIBLE
         bind.rvProject.visibility = View.GONE
         bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {
-        bind.progressBar.visibility = View.GONE
+        bind.shimmerViewContainer.stopShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
+        bind.shimmerViewContainer.startShimmerAnimation()
+
         presenter?.bindToView(this@ProjectCompanyFragment)
         presenter?.callService(sharedPref.getIdCompany())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bind.shimmerViewContainer.stopShimmerAnimation()
     }
 
     override fun onStop() {

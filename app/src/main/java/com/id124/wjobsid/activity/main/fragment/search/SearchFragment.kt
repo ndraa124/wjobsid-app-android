@@ -7,6 +7,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.detail_profile.ProfileDetailActivity
 import com.id124.wjobsid.activity.main.fragment.search.adapter.SearchEngineerAdapter
@@ -15,9 +16,15 @@ import com.id124.wjobsid.databinding.FragmentSearchBinding
 import com.id124.wjobsid.model.engineer.EngineerModel
 import com.id124.wjobsid.util.Utils
 
-
-class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchContract.View, View.OnClickListener {
+class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchContract.View, View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
     private var presenter: SearchPresenter? = null
+
+    private lateinit var adapter: SearchEngineerAdapter
+    private lateinit var layoutManager: LinearLayoutManager
+
+    private var page = 1
+    private var totalPage = 1
+    private var isLoading = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.fragment_search
@@ -27,11 +34,12 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         presenter = SearchPresenter(createApi(activity))
-
         bind.ivFilter.setOnClickListener(this@SearchFragment)
+        bind.swipeRefresh.setOnRefreshListener(this@SearchFragment)
 
         setSearchView()
         setWebDevRecyclerView()
+        setupAddOnScroll()
     }
 
     override fun onClick(v: View?) {
@@ -42,10 +50,27 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
         }
     }
 
-    override fun onResultSuccess(list: List<EngineerModel>) {
+    override fun onRefresh() {
+        bind.shimmerViewContainer.startShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.VISIBLE
+
+        adapter.clear()
+        page = 1
+        presenter?.callServiceSearch(
+            search = null,
+            page = page
+        )
+    }
+
+    override fun onResultSuccess(list: List<EngineerModel>, totalPages: Int) {
+        totalPage = totalPages
+
         (bind.rvEngineer.adapter as SearchEngineerAdapter).addList(list)
         bind.rvEngineer.visibility = View.VISIBLE
         bind.tvDataNotFound.visibility = View.GONE
+
+        bind.swipeRefresh.isRefreshing = false
+        isLoading = false
     }
 
     override fun onResultFail(message: String) {
@@ -60,19 +85,34 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
     }
 
     override fun showLoading() {
-        bind.progressBar.visibility = View.VISIBLE
-        bind.rvEngineer.visibility = View.GONE
+        isLoading = true
+        bind.swipeRefresh.isRefreshing = true
         bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {
-        bind.progressBar.visibility = View.GONE
+        isLoading = false
+
+        bind.swipeRefresh.isRefreshing = false
+        bind.shimmerViewContainer.stopShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
+        bind.shimmerViewContainer.startShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.VISIBLE
+
         presenter?.bindToView(this@SearchFragment)
-        presenter?.callServiceSearch(null)
+        presenter?.callServiceSearch(
+            search = null,
+            page = page
+        )
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bind.shimmerViewContainer.stopShimmerAnimation()
     }
 
     override fun onStop() {
@@ -89,15 +129,39 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
         bind.svEngineer.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             android.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                return false
+                adapter.clear()
+                page = 1
+
+                if (query == "") {
+                    presenter?.callServiceSearch(
+                        search = null,
+                        page = page
+                    )
+                } else {
+                    presenter?.callServiceSearch(
+                        search = query,
+                        page = page
+                    )
+                }
+
+                return true
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                adapter.clear()
+                page = 1
+
                 if (newText == "") {
-                    presenter?.callServiceSearch(null)
+                    presenter?.callServiceSearch(
+                        search = null,
+                        page = page
+                    )
                 } else {
                     if (newText?.length == 3) {
-                        presenter?.callServiceSearch(newText)
+                        presenter?.callServiceSearch(
+                            search = newText,
+                            page = page
+                        )
                     }
                 }
 
@@ -107,14 +171,16 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
     }
 
     private fun setWebDevRecyclerView() {
-        val offsetPx = resources.getDimension(R.dimen.bottom_end_recyclerview)
+        val offsetPx = resources.getDimension(R.dimen.bottom_end_recyclerview_home)
         val bottomOffsetDecoration = Utils.Companion.BottomOffsetDecoration(offsetPx.toInt())
+
         bind.rvEngineer.addItemDecoration(bottomOffsetDecoration)
+        bind.rvEngineer.setHasFixedSize(true)
 
-        bind.rvEngineer.isNestedScrollingEnabled = false
-        bind.rvEngineer.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        bind.rvEngineer.layoutManager = layoutManager
 
-        val adapter = SearchEngineerAdapter()
+        adapter = SearchEngineerAdapter()
         bind.rvEngineer.adapter = adapter
 
         adapter.setOnItemClickCallback(object : SearchEngineerAdapter.OnItemClickCallback {
@@ -132,6 +198,28 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
         })
     }
 
+    private fun setupAddOnScroll() {
+        bind.rvEngineer.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                val visibleItemCount = layoutManager.childCount
+                val pastVisibleItem = layoutManager.findFirstVisibleItemPosition()
+                val total = adapter.itemCount
+
+                if (!isLoading && page < totalPage) {
+                    if ((visibleItemCount + pastVisibleItem) >= total) {
+                        page++
+                        presenter?.callServiceSearch(
+                            search = null,
+                            page = page
+                        )
+                    }
+                }
+
+                super.onScrollStateChanged(recyclerView, newState)
+            }
+        })
+    }
+
     private fun selectFilter() {
         val builder: AlertDialog.Builder? = activity?.let { AlertDialog.Builder(it) }
         builder?.setTitle("Filter")
@@ -141,16 +229,28 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
         builder?.setItems(user) { _, which ->
             when (which) {
                 0 -> {
-                    presenter?.callServiceFilter(0)
+                    adapter.clear()
+                    presenter?.callServiceFilter(
+                        filter = 0
+                    )
                 }
                 1 -> {
-                    presenter?.callServiceFilter(1)
+                    adapter.clear()
+                    presenter?.callServiceFilter(
+                        filter = 1
+                    )
                 }
                 2 -> {
-                    presenter?.callServiceFilter(2)
+                    adapter.clear()
+                    presenter?.callServiceFilter(
+                        filter = 2
+                    )
                 }
                 3 -> {
-                    presenter?.callServiceFilter(3)
+                    adapter.clear()
+                    presenter?.callServiceFilter(
+                        filter = 3
+                    )
                 }
             }
         }?.show()

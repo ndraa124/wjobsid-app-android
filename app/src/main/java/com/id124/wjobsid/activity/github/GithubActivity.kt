@@ -3,7 +3,6 @@ package com.id124.wjobsid.activity.github
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.webkit.WebSettings
 import com.id124.wjobsid.R
 import com.id124.wjobsid.base.BaseActivity
 import com.id124.wjobsid.activity.github.client.ChromeClient
@@ -20,7 +19,6 @@ class GithubActivity : BaseActivity<ActivityGithubBinding>(), WebViewListener {
         bind.webView.settings.allowContentAccess = true
         bind.webView.settings.allowFileAccess = true
         bind.webView.settings.domStorageEnabled = true
-        bind.webView.settings.setRenderPriority(WebSettings.RenderPriority.HIGH)
         bind.webView.webChromeClient = ChromeClient(this)
         bind.webView.webViewClient = WebClient(this)
     }

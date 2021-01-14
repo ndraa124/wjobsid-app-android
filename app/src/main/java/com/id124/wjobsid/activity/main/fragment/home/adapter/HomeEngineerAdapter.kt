@@ -79,8 +79,12 @@ class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerVie
     }
 
     fun addList(list: List<EngineerModel>) {
-        items.clear()
         items.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        items.clear()
         notifyDataSetChanged()
     }
 }

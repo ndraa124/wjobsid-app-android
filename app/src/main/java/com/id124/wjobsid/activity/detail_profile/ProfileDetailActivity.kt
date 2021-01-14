@@ -1,6 +1,7 @@
 package com.id124.wjobsid.activity.detail_profile
 
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -68,6 +69,12 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
     }
 
     override fun onResultSuccessEngineer(data: EngineerResponse.EngineerItem) {
+        bind.tvDescription.setShowingLine(2)
+        bind.tvDescription.addShowMoreText("read more")
+        bind.tvDescription.addShowLessText("less")
+        bind.tvDescription.setShowMoreColor(Color.BLUE)
+        bind.tvDescription.setShowLessTextColor(Color.BLUE)
+
         bind.engineerModel = EngineerModel(
             enJobTitle = data.enJobTitle,
             enDomicile = data.enDomicile,
@@ -121,15 +128,32 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
     }
 
     override fun showLoading() {
+        bind.shimmerViewContainer.visibility = View.VISIBLE
         bind.progressBar.visibility = View.VISIBLE
+
+        bind.cvIdentity.visibility = View.GONE
+        bind.cvContact.visibility = View.GONE
+        bind.cvSkill.visibility = View.GONE
+        bind.cvCurriculumVitae.visibility = View.GONE
+        bind.flSkill.visibility = View.GONE
+        bind.btnHire.visibility = View.GONE
     }
 
     override fun hideLoading() {
+        bind.cvIdentity.visibility = View.VISIBLE
+        bind.cvContact.visibility = View.VISIBLE
+        bind.cvSkill.visibility = View.VISIBLE
+        bind.cvCurriculumVitae.visibility = View.VISIBLE
+        bind.progressBar.visibility = View.GONE
+
+        bind.shimmerViewContainer.stopShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.GONE
         bind.progressBar.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
+        bind.shimmerViewContainer.startShimmerAnimation()
         sharedPref.createInDetail(1)
 
         presenter?.bindToView(this@ProfileDetailActivity)
@@ -137,6 +161,21 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
         presenter?.callServiceEngineer(acId = acId)
         presenter?.callServiceSkill(enId = enId)
         presenter?.callServiceIsHire(enId = enId)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bind.shimmerViewContainer.stopShimmerAnimation()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        presenter?.unbind()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter = null
     }
 
     private fun setToolbarActionBar() {

@@ -3,17 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
-
-        <variable
-            name="engineer"
-            type="com.id124.wjobsid.model.engineer.EngineerModel" />
-
-        <variable
-            name="imageUrl"
-            type="String" />
-    </data>
-
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,8 +25,7 @@
                 android:layout_marginHorizontal="16dp"
                 android:contentDescription="@string/img_profile"
                 android:scaleType="centerCrop"
-                android:transitionName="image_profile"
-                app:loadImage="@{imageUrl}" />
+                android:src="@color/shimmer" />
 
             <LinearLayout
                 android:id="@+id/ln_identity"
@@ -52,10 +40,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
+                    android:background="@color/shimmer"
                     android:fontFamily="sans-serif-thin"
-                    android:text="@{engineer.acName}"
+                    android:text="Indra David Pesik"
                     android:textAlignment="textStart"
-                    android:textColor="@color/black"
+                    android:textColor="@color/shimmer"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -64,10 +53,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/shimmer"
                     android:fontFamily="sans-serif-thin"
-                    android:text="@{engineer.enJobTitle}"
+                    android:text="Android Developer"
                     android:textAlignment="textStart"
-                    android:textColor="@color/gray_700"
+                    android:textColor="@color/shimmer"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
@@ -79,11 +70,50 @@
                     android:layout_marginBottom="8dp"
                     app:flexWrap="wrap">
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_skill"
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:id="@+id/tv_skill1"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false" />
+                        android:layout_marginHorizontal="2.5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@color/shimmer"
+                        android:fontFamily="sans-serif-condensed"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        android:text="Web"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/shimmer"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_skill2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="2.5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@color/shimmer"
+                        android:fontFamily="sans-serif-condensed"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        android:text="Android"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/shimmer"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/tv_skill3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="2.5dp"
+                        android:layout_marginVertical="5dp"
+                        android:background="@color/shimmer"
+                        android:fontFamily="sans-serif-condensed"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="2dp"
+                        android:text="Javascript"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/shimmer"
+                        android:textSize="12sp" />
 
                 </com.google.android.flexbox.FlexboxLayout>
 
@@ -112,12 +142,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginHorizontal="5dp"
+                        android:background="@color/shimmer"
                         android:ellipsize="end"
                         android:fontFamily="sans-serif-condensed"
                         android:singleLine="true"
-                        android:text="@{engineer.enDomicile != null ? engineer.enDomicile : @string/en_domicile_not_set}"
+                        android:text="Manado, Sulawesi Utara"
                         android:textAlignment="textStart"
-                        android:textColor="@color/gray_700"
+                        android:textColor="@color/shimmer"
                         android:textSize="12sp" />
                 </LinearLayout>
 

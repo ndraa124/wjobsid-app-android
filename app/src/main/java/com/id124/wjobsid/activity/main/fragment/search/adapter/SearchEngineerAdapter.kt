@@ -79,8 +79,12 @@ class SearchEngineerAdapter : RecyclerView.Adapter<SearchEngineerAdapter.Recycle
     }
 
     fun addList(list: List<EngineerModel>) {
-        items.clear()
         items.addAll(list)
+        notifyDataSetChanged()
+    }
+
+    fun clear() {
+        items.clear()
         notifyDataSetChanged()
     }
 }

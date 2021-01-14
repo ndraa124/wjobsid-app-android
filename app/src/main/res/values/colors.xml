@@ -20,6 +20,7 @@
     <color name="red">#D50000</color>
     <color name="dark_red">#AF0000</color>
     <color name="transparent">#00AF0000</color>
+    <color name="shimmer">#DDDDDD</color>
 
     <color name="ic_launcher_background">#FFFFFF</color>
 </resources>

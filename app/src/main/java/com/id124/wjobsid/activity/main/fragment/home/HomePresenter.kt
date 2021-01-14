@@ -1,5 +1,6 @@
 package com.id124.wjobsid.activity.main.fragment.home
 
+import android.util.Log
 import com.id124.wjobsid.model.engineer.EngineerModel
 import com.id124.wjobsid.model.engineer.EngineerResponse
 import com.id124.wjobsid.service.EngineerApiService
@@ -22,13 +23,15 @@ class HomePresenter(private val service: EngineerApiService) : CoroutineScope, H
         this@HomePresenter.view = null
     }
 
-    override fun callService() {
+    override fun callService(page: Int) {
         launch {
             view?.showLoading()
 
             val response = withContext(Dispatchers.IO) {
                 try {
-                    service.getAllEngineer()
+                    service.getAllEngineer(
+                        page = page
+                    )
                 } catch (e: HttpException) {
                     withContext(Dispatchers.Main) {
                         view?.hideLoading()
@@ -49,8 +52,6 @@ class HomePresenter(private val service: EngineerApiService) : CoroutineScope, H
             }
 
             if (response is EngineerResponse) {
-                view?.hideLoading()
-
                 if (response.success) {
                     val list = response.data.map {
                         EngineerModel(
@@ -66,7 +67,8 @@ class HomePresenter(private val service: EngineerApiService) : CoroutineScope, H
                         )
                     }
 
-                    view?.onResultSuccess(list)
+                    view?.hideLoading()
+                    view?.onResultSuccess(list, response.totalPages)
                 } else {
                     view?.onResultFail(response.message)
                 }

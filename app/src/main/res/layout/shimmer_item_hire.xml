@@ -32,7 +32,6 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="16dp"
             android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
             android:clickable="true"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
@@ -50,17 +49,9 @@
                     android:layout_height="200dp"
                     android:contentDescription="@string/img_background"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/ic_image"
+                    android:src="@color/shimmer"
                     android:transitionName="img"
                     app:loadImage="@{imageUrl}" />
-
-                <ImageView
-                    android:id="@+id/shadow_bottom"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:layout_alignBottom="@+id/iv_image_project"
-                    android:contentDescription="@string/img_background"
-                    android:src="@drawable/shadow_bottom" />
 
                 <TextView
                     android:id="@+id/tv_project_name"
@@ -76,8 +67,7 @@
                     android:ellipsize="end"
                     android:gravity="bottom"
                     android:singleLine="true"
-                    android:text="@{hire.pjProjectName}"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/shimmer" />
 
                 <FrameLayout
                     android:id="@+id/layoutDate"
@@ -105,22 +95,24 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="27dp"
                         android:layout_marginEnd="10dp"
-                        android:text="@{hire.pjDeadline}"
-                        android:textColor="@color/gray_700"
+                        android:background="@color/shimmer"
+                        android:text="22 Juli 1995"
+                        android:textColor="@color/shimmer"
                         android:textSize="12sp" />
                 </FrameLayout>
 
                 <TextView
                     android:id="@+id/tv_name"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/iv_image_project"
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="10dp"
                     android:layout_marginRight="15dp"
+                    android:background="@color/shimmer"
                     android:fontFamily="sans-serif-light"
-                    android:text="@{hire.cnCompany}"
-                    android:textColor="@color/black"
+                    android:text="CV. Kawanua Tech"
+                    android:textColor="@color/shimmer"
                     android:textSize="17sp"
                     android:textStyle="bold" />
 
@@ -132,7 +124,9 @@
                     android:layout_marginLeft="15dp"
                     android:layout_marginTop="5dp"
                     android:layout_marginRight="15dp"
-                    android:text="@{hire.cnField}"
+                    android:background="@color/shimmer"
+                    android:text="Software Development"
+                    android:textColor="@color/shimmer"
                     android:textSize="14sp" />
 
                 <ImageView
@@ -158,27 +152,13 @@
                     android:layout_marginEnd="5dp"
                     android:layout_marginBottom="10dp"
                     android:layout_toEndOf="@+id/iv_creditcard"
+                    android:background="@color/shimmer"
                     android:drawablePadding="10dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="@{price}"
+                    android:text="Rp. 10.000.000"
+                    android:textColor="@color/shimmer"
                     android:textSize="13sp" />
-
-                <TextView
-                    android:id="@+id/tv_confirm_date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="20dp"
-                    android:layout_below="@+id/tv_email"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:layout_toEndOf="@+id/tv_price"
-                    android:drawablePadding="10dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="@{date}"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:visibility="gone" />
             </RelativeLayout>
 
         </androidx.cardview.widget.CardView>

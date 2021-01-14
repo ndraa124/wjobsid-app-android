@@ -15,6 +15,7 @@ import com.id124.wjobsid.activity.main.fragment.project.engineer.adapter.Project
 import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentHiringProjectBinding
 import com.id124.wjobsid.model.hire.HireModel
+import com.id124.wjobsid.util.Utils
 
 class ProjectHiringFragment : BaseFragmentCoroutine<FragmentHiringProjectBinding>(), ProjectHiringContract.View, SwipeRefreshLayout.OnRefreshListener{
     private var presenter: ProjectHiringPresenter? = null
@@ -68,19 +69,27 @@ class ProjectHiringFragment : BaseFragmentCoroutine<FragmentHiringProjectBinding
     }
 
     override fun showLoading() {
-        bind.progressBar.visibility = View.VISIBLE
+        bind.shimmerViewContainer.visibility = View.VISIBLE
         bind.rvHiring.visibility = View.GONE
         bind.tvDataNotFound.visibility = View.GONE
     }
 
     override fun hideLoading() {
-        bind.progressBar.visibility = View.GONE
+        bind.shimmerViewContainer.stopShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
+        bind.shimmerViewContainer.startShimmerAnimation()
+
         presenter?.bindToView(this@ProjectHiringFragment)
         presenter?.callService(sharedPref.getIdEngineer())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bind.shimmerViewContainer.stopShimmerAnimation()
     }
 
     override fun onStop() {
@@ -102,6 +111,10 @@ class ProjectHiringFragment : BaseFragmentCoroutine<FragmentHiringProjectBinding
     }
 
     private fun setHiringProjectRecyclerView() {
+        val offsetPx = resources.getDimension(R.dimen.bottom_end_recyclerview_home)
+        val bottomOffsetDecoration = Utils.Companion.BottomOffsetDecoration(offsetPx.toInt())
+        bind.rvHiring.addItemDecoration(bottomOffsetDecoration)
+
         bind.rvHiring.isNestedScrollingEnabled = false
         bind.rvHiring.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 

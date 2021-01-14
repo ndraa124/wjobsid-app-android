@@ -9,6 +9,7 @@ import com.id124.wjobsid.activity.detail_profile.fragment.portfolio.adapter.Prof
 import com.id124.wjobsid.base.BaseFragmentCoroutine
 import com.id124.wjobsid.databinding.FragmentPortfolioBinding
 import com.id124.wjobsid.model.portfolio.PortfolioModel
+import com.id124.wjobsid.util.Utils
 
 class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCoroutine<FragmentPortfolioBinding>(), DetailProfilePortfolioContract.View {
     private var presenter: DetailProfilePortfolioPresenter? = null
@@ -72,6 +73,9 @@ class DetailProfilePortfolioFragment(private val enId: Int) : BaseFragmentCorout
     }
 
     private fun setupPortfolioRecyclerView() {
+        val offsetPx = resources.getDimension(R.dimen.bottom_end_recyclerview_home)
+        val bottomOffsetDecoration = Utils.Companion.BottomOffsetDecoration(offsetPx.toInt())
+        bind.rvPortfolio.addItemDecoration(bottomOffsetDecoration)
         bind.rvPortfolio.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
 
         val adapter = ProfileDetailPortfolioAdapter()

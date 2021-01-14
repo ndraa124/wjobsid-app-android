@@ -2,6 +2,7 @@ package com.id124.wjobsid.activity.main.fragment.profile.engineer
 
 import android.app.Activity.RESULT_OK
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.google.android.flexbox.FlexboxLayoutManager
@@ -84,6 +85,12 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
     }
 
     override fun onResultSuccessEngineer(data: EngineerResponse.EngineerItem) {
+        bind.tvDescription.setShowingLine(2)
+        bind.tvDescription.addShowMoreText("read more")
+        bind.tvDescription.addShowLessText("less")
+        bind.tvDescription.setShowMoreColor(Color.BLUE)
+        bind.tvDescription.setShowLessTextColor(Color.BLUE)
+
         bind.engineerModel = EngineerModel(
             enJobTitle = data.enJobTitle,
             enDomicile = data.enDomicile,
@@ -127,13 +134,14 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
     }
 
     override fun showLoading() {
+        bind.shimmerViewContainer.visibility = View.VISIBLE
+        bind.progressBar.visibility = View.VISIBLE
+
         bind.cvIdentity.visibility = View.GONE
         bind.cvContact.visibility = View.GONE
         bind.cvSkill.visibility = View.GONE
         bind.cvCurriculumVitae.visibility = View.GONE
         bind.flSkill.visibility = View.GONE
-        bind.progressBarDetail.visibility = View.VISIBLE
-        bind.progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
@@ -141,18 +149,26 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
         bind.cvContact.visibility = View.VISIBLE
         bind.cvSkill.visibility = View.VISIBLE
         bind.cvCurriculumVitae.visibility = View.VISIBLE
-        bind.progressBarDetail.visibility = View.GONE
+
+        bind.shimmerViewContainer.stopShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.GONE
         bind.progressBar.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
+        bind.shimmerViewContainer.startShimmerAnimation()
         sharedPref.createInDetail(0)
 
         presenter?.bindToView(this@ProfileEngineerFragment)
         presenter?.callServiceAccount(sharedPref.getIdAccount())
         presenter?.callServiceEngineer(sharedPref.getIdAccount())
         presenter?.callServiceSkill(sharedPref.getIdEngineer())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bind.shimmerViewContainer.stopShimmerAnimation()
     }
 
     override fun onStop() {

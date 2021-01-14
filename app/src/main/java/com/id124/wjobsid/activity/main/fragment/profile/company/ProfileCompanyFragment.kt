@@ -2,6 +2,7 @@ package com.id124.wjobsid.activity.main.fragment.profile.company
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.view.View
 import com.id124.wjobsid.R
@@ -69,6 +70,12 @@ class ProfileCompanyFragment : BaseFragmentCoroutine<FragmentProfileCompanyBindi
     }
 
     override fun onResultSuccessCompany(data: CompanyResponse.CompanyItem) {
+        bind.tvDescription.setShowingLine(2)
+        bind.tvDescription.addShowMoreText("read more")
+        bind.tvDescription.addShowLessText("less")
+        bind.tvDescription.setShowMoreColor(Color.BLUE)
+        bind.tvDescription.setShowLessTextColor(Color.BLUE)
+
         bind.companyModel = CompanyModel(
             cn_company = data.cnCompany,
             cn_position = data.cnPosition,
@@ -98,24 +105,33 @@ class ProfileCompanyFragment : BaseFragmentCoroutine<FragmentProfileCompanyBindi
     }
 
     override fun showLoading() {
+        bind.shimmerViewContainer.visibility = View.VISIBLE
+
         bind.cvIdentity.visibility = View.GONE
         bind.cvContact.visibility = View.GONE
-        bind.progressBar.visibility = View.VISIBLE
     }
 
     override fun hideLoading() {
-        bind.progressBar.visibility = View.GONE
         bind.cvIdentity.visibility = View.VISIBLE
         bind.cvContact.visibility = View.VISIBLE
+
+        bind.shimmerViewContainer.stopShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.GONE
     }
 
     override fun onStart() {
         super.onStart()
+        bind.shimmerViewContainer.startShimmerAnimation()
         sharedPref.createInDetail(0)
 
         presenter?.bindToView(this@ProfileCompanyFragment)
         presenter?.callServiceAccount(sharedPref.getIdAccount())
         presenter?.callServiceCompany(sharedPref.getIdAccount())
+    }
+
+    override fun onPause() {
+        super.onPause()
+        bind.shimmerViewContainer.stopShimmerAnimation()
     }
 
     override fun onStop() {

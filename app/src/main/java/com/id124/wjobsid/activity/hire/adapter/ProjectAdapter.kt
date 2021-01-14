@@ -18,12 +18,12 @@ class ProjectAdapter(private var context: Context) : BaseAdapter() {
         return items.size
     }
 
-    override fun getItem(i: Int): Any {
-        return items[i]
+    override fun getItem(i: Int): Any? {
+        return null
     }
 
     override fun getItemId(i: Int): Long {
-        return i.toLong()
+        return 0
     }
 
     override fun getView(i: Int, view: View?, parent: ViewGroup): View {

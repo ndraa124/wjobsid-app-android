@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.main.fragment.home.HomeFragment">
 
@@ -10,6 +11,7 @@
             name="dataNotFound"
             type="String" />
     </data>
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -30,12 +32,12 @@
             android:id="@+id/sv_engineer"
             android:layout_width="0dp"
             android:layout_height="?actionBarSize"
+            android:layout_marginEnd="16dp"
             android:closeIcon="@drawable/ic_close"
             android:iconifiedByDefault="false"
             android:queryHint="Search here"
             android:searchIcon="@drawable/ic_search_view"
             android:theme="@style/SearchViewTheme"
-            android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toStartOf="@+id/iv_filter"
             app:layout_constraintStart_toStartOf="@+id/v_background"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,18 +54,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/v_background" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/primary"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv_engineer" />
-
         <TextView
             android:id="@+id/tv_data_not_found"
             android:layout_width="wrap_content"
@@ -79,15 +69,56 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sv_engineer" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_engineer"
-            android:layout_width="match_parent"
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:id="@+id/shimmer_view_container"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/sv_engineer" />
+            app:layout_constraintTop_toBottomOf="@+id/sv_engineer"
+            shimmer:duration="800">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+                <include layout="@layout/shimmer_item_engineer" />
+
+            </LinearLayout>
+
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/swipe_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sv_engineer">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_engineer"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 </layout>

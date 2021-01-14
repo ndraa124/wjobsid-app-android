@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:shimmer="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".activity.detail_profile.ProfileDetailActivity">
 
@@ -27,7 +28,7 @@
         android:id="@+id/nested_scroll"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_200">
+        android:fillViewport="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -38,6 +39,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?actionBarSize"
                 android:background="@color/primary"
+                android:visibility="gone"
                 android:elevation="8dp"
                 android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +49,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_identity"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -162,7 +165,7 @@
                             android:textSize="16sp" />
                     </LinearLayout>
 
-                    <TextView
+                    <com.skyhope.showmoretextview.ShowMoreTextView
                         android:id="@+id/tv_description"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -192,6 +195,7 @@
                 android:backgroundTint="@color/primary"
                 android:onClick="onClick"
                 android:padding="14dp"
+                android:visibility="gone"
                 android:text="@string/hire"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -200,6 +204,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_contact"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -311,6 +316,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv_skill"
+                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
@@ -413,6 +419,7 @@
                 android:id="@+id/cv_curriculum_vitae"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
@@ -447,6 +454,22 @@
 
             </androidx.cardview.widget.CardView>
 
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/shimmer_view_container"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                shimmer:duration="800">
+
+                <include layout="@layout/shimmer_activity_detail_profile" />
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
     </ScrollView>
 </layout>
