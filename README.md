@@ -1,6 +1,6 @@
-# WJobsID RESTfull API
+# WJobsID Android
 
-A simple REST API using node js with DBMS MySQL
+A simple android app using kotlin and node js
 
 ## Requirements
 
