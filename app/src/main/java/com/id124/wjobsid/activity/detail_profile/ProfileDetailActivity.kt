@@ -160,7 +160,10 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
         presenter?.callServiceAccount(acId = acId)
         presenter?.callServiceEngineer(acId = acId)
         presenter?.callServiceSkill(enId = enId)
-        presenter?.callServiceIsHire(enId = enId)
+        presenter?.callServiceIsHire(
+            cnId = sharedPref.getIdCompany(),
+            enId = enId
+        )
     }
 
     override fun onPause() {

@@ -124,13 +124,14 @@ class ProfileDetailPresenter(
         }
     }
 
-    override fun callServiceIsHire(enId: Int?) {
+    override fun callServiceIsHire(cnId: Int?, enId: Int?) {
         launch {
             view?.showLoading()
 
             val response = withContext(Dispatchers.IO) {
                 try {
-                    serviceHire.getAllHire(
+                    serviceHire.checkIsHire(
+                        cnId = cnId!!,
                         enId = enId!!
                     )
                 } catch (e: HttpException) {

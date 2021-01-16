@@ -22,6 +22,6 @@ interface ProfileDetailContract {
         fun callServiceAccount(acId: Int?)
         fun callServiceEngineer(acId: Int?)
         fun callServiceSkill(enId: Int?)
-        fun callServiceIsHire(enId: Int?)
+        fun callServiceIsHire(cnId: Int?, enId: Int?)
     }
 }
