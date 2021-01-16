@@ -157,7 +157,12 @@ class ProfileDetailPresenter(
                 view?.hideLoading()
 
                 if (response.success) {
-                    view?.onResultSuccessHire()
+                    if (response.data[0].hrStatus == "wait" || response.data[0].hrStatus == "approve") {
+                        if (response.data[0].cnId != cnId)
+                        view?.onResultSuccessHire(false)
+                    } else {
+                        view?.onResultSuccessHire(true)
+                    }
                 } else {
                     view?.onResultFailHire(response.message)
                 }

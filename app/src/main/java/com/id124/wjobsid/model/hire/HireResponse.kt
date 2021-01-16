@@ -13,6 +13,9 @@ data class HireResponse(val success: Boolean, val message: String, val data: Lis
         @SerializedName("pj_id")
         val pjId: Int,
 
+        @SerializedName("cn_id")
+        val cnId: Int,
+
         @SerializedName("hr_price")
         val hrPrice: Long,
 

@@ -91,7 +91,6 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
         } else {
             bind.imageUrl = ApiClient.BASE_URL_IMAGE_DEFAULT_PROFILE_2
         }
-
     }
 
     override fun onResultSuccessSkill(list: List<SkillModel>) {
@@ -99,8 +98,12 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
         bind.flSkill.visibility = View.VISIBLE
     }
 
-    override fun onResultSuccessHire() {
-        bind.btnHire.visibility = View.GONE
+    override fun onResultSuccessHire(status: Boolean) {
+        if (status) {
+            bind.btnHire.visibility = View.VISIBLE
+        } else {
+            bind.btnHire.visibility = View.GONE
+        }
     }
 
     override fun onResultFail(message: String) {

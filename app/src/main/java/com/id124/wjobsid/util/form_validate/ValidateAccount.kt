@@ -89,15 +89,26 @@ class ValidateAccount {
         fun valPassword(inPass: TextInputLayout, etPass: EditText): Boolean {
             val text = etPass.text.toString().trim()
 
-            if (text.isEmpty()) {
-                inPass.isHelperTextEnabled = true
-                inPass.helperText = "Please enter your password!"
-                etPass.requestFocus()
+            when {
+                text.isEmpty() -> {
+                    inPass.isHelperTextEnabled = true
+                    inPass.helperText = "Please enter your password!"
+                    etPass.requestFocus()
 
-                return false
-            } else {
-                inPass.isHelperTextEnabled = false
+                    return false
+                }
+                text.length < 6 -> {
+                    inPass.isHelperTextEnabled = true
+                    inPass.helperText = "Min. 6 character!"
+                    etPass.requestFocus()
+
+                    return false
+                }
+                else -> {
+                    inPass.isHelperTextEnabled = false
+                }
             }
+
             return true
         }
 

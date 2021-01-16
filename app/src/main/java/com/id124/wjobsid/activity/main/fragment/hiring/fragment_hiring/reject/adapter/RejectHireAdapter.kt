@@ -32,12 +32,12 @@ class RejectHireAdapter : RecyclerView.Adapter<RejectHireAdapter.RecyclerViewHol
             }
 
             if (hire.hrDateConfirm != null) {
+                bind.tvConfirmDate.setTextColor(itemView.context.resources.getColor(R.color.red, itemView.context.theme))
                 bind.tvConfirmDate.visibility = View.VISIBLE
-                bind.date = "reject at ${hire.hrDateConfirm}"
+                bind.date = "- reject at ${hire.hrDateConfirm}"
             } else {
                 bind.tvConfirmDate.visibility = View.GONE
             }
-
 
             bind.price = "Rp. ${currencyFormat(hire.hrPrice.toString())} |"
 

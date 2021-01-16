@@ -9,7 +9,7 @@ interface ProfileDetailContract {
         fun onResultSuccessAccount(data: AccountResponse.AccountItem)
         fun onResultSuccessEngineer(data: EngineerResponse.EngineerItem)
         fun onResultSuccessSkill(list: List<SkillModel>)
-        fun onResultSuccessHire()
+        fun onResultSuccessHire(status: Boolean)
         fun onResultFail(message: String)
         fun onResultFailHire(message: String)
         fun showLoading()

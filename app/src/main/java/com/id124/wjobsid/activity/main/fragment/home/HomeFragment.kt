@@ -46,6 +46,7 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.
 
         bind.accountModel = AccountModel(acName = "Hai, ${userDetail[AC_NAME]}")
         setupWebDevRecyclerView()
+        setupDataEngineer()
         setupAddOnScroll()
     }
 
@@ -103,17 +104,6 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.
         bind.shimmerViewContainer.stopShimmerAnimation()
     }
 
-    override fun onStart() {
-        super.onStart()
-        bind.shimmerViewContainer.startShimmerAnimation()
-        bind.shimmerViewContainer.visibility = View.VISIBLE
-
-        presenter?.bindToView(this@HomeFragment)
-        presenter?.callService(
-            page = page
-        )
-    }
-
     override fun onPause() {
         super.onPause()
         bind.shimmerViewContainer.stopShimmerAnimation()
@@ -156,6 +146,18 @@ class HomeFragment : BaseFragmentCoroutine<FragmentHomeBinding>(), HomeContract.
                 startActivity(intent)
             }
         })
+    }
+
+    private fun setupDataEngineer() {
+        bind.shimmerViewContainer.startShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.VISIBLE
+
+        presenter?.bindToView(this@HomeFragment)
+
+        adapter.clear()
+        presenter?.callService(
+            page = page
+        )
     }
 
     private fun setupAddOnScroll() {

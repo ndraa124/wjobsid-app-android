@@ -34,15 +34,19 @@ class ProjectHiringAdapter : RecyclerView.Adapter<ProjectHiringAdapter.RecyclerV
             if (hire.hrDateConfirm != null) {
                 when (hire.hrStatus) {
                     "approve" -> {
+                        bind.tvConfirmDate.setTextColor(itemView.context.resources.getColor(R.color.nephritis, itemView.context.theme))
                         bind.tvConfirmDate.visibility = View.VISIBLE
-                        bind.date = "approve at ${hire.hrDateConfirm}"
+                        bind.date = "- approve at ${hire.hrDateConfirm}"
                     }
                     "reject" -> {
+                        bind.tvConfirmDate.setTextColor(itemView.context.resources.getColor(R.color.red, itemView.context.theme))
                         bind.tvConfirmDate.visibility = View.VISIBLE
-                        bind.date = "reject at ${hire.hrDateConfirm}"
+                        bind.date = "- reject at ${hire.hrDateConfirm}"
                     }
                     else -> {
+                        bind.tvConfirmDate.setTextColor(itemView.context.resources.getColor(R.color.yellow, itemView.context.theme))
                         bind.tvConfirmDate.visibility = View.GONE
+                        bind.date = "- wait"
                     }
                 }
             } else {

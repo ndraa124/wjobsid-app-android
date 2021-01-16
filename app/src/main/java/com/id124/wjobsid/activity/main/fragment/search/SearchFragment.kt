@@ -39,6 +39,7 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
 
         setSearchView()
         setWebDevRecyclerView()
+        setupDataEngineer()
         setupAddOnScroll()
     }
 
@@ -65,7 +66,7 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
     override fun onResultSuccess(list: List<EngineerModel>, totalPages: Int) {
         totalPage = totalPages
 
-        (bind.rvEngineer.adapter as SearchEngineerAdapter).addList(list)
+        adapter.addList(list)
         bind.rvEngineer.visibility = View.VISIBLE
         bind.tvDataNotFound.visibility = View.GONE
 
@@ -96,18 +97,6 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
         bind.swipeRefresh.isRefreshing = false
         bind.shimmerViewContainer.stopShimmerAnimation()
         bind.shimmerViewContainer.visibility = View.GONE
-    }
-
-    override fun onStart() {
-        super.onStart()
-        bind.shimmerViewContainer.startShimmerAnimation()
-        bind.shimmerViewContainer.visibility = View.VISIBLE
-
-        presenter?.bindToView(this@SearchFragment)
-        presenter?.callServiceSearch(
-            search = null,
-            page = page
-        )
     }
 
     override fun onPause() {
@@ -196,6 +185,19 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
                 startActivity(intent)
             }
         })
+    }
+
+    private fun setupDataEngineer() {
+        bind.shimmerViewContainer.startShimmerAnimation()
+        bind.shimmerViewContainer.visibility = View.VISIBLE
+
+        presenter?.bindToView(this@SearchFragment)
+
+        adapter.clear()
+        presenter?.callServiceSearch(
+            search = null,
+            page = page
+        )
     }
 
     private fun setupAddOnScroll() {

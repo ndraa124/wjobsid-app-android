@@ -32,8 +32,9 @@ class ApproveHireAdapter : RecyclerView.Adapter<ApproveHireAdapter.RecyclerViewH
             }
 
             if (hire.hrDateConfirm != null) {
+                bind.tvConfirmDate.setTextColor(itemView.context.resources.getColor(R.color.nephritis, itemView.context.theme))
                 bind.tvConfirmDate.visibility = View.VISIBLE
-                bind.date = "approve at ${hire.hrDateConfirm}"
+                bind.date = "- approve at ${hire.hrDateConfirm}"
             } else {
                 bind.tvConfirmDate.visibility = View.GONE
             }

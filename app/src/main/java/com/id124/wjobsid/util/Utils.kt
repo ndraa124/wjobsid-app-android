@@ -4,6 +4,7 @@ import android.graphics.Rect
 import android.text.TextUtils
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import java.text.DateFormat
 import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
@@ -12,15 +13,6 @@ class Utils {
     companion object {
         fun isValidEmail(email: String): Boolean {
             return !TextUtils.isEmpty(email) && android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
-        }
-
-        fun formatDate(date: String): String {
-            val df = SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-            df.timeZone = TimeZone.getTimeZone("Asia/Kuala_Lumpur");
-
-            val result1 = df.parse(date)
-
-            return result1!!.toString().reversed()
         }
 
         fun rangeMonth(start: String, end: String): String {

@@ -31,6 +31,10 @@ class WaitHireAdapter : RecyclerView.Adapter<WaitHireAdapter.RecyclerViewHolder>
                 bind.imageUrl = BASE_URL_IMAGE_DEFAULT_BACKGROUND
             }
 
+            bind.tvConfirmDate.setTextColor(itemView.context.resources.getColor(R.color.yellow, itemView.context.theme))
+            bind.tvConfirmDate.visibility = View.VISIBLE
+            bind.date = "- waiting"
+
             bind.price = "Rp. ${currencyFormat(hire.hrPrice.toString())}"
 
             bind.executePendingBindings()
