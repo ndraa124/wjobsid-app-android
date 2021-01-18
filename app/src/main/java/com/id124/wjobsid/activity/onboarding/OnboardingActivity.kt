@@ -37,12 +37,14 @@ class OnboardingActivity : BaseActivity<ActivityOnboardingBinding>(), View.OnCli
                 0 -> {
                     val intent = Intent(this@OnboardingActivity, SignUpActivity::class.java)
                     intent.putExtra("level", 0)
+                    intent.putExtra("onBoard", 1)
                     startActivity(intent)
                     this@OnboardingActivity.finish()
                 }
                 1 -> {
                     val intent = Intent(this@OnboardingActivity, SignUpActivity::class.java)
                     intent.putExtra("level", 1)
+                    intent.putExtra("onBoard", 1)
                     startActivity(intent)
                     this@OnboardingActivity.finish()
                 }

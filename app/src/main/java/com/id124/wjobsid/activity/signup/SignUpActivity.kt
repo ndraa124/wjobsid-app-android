@@ -6,6 +6,7 @@ import android.text.TextWatcher
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
+import com.id124.wjobsid.activity.login.LoginActivity
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivitySignUpBinding
 import com.id124.wjobsid.util.form_validate.ValidateAccount.Companion.valCompany
@@ -111,7 +112,13 @@ class SignUpActivity : BaseActivityCoroutine<ActivitySignUpBinding>(), View.OnCl
                 bind.progressBar.visibility = View.GONE
                 bind.btnSignUp.visibility = View.VISIBLE
 
-                this@SignUpActivity.finish()
+                if (intent.getIntExtra("onBoard", 0) == 1) {
+                    intents<LoginActivity>(this@SignUpActivity)
+                    this@SignUpActivity.finish()
+                } else {
+                    this@SignUpActivity.finish()
+                }
+
             } else {
                 bind.progressBar.visibility = View.GONE
                 bind.btnSignUp.visibility = View.VISIBLE

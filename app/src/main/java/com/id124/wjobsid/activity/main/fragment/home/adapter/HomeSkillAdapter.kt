@@ -36,7 +36,11 @@ class HomeSkillAdapter : RecyclerView.Adapter<HomeSkillAdapter.RecyclerViewHolde
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return if(items.size > 3){
+            3
+        } else {
+            items.size
+        }
     }
 
     fun addList(list: List<SkillModel>) {

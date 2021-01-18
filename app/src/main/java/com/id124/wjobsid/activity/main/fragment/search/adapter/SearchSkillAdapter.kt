@@ -36,7 +36,11 @@ class SearchSkillAdapter : RecyclerView.Adapter<SearchSkillAdapter.RecyclerViewH
     }
 
     override fun getItemCount(): Int {
-        return items.size
+        return if(items.size > 3){
+            3
+        } else {
+            items.size
+        }
     }
 
     fun addList(list: List<SkillModel>) {

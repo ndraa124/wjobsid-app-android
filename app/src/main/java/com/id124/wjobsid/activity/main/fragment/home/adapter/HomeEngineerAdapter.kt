@@ -22,7 +22,7 @@ class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerVie
         this.onItemClickCallback = onItemClickCallback
     }
 
-    inner class RecyclerViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class RecyclerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(en: EngineerModel) {
             bind.engineer = en
 
@@ -57,11 +57,23 @@ class HomeEngineerAdapter : RecyclerView.Adapter<HomeEngineerAdapter.RecyclerVie
             }
 
             (bind.rvSkill.adapter as HomeSkillAdapter).addList(listSkill!!)
+
+            if (listSkill.size > 3) {
+                bind.moreSkill = "+${listSkill.size - 3}"
+                bind.tvMore.visibility = View.VISIBLE
+            } else {
+                bind.tvMore.visibility = View.GONE
+            }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerViewHolder {
-        bind = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_engineer, parent, false)
+        bind = DataBindingUtil.inflate(
+            LayoutInflater.from(parent.context),
+            R.layout.item_engineer,
+            parent,
+            false
+        )
         return RecyclerViewHolder(bind.root)
     }
 

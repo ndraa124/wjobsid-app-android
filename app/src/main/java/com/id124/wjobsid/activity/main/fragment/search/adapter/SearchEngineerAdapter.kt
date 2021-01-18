@@ -57,6 +57,13 @@ class SearchEngineerAdapter : RecyclerView.Adapter<SearchEngineerAdapter.Recycle
             }
 
             (bind.rvSkill.adapter as SearchSkillAdapter).addList(listSkill!!)
+
+            if (listSkill.size > 3) {
+                bind.moreSkill = "+${listSkill.size - 3}"
+                bind.tvMore.visibility = View.VISIBLE
+            } else {
+                bind.tvMore.visibility = View.GONE
+            }
         }
     }
 

@@ -134,6 +134,7 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
         bind.shimmerViewContainer.visibility = View.VISIBLE
         bind.progressBar.visibility = View.VISIBLE
 
+        bind.toolbar.visibility = View.GONE
         bind.cvIdentity.visibility = View.GONE
         bind.cvContact.visibility = View.GONE
         bind.cvSkill.visibility = View.GONE
@@ -143,6 +144,7 @@ class ProfileDetailActivity : BaseActivityCoroutine<ActivityDetailProfileBinding
     }
 
     override fun hideLoading() {
+        bind.toolbar.visibility = View.VISIBLE
         bind.cvIdentity.visibility = View.VISIBLE
         bind.cvContact.visibility = View.VISIBLE
         bind.cvSkill.visibility = View.VISIBLE

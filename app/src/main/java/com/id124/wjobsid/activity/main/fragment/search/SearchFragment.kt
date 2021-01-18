@@ -146,7 +146,7 @@ class SearchFragment : BaseFragmentCoroutine<FragmentSearchBinding>(), SearchCon
                         page = page
                     )
                 } else {
-                    if (newText?.length == 3) {
+                    if (newText?.length!! == 3) {
                         presenter?.callServiceSearch(
                             search = newText,
                             page = page

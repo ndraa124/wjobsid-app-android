@@ -40,6 +40,10 @@ abstract class BaseActivityCoroutine<ActivityBinding : ViewDataBinding> : AppCom
         context.startActivity(Intent(context, ClassActivity::class.java))
     }
 
+    protected inline fun <reified ClassActivity> intentsResults(context: Context, requestCode: Int) {
+        startActivityForResult(Intent(context, ClassActivity::class.java), requestCode)
+    }
+
     protected inline fun <reified ApiService> createApi(context: Context): ApiService {
         return ApiClient.getApiClient(context).create(ApiService::class.java)
     }

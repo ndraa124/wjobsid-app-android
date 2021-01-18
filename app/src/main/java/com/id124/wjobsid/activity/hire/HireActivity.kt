@@ -1,5 +1,7 @@
 package com.id124.wjobsid.activity.hire
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -9,6 +11,8 @@ import android.widget.AdapterView.OnItemSelectedListener
 import androidx.lifecycle.ViewModelProvider
 import com.id124.wjobsid.R
 import com.id124.wjobsid.activity.hire.adapter.ProjectAdapter
+import com.id124.wjobsid.activity.main.fragment.profile.engineer.ProfileEngineerFragment
+import com.id124.wjobsid.activity.project.ProjectActivity
 import com.id124.wjobsid.base.BaseActivityCoroutine
 import com.id124.wjobsid.databinding.ActivityHireBinding
 import com.id124.wjobsid.model.project.ProjectModel
@@ -20,6 +24,10 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
     private lateinit var viewModel: HireViewModel
     private var pjId: Int? = 0
     private var enId: Int? = 0
+
+    companion object {
+        const val INTENT_ADD = 100
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_hire
@@ -45,18 +53,31 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
                     !valMessage(bind.inputLayoutMessage, bind.etMessage) -> {
                     }
                     else -> {
-                        viewModel.serviceCreateApi(
-                            enId = enId!!,
-                            pjId = pjId!!,
-                            hrPrice = bind.etPrice.text.toString().toLong(),
-                            hrMessage = bind.etMessage.text.toString()
-                        )
+                        if (pjId != 0) {
+                            viewModel.serviceCreateApi(
+                                enId = enId!!,
+                                pjId = pjId!!,
+                                hrPrice = bind.etPrice.text.toString().toLong(),
+                                hrMessage = bind.etMessage.text.toString()
+                            )
+                        } else {
+                            noticeToast("Project is empty! Please add project first.")
+                            intentsResults<ProjectActivity>(this@HireActivity, INTENT_ADD)
+                        }
                     }
                 }
             }
             R.id.ln_back -> {
                 this@HireActivity.finish()
             }
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == ProfileEngineerFragment.INTENT_ADD && resultCode == Activity.RESULT_OK) {
+            presenter?.callService(sharedPref.getIdCompany())
         }
     }
 
