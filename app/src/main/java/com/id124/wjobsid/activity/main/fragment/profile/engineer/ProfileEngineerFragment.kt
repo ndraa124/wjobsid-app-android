@@ -48,6 +48,7 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
 
         setContentViewEngineer()
         setSkillRecyclerView()
+        setupDataProfile()
     }
 
     override fun onClick(v: View?) {
@@ -157,10 +158,11 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
 
     override fun onStart() {
         super.onStart()
-        bind.shimmerViewContainer.startShimmerAnimation()
         sharedPref.createInDetail(0)
+    }
 
-        presenter?.bindToView(this@ProfileEngineerFragment)
+    override fun onResume() {
+        super.onResume()
         presenter?.callServiceAccount(sharedPref.getIdAccount())
         presenter?.callServiceEngineer(sharedPref.getIdAccount())
         presenter?.callServiceSkill(sharedPref.getIdEngineer())
@@ -209,5 +211,14 @@ class ProfileEngineerFragment : BaseFragmentCoroutine<FragmentProfileEngineerBin
                 startActivityForResult(intent, INTENT_EDIT)
             }
         })
+    }
+
+    private fun setupDataProfile() {
+        bind.shimmerViewContainer.startShimmerAnimation()
+
+        presenter?.bindToView(this@ProfileEngineerFragment)
+        presenter?.callServiceAccount(sharedPref.getIdAccount())
+        presenter?.callServiceEngineer(sharedPref.getIdAccount())
+        presenter?.callServiceSkill(sharedPref.getIdEngineer())
     }
 }

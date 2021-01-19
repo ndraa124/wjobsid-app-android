@@ -29,14 +29,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />
         <activity
-            android:name="com.yalantis.ucrop.UCropActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.WJobsID.NoActionBar" />
-        <activity
-            android:name=".base.ImagePickerActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.WJobsID.NoActionBar" />
-        <activity
             android:name=".activity.detail_project.DetailProjectActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.WJobsID.NoActionBar" />

@@ -48,22 +48,19 @@ class HireActivity : BaseActivityCoroutine<ActivityHireBinding>(), View.OnClickL
         when (v?.id) {
             R.id.btn_process_hire -> {
                 when {
-                    !valPrice(bind.inputLayoutPrice, bind.etPrice) -> {
+                    pjId == 0 -> {
+                        noticeToast("Project is empty! Please add project first.")
+                        intentsResults<ProjectActivity>(this@HireActivity, INTENT_ADD)
                     }
-                    !valMessage(bind.inputLayoutMessage, bind.etMessage) -> {
-                    }
+                    !valPrice(bind.inputLayoutPrice, bind.etPrice) -> {}
+                    !valMessage(bind.inputLayoutMessage, bind.etMessage) -> {}
                     else -> {
-                        if (pjId != 0) {
-                            viewModel.serviceCreateApi(
-                                enId = enId!!,
-                                pjId = pjId!!,
-                                hrPrice = bind.etPrice.text.toString().toLong(),
-                                hrMessage = bind.etMessage.text.toString()
-                            )
-                        } else {
-                            noticeToast("Project is empty! Please add project first.")
-                            intentsResults<ProjectActivity>(this@HireActivity, INTENT_ADD)
-                        }
+                        viewModel.serviceCreateApi(
+                            enId = enId!!,
+                            pjId = pjId!!,
+                            hrPrice = bind.etPrice.text.toString().toLong(),
+                            hrMessage = bind.etMessage.text.toString()
+                        )
                     }
                 }
             }

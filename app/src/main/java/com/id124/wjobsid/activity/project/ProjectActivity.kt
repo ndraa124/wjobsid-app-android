@@ -30,7 +30,7 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
     private lateinit var viewModel: ProjectViewModel
     private lateinit var myCalendar: Calendar
     private lateinit var deadline: OnDateSetListener
-    private var pjId: Int? = null
+    private var pjId: Int? = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setLayout = R.layout.activity_project
@@ -226,8 +226,6 @@ class ProjectActivity : BaseActivityCoroutine<ActivityProjectBinding>(), View.On
 
         viewModel.onFailHireLiveData.observe(this@ProjectActivity, {
             Log.d("msg", it)
-            bind.btnAddProject.visibility = View.VISIBLE
-            bind.btnDeleteProject.visibility = View.VISIBLE
         })
     }
 

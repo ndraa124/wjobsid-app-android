@@ -11,6 +11,12 @@
     <string name="dummy_date">Monday, 07 December 2020</string>
     <string name="permission_dialog">Accessing Location Permissions required</string>
     <string name="go_to_permissions_settings">Go to App settings and enable permissions</string>
+    <string name="item_edit">Edit</string>
+    <string name="item_delete">Delete</string>
+    <string name="item_update">Update</string>
+    <string name="item_save">Save</string>
+    <string name="item_loading">Loading</string>
+    <string name="item_cancel">Cancel</string>
 
     <!-- Menu Bottom Navigation -->
     <string name="home">Home</string>
@@ -95,6 +101,7 @@
     <string name="add_skill">ADD SKILL</string>
     <string name="update_skill">UPDATE SKILL</string>
     <string name="delete_skill">DELETE SKILL</string>
+    <string name="detail_skill">DETAIL SKILL</string>
     <string name="instruction_add_skill">Please fill the skill for add new skill below</string>
     <string name="new_skill">New Skill</string>
     <string name="skill_hint">Your new skill</string>
@@ -104,6 +111,7 @@
     <string name="add_portfolio">ADD PORTFOLIO</string>
     <string name="update_portfolio">UPDATE PORTFOLIO</string>
     <string name="delete_portfolio">DELETE PORTFOLIO</string>
+    <string name="detail_portfolio">DETAIL PORTFOLIO</string>
     <string name="instruction_add_portfolio">Please fill the portfolio for add new portfolio below</string>
     <string name="app_name_portfolio">App Name</string>
     <string name="description">Description</string>
@@ -125,6 +133,7 @@
     <string name="add_experience">ADD EXPERIENCE</string>
     <string name="update_experience">UPDATE EXPERIENCE</string>
     <string name="delete_experience">DELETE EXPERIENCE</string>
+    <string name="detail_exp">DETAIL EXPERIENCE</string>
     <string name="instruction_add_experience">Please fill the experience for add new experience below</string>
     <string name="position_exp">Position</string>
     <string name="company_exp">Company</string>
@@ -134,6 +143,7 @@
 
     <!-- Hire -->
     <string name="project_hire">PROJECT HIRE</string>
+    <string name="detail_hire">DETAIL HIRE</string>
     <string name="instruction_hire">Please fill the project hire below</string>
     <string name="select_project">Select Project</string>
     <string name="price">Price</string>
@@ -146,6 +156,7 @@
     <string name="add_project">ADD PROJECT</string>
     <string name="update_project">UPDATE PROJECT</string>
     <string name="delete_project">DELETE PROJECT</string>
+    <string name="detail_project">DETAIL PROJECT</string>
     <string name="instruction_add_project">Please fill the project for add new project below</string>
     <string name="project_name">Project Name</string>
     <string name="project_name_hint">Your project name</string>
@@ -154,7 +165,6 @@
     <string name="project_deadline">Project Deadline</string>
     <string name="project_deadline_hint">Deadline of your project</string>
     <string name="back_to_project">Back to list project</string>
-    <string name="detail_project">Detail Project</string>
     <string name="project_data_not_found">No project data. Please add data!</string>
 
     <!-- Not set -->
